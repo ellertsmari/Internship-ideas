@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Your term, looked back on · February is wide open</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Instrument+Serif:ital@1&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css">
+</head>
+
+<body class="page" style="--c: var(--c3)">
+
+<header class="page-hero">
+  <a class="back" href="../index.html#wall">← The wall</a>
+  <p class="from">from Claude</p>
+  <h1>Your term, looked back on</h1>
+  <p class="pitch">A personal page at the end of each term that is worth sharing, and that compares you only with yourself a few months ago.</p>
+  <ul class="glance">
+    <li><b>Kind of work:</b> data storytelling, motion and card design, Next.js, and some careful thinking about privacy</li>
+    <li><b>You'd enjoy this if:</b> you like turning rows in a database into one sentence that somebody wants to screenshot</li>
+  </ul>
+</header>
+
+<main class="page-main">
+
+  <section>
+    <h2>Why this is <em>worth doing</em></h2>
+    <p>A student at Vefskólinn returns guides, reviews classmates, gets reviewed, builds group projects and presents them. The site records all of it. Then the term ends and none of it is shown back to the student as a story. They see a progress bar and a list of what is still missing.</p>
+    <p>A recap turns the same records around. In September you had never deployed a site. By December you returned this many guides, wrote this many reviews, one classmate wrote this about your work, and here is the project you presented. The student sees how far they have come, in their own work, with no ranking against anybody.</p>
+    <p>Three groups get something. Students get proof of progress at the moment they are tired. The school gets pages that students choose to post, which shows real student work to people who might apply. And you get a design problem with a hard centre: the page must be honest and kind for a student who had a bad term, and still be something a strong student is proud to share.</p>
+    <p>On the wall this idea sits next to <a href="../index.html#wall">The student just ahead of you</a>. That one uses other students to motivate you. This one is its gentler cousin: it uses the same activity data and compares you only with you. The two could share one data layer and show two faces.</p>
+  </section>
+
+  <section>
+    <h2>Where we are <em>today</em></h2>
+    <p>The raw material exists already. Every return has a date, a project name, a link to the code, a link to the live version, an optional picture and the student's own comment. Every peer review has a date, a written comment and a vote: no pass, pass, or recommend to the Hall of Fame. Teachers grade the reviews. Guides belong to modules, and the auto-graded exercise guides keep a score.</p>
+    <p>Group projects keep the team, the project name and description, links, a team photo and a presentation day. Teammates score each other and write a comment. A student can read the written feedback once they have handed in their own evaluations, and grades wait until a teacher releases them. The calendar knows what a term is: teachers set a label, a start date and an end date.</p>
+    <p>What a student sees of this is about the present. The home page shows progress overall and per module, three counts (passed, Hall of Fame, returned) and an empty space reserved for a leaderboard. Teachers have a Reports page where they pick a student and see progress and review activity. The Hall of Fame and the public showcase show finished work.</p>
+    <p>Nothing looks back. No page puts a student's term in order, nothing compares the start of a term with its end, and nothing is made to be shared by one student about their own work. One useful detail: the site already uses the Next.js <code>ImageResponse</code> API in one small place (the site icon), so the tool for drawing share images is installed.</p>
+  </section>
+
+  <section>
+    <h2>What the <em>research</em> says</h2>
+    <p>The research is friendly to this idea in some places and a clear warning in others. Read the warnings first.</p>
+    <div class="facts">
+      <article class="fact">
+        <strong>A dashboard alone does not help students</strong>
+        <p>A 2023 review of 38 studies of student-facing learning dashboards found no evidence that they improve achievement, and only modest effects on motivation. Showing numbers is not enough. The recap has to say what the numbers mean.</p>
+        <a class="source" href="https://arxiv.org/abs/2312.15042">Source: Kaliisa and others, "Have Learning Analytics Dashboards Lived Up to the Hype?"</a>
+      </article>
+      <article class="fact">
+        <strong>Small steps are what people feel</strong>
+        <p>Amabile and Kramer read about 12,000 daily diaries from 238 employees. Progress in work that matters was the strongest lift, and small wins worked almost as well as big ones. A recap is a machine for making small wins visible.</p>
+        <a class="source" href="https://www.library.hbs.edu/working-knowledge/how-small-wins-unleash-creativity">Source: Harvard Business School Working Knowledge on The Progress Principle</a>
+      </article>
+      <article class="fact">
+        <strong>Writing a reflection beat more practice</strong>
+        <p>Trainees who spent the last 15 minutes of the day writing about what they learned scored 22.8 percent higher on the final test than those who kept working. So ask a question before you show a number. One caution: this is a single study, so treat the exact figure with care.</p>
+        <a class="source" href="https://www.library.hbs.edu/working-knowledge/reflecting-on-work-improves-job-performance">Source: HBS Working Knowledge on "Learning by Thinking" (Di Stefano, Gino, Pisano, Staats)</a>
+      </article>
+      <article class="fact">
+        <strong>The best comparison depends on the student</strong>
+        <p>In two e-learning experiments (203 and 132 people), feedback that compared learners with their own past or with others worked best when it matched what the learner preferred. This is the argument for building this idea and the gamification idea as a pair, and letting students lean to one side.</p>
+        <a class="source" href="https://madoc.bib.uni-mannheim.de/63891/">Source: Janson, Siebert and Dickhäuser, 2022</a>
+      </article>
+      <article class="fact">
+        <strong>Share cards are made by the top ten percent</strong>
+        <p>Duolingo found that the top 10% of learners produced more than half of all shares of its Year in Review. Their answer was "learner styles": a card about how you learn, which every learner can get. Your recap needs a card like that for the middle of the class.</p>
+        <a class="source" href="https://blog.duolingo.com/year-in-review-behind-the-scenes/">Source: Duolingo, "How we built a personalized Year-in-Review"</a>
+      </article>
+      <article class="fact">
+        <strong>A cheerful recap can hurt</strong>
+        <p>In 2014 Facebook's Year in Review showed Eric Meyer a photo of his daughter, who had died that year, under the line "here's what your year looked like!" His advice to designers: ask before you show, and design for the worst case first. A student who failed a module or was ill is your worst case.</p>
+        <a class="source" href="https://meyerweb.com/eric/thoughts/2014/12/24/inadvertent-algorithmic-cruelty/">Source: Eric Meyer, "Inadvertent Algorithmic Cruelty"</a>
+      </article>
+      <article class="fact">
+        <strong>People want their own numbers, in detail</strong>
+        <p>Spotify's 2024 Wrapped was criticised for giving fewer detailed stats. The 2025 edition reached 200 million users in 24 hours, where 2024 needed 62 hours, and was shared more than 500 million times. Specific and personal wins over clever and general.</p>
+        <a class="source" href="https://techcrunch.com/2025/12/04/spotify-says-wrapped-2025-is-its-biggest-yet-with-200m-users-in-its-first-day/">Source: TechCrunch, December 2025</a>
+      </article>
+    </div>
+  </section>
+
+  <section>
+    <h2>Go and <em>look at these</em></h2>
+    <div class="inspo">
+      <a class="inspo-card" href="https://github.com/remotion-dev/github-unwrapped">
+        <strong>GitHub Unwrapped</strong>
+        <span>A full year-in-review product with its code open (MIT). Read how it turns API data into scenes, and how it caches results in MongoDB so nothing is rendered twice.</span>
+        <small>github.com/remotion-dev</small>
+      </a>
+      <a class="inspo-card" href="https://engineering.atspotify.com/2020/9/spotify-unwrapped-2019-how-we-built-an-in-app-experience-just-for-you">
+        <strong>Spotify Wrapped 2019, the engineering story</strong>
+        <span>The year Wrapped moved into the app as stories. The share cards cost far more work than planned, and the odd cases (a user with one genre only) multiplied. Plan for both.</span>
+        <small>engineering.atspotify.com</small>
+      </a>
+      <a class="inspo-card" href="https://blog.duolingo.com/year-in-review-behind-the-scenes/">
+        <strong>Duolingo Year in Review, behind the scenes</strong>
+        <span>How a recap grew from an email in 2019 to share cards and learner styles. Steal the idea of a personality card. Argue about their percentile card.</span>
+        <small>blog.duolingo.com</small>
+      </a>
+      <a class="inspo-card" href="https://www.raycast.com/changelog/1-104-0">
+        <strong>Raycast Wrapped</strong>
+        <span>A recap for a developer tool. Every section has a "Copy as Image" button, and users with less than 14 days of use get no recap at all. That second rule is a design decision you will also face.</span>
+        <small>raycast.com</small>
+      </a>
+      <a class="inspo-card" href="https://support.apple.com/en-us/109356">
+        <strong>Apple Music Replay</strong>
+        <span>It does not wait for December. Replay updates every month and marks milestones as you reach them. A term recap could build up in the same way, so the last day holds no bad surprise.</span>
+        <small>support.apple.com</small>
+      </a>
+      <a class="inspo-card" href="https://itsnicethat.com/features/spotify-wrapped-2024-graphic-design-041224">
+        <strong>Inside the design of Wrapped 2024</strong>
+        <span>Spotify's brand design lead on building one loud visual system from a single typeface, colour and motion. Useful for deciding how far the recap may leave the site's normal look.</span>
+        <small>itsnicethat.com</small>
+      </a>
+      <a class="inspo-card" href="https://rive.app/blog/spotify-used-rive-for-spotify-wrapped-2025">
+        <strong>Wrapped 2025 and Rive</strong>
+        <span>The working method is the thing to copy: prototype the motion with dummy data first, then let real user data drive the same animation.</span>
+        <small>rive.app</small>
+      </a>
+      <a class="inspo-card" href="https://og-playground.vercel.app/">
+        <strong>Vercel OG Playground</strong>
+        <span>Write JSX on the left, get a share image on the right. Ten minutes here tells you what a card can look like with the tool the site already has.</span>
+        <small>og-playground.vercel.app</small>
+      </a>
+    </div>
+  </section>
+
+  <section>
+    <h2>How it could <em>be built</em></h2>
+    <div class="options">
+      <article class="option">
+        <h3>A story page from live data</h3>
+        <p>One route in the Next.js app. On the server it reads the student's returns, reviews and group work between the term's start and end dates, and builds six to eight cards. On the phone the cards are a tap-through story made with CSS scroll snap. Motion comes from <a href="https://developer.chrome.com/docs/css-ui/scroll-driven-animations">scroll-driven animations</a> and React's <a href="https://nextjs.org/docs/app/guides/view-transitions">ViewTransition</a>, with <a href="https://github.com/catdad/canvas-confetti">canvas-confetti</a> (ISC licence) for the last card.</p>
+        <p class="good">No new database collection, no new service, no cost. You can show a working recap with real data in the first two weeks.</p>
+        <p class="watch">The numbers change if somebody returns a guide late or a review is edited. Scroll-driven animations arrived in Chrome first and much later in Safari and Firefox, so the page must read well without them. canvas-confetti ignores "reduce motion" unless you switch on <code>disableForReducedMotion</code>.</p>
+      </article>
+      <article class="option">
+        <h3>A saved snapshot that the student edits</h3>
+        <p>When the term ends, compute each recap once and save it as one document in MongoDB. The student opens a draft, picks which feedback quote to show, hides any card they do not like, and then publishes. The saved recap stays the same for good and can later appear in the portfolio you are building.</p>
+        <p class="good">The student is in control, which solves most privacy and kindness problems. Old recaps do not break when the site's data model changes. Comparing this term with the last one becomes easy.</p>
+        <p class="watch">You must decide the freezing moment, and what happens to work returned after it. An editing screen is a second product to design.</p>
+      </article>
+      <article class="option">
+        <h3>Share images with ImageResponse</h3>
+        <p>A route handler that returns a PNG, drawn from JSX with <a href="https://nextjs.org/docs/app/api-reference/functions/image-response">ImageResponse</a> from <code>next/og</code> (it uses <a href="https://github.com/vercel/satori">Satori</a> underneath). Set width and height for a tall story card. The share button uses <a href="https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share">navigator.share</a> with the image as a file, and falls back to a download button.</p>
+        <p class="good">It is built into Next.js and runs on Vercel with no extra service. Works with either option above.</p>
+        <p class="watch">Satori supports flexbox and a subset of CSS: no grid. The bundle limit is 500KB including fonts, and fonts must be ttf, otf or woff. The Web Share API is not available in every browser, so test with <code>navigator.canShare()</code>. An image URL is public to whoever has it: sign it, and never draw a grade on it.</p>
+      </article>
+      <article class="option">
+        <h3>A video with Remotion</h3>
+        <p>Write the recap as React components with <a href="https://www.remotion.dev/docs/player">Remotion</a>, play it in the browser with the Remotion Player, and render an MP4 for sharing. GitHub Unwrapped does this with AWS Lambda for rendering.</p>
+        <p class="good">Video is what gets posted, and the open GitHub Unwrapped code is a complete example to learn from.</p>
+        <p class="watch">Rendering needs AWS and costs money per video. The Remotion <a href="https://www.remotion.dev/docs/license/pricing">licence</a> is free for individuals and companies of up to 3 people; larger organisations pay, with a monthly minimum. Ask whether a school counts before you write a line. Treat this as a second step after a still recap works.</p>
+      </article>
+    </div>
+  </section>
+
+  <section>
+    <h2>A first <em>week</em></h2>
+    <ol class="plan">
+      <li><strong>Take three recaps apart</strong> Go through Duolingo's write-up, GitHub Unwrapped and Raycast Wrapped with a notebook. For each screen write the one number it shows, the sentence around it, and what moves. Count the screens.</li>
+      <li><strong>Write fifteen sentences the data can say</strong> Use the list in "Where we are today". For example: "Your first return was on this date." "You reviewed this many classmates." "This project was recommended to the Hall of Fame." Mark each one kind, risky or boring.</li>
+      <li><strong>Design the hard term first</strong> Write the full recap for a student who returned three guides, got one "no pass" and missed weeks. If you can make that page true and kind, the strong student's page is easy. If you cannot, you have found the real project.</li>
+      <li><strong>Add the question card</strong> Before any number, ask one thing: "What are you most proud of this term?" Decide where the answer goes and who can read it. The reflection research says this card may matter more than all the others.</li>
+      <li><strong>Prototype six cards and one share card</strong> In Figma or on paper. Show them to three students and ask two questions: "Is this true about you?" and "Would you post this, and where?"</li>
+      <li><strong>Do one technical test</strong> Build a single route that draws a tall share card with made-up data using ImageResponse, and open it on your phone. Then try the share button. You will learn the limits of Satori in one afternoon.</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>Still <em>open</em></h2>
+    <ul class="questions">
+      <li>Does a student with almost no activity get a recap? Raycast shows nothing under 14 days of use. Showing nothing is also a message, and so is a nearly empty page.</li>
+      <li>Who chooses "the best feedback you got"? A classmate wrote it for one reader. Can it go on a public card, with or without their name, and do they get a say?</li>
+      <li>What is "a few months ago" for a student in their first term? There is no earlier term to compare with. First month against last month? First return against latest return?</li>
+      <li>Duolingo's percentile card raised sharing, mostly among top learners. Does any comparison with others belong here, or does all of it move to the gamification idea?</li>
+      <li>Should teachers be able to read a student's recap and their written reflection? Students write differently when a teacher is reading.</li>
+      <li>Is it a term, a module or a whole year? And does it arrive on one day for everybody, or build up month by month like Apple Music Replay?</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Keep <em>reading</em></h2>
+    <ul class="links">
+      <li><a href="https://meyerweb.com/eric/thoughts/2014/12/24/inadvertent-algorithmic-cruelty/">Inadvertent Algorithmic Cruelty</a> Short, and the most important text on this page. Read it before you design a single card.</li>
+      <li><a href="https://arxiv.org/abs/2312.15042">Have Learning Analytics Dashboards Lived Up to the Hype?</a> The review of 38 studies. The discussion section explains why showing data to students so often changes nothing.</li>
+      <li><a href="https://research.hva.nl/en/publications/social-comparison-in-learning-analytics-dashboard-supporting-moti/">Social comparison in a learning analytics dashboard</a> The other side. Two controlled studies where students saw peers with similar goals, slightly ahead of them, and did better. Useful when you talk with whoever takes the gamification idea.</li>
+      <li><a href="https://engineering.atspotify.com/2024/1/exploring-the-animation-landscape-of-2023-wrapped">Exploring the Animation Landscape of 2023 Wrapped</a> How Spotify split the work: Lottie files for decoration, code for anything driven by a user's data. A good rule for a small team too.</li>
+      <li><a href="https://www.nngroup.com/articles/peak-end-rule/">The Peak-End Rule</a> People remember the strongest moment and the last moment. This decides the order of your cards: the best one goes last.</li>
+      <li><a href="https://case.edu/news/researchers-education-intervention-doesnt-live-promise">Growth mindset interventions, reviewed</a> A review of more than 60 studies found very little benefit. Keep "you can do anything" slogans off the cards and show evidence of real progress.</li>
+      <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share">MDN: Navigator.share()</a> What the share button can send, what it needs (HTTPS and a real click), and where it does not work.</li>
+      <li><a href="https://scroll-driven-animations.style/">Scroll-driven animations demos</a> A collection of working demos with source. Open it on your phone to see what a story of cards can do with CSS alone.</li>
+    </ul>
+  </section>
+
+</main>
+
+<section class="page-cta">
+  <h2>This is a starting point, <em>not a plan.</em></h2>
+  <p>Disagree with something? Found a better example? Know how you would do it? Change this page and push to main.</p>
+  <div class="hero-actions">
+    <a class="btn btn-solid" href="https://github.com/ellertsmari/Internship-ideas/edit/main/ideas/term-recap.html">Edit this page</a>
+    <a class="btn" href="../index.html#wall">Back to the wall</a>
+  </div>
+  <p class="note">Researched by Claude, November 2026. Check a link before you rely on a number.</p>
+</section>
+
+</body>
+</html>

@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>A theme for every module · February is wide open</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Instrument+Serif:ital@1&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css">
+</head>
+
+<body class="page" style="--c: var(--c3)">
+
+<header class="page-hero">
+  <a class="back" href="../index.html#wall">← The wall</a>
+  <p class="from">from Smári</p>
+  <h1>A theme for every module</h1>
+  <p class="pitch">The whole site changes its look on the day a new module starts. A design module should not look like a back-end module.</p>
+  <ul class="glance">
+    <li><b>Kind of work:</b> visual identity, design tokens, CSS architecture, accessibility testing</li>
+    <li><b>You'd enjoy this if:</b> you like building a system that other people can design inside, and you care about both colour and code</li>
+  </ul>
+</header>
+
+<main class="page-main">
+
+  <section>
+    <h2>Why this is <em>worth doing</em></h2>
+    <p>The school site looks the same on every day of the programme. A new module is a real change for them: new subject, new project, new kind of thinking. Today the site does not mark that moment at all. A theme that arrives on the first morning of a module says "something new starts today" before anyone has read a word.</p>
+    <p>It is also a teaching tool. The site is the one product every student uses, so it is the best place to show what a design system is. If the back-end module looks like a terminal and the design module looks like a poster, students can open the dev tools and see how a few variables did that.</p>
+    <p>For you, the interesting part is the system under the themes. One theme is a styling job. Six themes that all stay readable, switch on a date, and can be designed by someone who is not you: that is a design systems project, and it is the kind of work that looks strong in a portfolio.</p>
+  </section>
+
+  <section>
+    <h2>Where we are <em>today</em></h2>
+    <p>The good news first. The site already uses CSS custom properties for almost everything. There is one global stylesheet with a set of variables on <code>:root</code>: a black-to-white ramp, one brand colour in five steps, status colours for success, failure, warning and pending, a radius scale, a type scale, and six accent colours for guide sections. Components are written with styled-components and read those variables with <code>var()</code>. So changing a value in one place already changes it across the site.</p>
+    <p>The brand colour is the best clue. Its variable is called <code>--theme-module3-100</code>, and the same violet is used for every module, in more than two hundred places. The name suggests that somebody once planned a colour per module and stopped after one. You would be finishing an old idea.</p>
+    <p>There is also a small theming system already in the code, in a different corner. Each project brief under <code>/projects</code> has its own theme: eight colours and two fonts, checked and then applied as CSS variables on that page. The back-end brief uses a dark green cover with a monospace heading font, and the first-website brief uses warm paper with a red accent. So "a module has a look" exists for the briefs. It stops at the brief pages and does not reach the rest of the site. The video cards on the resources page also have a colour per module, written directly into that component.</p>
+    <p>Now the hard parts, honestly:</p>
+    <ul>
+      <li><b>The variable names describe colours, not jobs.</b> <code>--primary-white</code> is used both as a card background and as text on a coloured button. <code>--primary-black-100</code> is used as text. For a theme that only changes the accent this is fine. For a dark theme it is a problem, because "white" would have to become dark in one place and stay light in the other.</li>
+      <li><b>Some colours are not variables at all.</b> About twenty files have colours written as hex values, and the page background is one fixed SVG image. A theme switch would not reach those.</li>
+      <li><b>There is no dark mode and no theme switch.</b> Nothing reads <code>prefers-color-scheme</code>, and there is no <code>data-theme</code> attribute or theme provider. Several components do respect <code>prefers-reduced-motion</code>, which is a good habit to keep.</li>
+      <li><b>The calendar does not know when a module starts.</b> It has events (with categories like milestone, lecture, deadline and holiday) and one active term with a start date, an end date and an optional date for the second half. Guides know which module they belong to, with a title and a number. Nothing connects the two. "The day the calendar says the module begins" needs a new piece of data, and somebody has to decide where it lives.</li>
+    </ul>
+    <p>My honest estimate: an accent-only theme per module is a small job, maybe a week including the date logic. A full theme with its own background, type and dark variants means renaming the variables by role first, and that touches almost every styled file. That part is slow and careful work, and it is the part that makes everything after it easy.</p>
+  </section>
+
+  <section>
+    <h2>What the <em>research</em> says</h2>
+    <p>Theming is well understood by now, and the browser has become much better at it in the last two years. These are the findings that change how you would build this.</p>
+    <div class="facts">
+      <article class="fact">
+        <strong>Linear went from 98 variables per theme to 3</strong>
+        <p>When Linear rebuilt its themes it stopped defining 98 values by hand. A theme is now a base colour, an accent colour and a contrast setting, and the rest is calculated in the LCH colour space. Six module themes are much easier to keep healthy if each one is three decisions and not ninety-eight.</p>
+        <a class="source" href="https://linear.app/now/how-we-redesigned-the-linear-ui">Source: Linear, "How we redesigned the Linear UI"</a>
+      </article>
+      <article class="fact">
+        <strong>OKLCH makes lightness predictable</strong>
+        <p>In HSL, two colours with the same "lightness" can look very different, so every new hue needs new contrast checks. OKLCH uses perceptual lightness. You can keep the lightness steps fixed, change only the hue per module, and the contrast stays close to what you tested.</p>
+        <a class="source" href="https://evilmartians.com/chronicles/oklch-in-css-why-quit-rgb-hsl">Source: Evil Martians, "OKLCH in CSS"</a>
+      </article>
+      <article class="fact">
+        <strong>The contrast rule is strict: 4.5 to 1</strong>
+        <p>WCAG asks for 4.5:1 for normal text and 3:1 for large text, and the number is not rounded: 4.499 fails. The current stylesheet already has a note about an amber label that came out at 3.08:1 and had to be darkened. With six themes, a person cannot check this by eye. It has to be a test that runs for every theme.</p>
+        <a class="source" href="https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html">Source: W3C, Understanding WCAG 2.2, Contrast (Minimum)</a>
+      </article>
+      <article class="fact">
+        <strong>WCAG 2 contrast is weak for dark themes</strong>
+        <p>The author of APCA, a newer contrast method, argues that the WCAG 2 formula overstates contrast for dark colours, so a pair can pass at 4.5:1 and still be hard to read near black. APCA is a candidate for WCAG 3 and not a finished standard. A sensible rule for a dark terminal theme: pass WCAG 2 because it is the rule, and use APCA as a second opinion.</p>
+        <a class="source" href="https://git.apcacontrast.com/documentation/WhyAPCA">Source: APCA documentation, "Why APCA"</a>
+      </article>
+      <article class="fact">
+        <strong>Design tokens have a stable standard since October 2025</strong>
+        <p>The W3C Design Tokens Community Group published its first stable format, version 2025.10. It covers themes and modes without copying files, and supports Oklch and Display P3. If you store themes as token files, you no longer have to invent your own format, and tools like Style Dictionary, Tokens Studio and Terrazzo can read them.</p>
+        <a class="source" href="https://www.w3.org/community/design-tokens/2025/10/28/design-tokens-specification-reaches-first-stable-version/">Source: W3C Design Tokens Community Group</a>
+      </article>
+      <article class="fact">
+        <strong>Animated theme changes now work in every modern browser</strong>
+        <p><code>document.startViewTransition()</code> has been in all the latest browsers since October 2025. The default effect is a cross-fade between the old and the new look, and in a browser without support the change just happens with no animation. The "new module" moment can be a real reveal with very little code.</p>
+        <a class="source" href="https://developer.mozilla.org/en-US/docs/Web/API/Document/startViewTransition">Source: MDN, Document.startViewTransition()</a>
+      </article>
+      <article class="fact">
+        <strong>The browser can pick text colour for you, with limits</strong>
+        <p><code>contrast-color()</code> returns black or white for a given background and reached all the latest browsers in April 2026. MDN warns that mid-tone backgrounds do not give enough contrast with either one. So it helps for buttons on strong colours, and it does not replace testing your themes.</p>
+        <a class="source" href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/contrast-color">Source: MDN, contrast-color()</a>
+      </article>
+    </div>
+  </section>
+
+  <section>
+    <h2>Go and <em>look at these</em></h2>
+    <div class="inspo">
+      <a class="inspo-card" href="https://www.csszengarden.com/">
+        <strong>CSS Zen Garden</strong>
+        <span>The oldest version of this idea. The HTML never changes and each designer only gets the stylesheet. Steal the rule: a theme may change the CSS and nothing else. It is also the model for letting each cohort design a theme.</span>
+        <small>csszengarden.com</small>
+      </a>
+      <a class="inspo-card" href="https://www.radix-ui.com/colors/docs/palette-composition/understanding-the-scale">
+        <strong>Radix Colors</strong>
+        <span>Every colour has 12 steps and every step has one job: app background, hovered element, border, solid fill, low-contrast text, high-contrast text. Steal the idea of naming steps by their job, and the promise that the text steps are tested against the background steps.</span>
+        <small>radix-ui.com</small>
+      </a>
+      <a class="inspo-card" href="https://www.recursive.design/">
+        <strong>Recursive</strong>
+        <span>One free variable font with an axis from sans to monospace and another from strict to casual. One font file could make the back-end module feel like code and the design module feel hand-drawn, with a single CSS property. Open licence (SIL OFL).</span>
+        <small>recursive.design</small>
+      </a>
+      <a class="inspo-card" href="https://neue.no/work/visit-nordkyn/">
+        <strong>Visit Nordkyn</strong>
+        <span>A Norwegian tourist region whose logo changes with live wind and temperature data. Steal the principle: the identity is driven by data that already exists. Your data is the calendar.</span>
+        <small>neue.no</small>
+      </a>
+      <a class="inspo-card" href="https://www.pentagram.com/work/mit-media-lab">
+        <strong>MIT Media Lab identity</strong>
+        <span>One seven-by-seven grid, and from it a different mark for each of 23 research groups. They are clearly different and clearly one family. That is exactly the balance six module themes need.</span>
+        <small>pentagram.com</small>
+      </a>
+      <a class="inspo-card" href="https://dev.to/github/six-secret-easter-eggs-in-github-2j17">
+        <strong>GitHub's Halloween graph</strong>
+        <span>GitHub's own list of hidden details says that once a year, at Halloween, the green contribution graph changes its look. Steal the scale: one well-known component changing on one date is enough to be noticed. You do not have to repaint everything.</span>
+        <small>dev.to/github</small>
+      </a>
+      <a class="inspo-card" href="https://slack.com/help/articles/205166337-Change-your-Slack-theme">
+        <strong>Slack custom themes</strong>
+        <span>You pick a few colours, press Share, and paste the theme into a message. Anyone in the conversation can apply it with one click. Steal the idea that a theme is a small piece of text that students can pass around.</span>
+        <small>slack.com/help</small>
+      </a>
+      <a class="inspo-card" href="https://leonardocolor.io/">
+        <strong>Leonardo</strong>
+        <span>Adobe's open-source colour tool works backwards: you give it the contrast ratios you need and it gives you the colours. Try it before you pick six palettes by hand.</span>
+        <small>leonardocolor.io</small>
+      </a>
+      <a class="inspo-card" href="https://daisyui.com/docs/themes/">
+        <strong>daisyUI themes</strong>
+        <span>35 themes, each switched on with one <code>data-theme</code> attribute, and themes can be nested inside a page. Click through them and notice which ones still feel like the same product and which ones do not.</span>
+        <small>daisyui.com</small>
+      </a>
+    </div>
+  </section>
+
+  <section>
+    <h2>How it could <em>be built</em></h2>
+    <p>These are layers more than rivals. The first one is needed in every case, and you choose how far to go after it.</p>
+    <div class="options">
+      <article class="option">
+        <h3>Role tokens and one attribute</h3>
+        <p>Rename the variables by job: <code>--surface</code>, <code>--text</code>, <code>--text-on-accent</code>, <code>--accent</code>, <code>--border</code>. Each module then overrides them in a block like <code>[data-module="5"] { … }</code>. The root layout already runs on the server for every request, so it can work out today's module and put the attribute on <code>&lt;html&gt;</code> before the page is sent.</p>
+        <p class="good">No new library, no JavaScript in the browser, and no flash of the wrong theme because the server decides. It works with styled-components, with the CSS modules in the portfolio builder, and with whatever comes later.</p>
+        <p class="watch">The rename touches almost every styled file. Do it as a plain refactor with no visual change first, and compare screenshots before and after. Then add themes.</p>
+      </article>
+      <article class="option">
+        <h3>Themes generated from a few choices</h3>
+        <p>Follow Linear: a module theme is a hue, a mood (light or dark) and maybe a heading font. Everything else is calculated. You can do it in CSS with <code>oklch()</code>, <code>color-mix()</code> (already used in a few places on the site) and <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_colors/Relative_colors">relative colours</a>, or in a small script with <a href="https://culorijs.org/">Culori</a>, <a href="https://leonardocolor.io/">Leonardo</a> or Google's <a href="https://github.com/material-foundation/material-color-utilities">Material Color Utilities</a> (Apache 2.0), which builds a whole scheme from one source colour.</p>
+        <p class="good">A theme becomes a tiny record that fits in MongoDB next to the term. A teacher, or a student, could make one in a form with a live preview, and the system keeps it readable.</p>
+        <p class="watch">Generated palettes are safe and can look a little the same. The identity then has to come from type, illustration and motion. Decide early how much a designer may override by hand.</p>
+      </article>
+      <article class="option">
+        <h3>A token pipeline from Figma</h3>
+        <p>Design the themes as <a href="https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables">variable modes in Figma</a>, one mode per module. Export them in the Design Tokens format and let <a href="https://styledictionary.com/">Style Dictionary</a> or <a href="https://terrazzo.app/">Terrazzo</a> build the CSS file. The token files live in the repository and are reviewed like code.</p>
+        <p class="good">Designers work where they are comfortable, design and code cannot drift apart, and it is how larger teams really work. A cohort could deliver a theme as one JSON file.</p>
+        <p class="watch">More moving parts for a small school. The number of modes in Figma depends on the plan, so check what the school's plan allows before you depend on it. A new theme needs a build and a deploy.</p>
+      </article>
+      <article class="option">
+        <h3>More than colour: a theme kit</h3>
+        <p>A theme is also a background illustration (today one SVG for every page), a heading font, the shape of corners (the radius scale is already a set of variables), a small set of motion values and perhaps an opening animation on day one, built with the <a href="https://developer.chrome.com/docs/web-platform/view-transitions/same-document">View Transitions API</a>.</p>
+        <p class="good">This is where a design module really stops looking like a back-end module. Colour alone will not get you there.</p>
+        <p class="watch">Keep the layout fixed. Navigation, spacing and the meaning of the status colours must not move, or students have to learn the site again every few weeks. Fonts cost loading time, and every animation needs a calm version for <code>prefers-reduced-motion</code>.</p>
+      </article>
+    </div>
+  </section>
+
+  <section>
+    <h2>A first <em>week</em></h2>
+    <ol class="plan">
+      <li><strong>Make an inventory</strong> Go through the global stylesheet and list every variable and what it is used for. Search for hex colours outside it. Mark each one: already a variable, easy to convert, or special. You will know the real size of the job by the end of the day.</li>
+      <li><strong>Break it on purpose</strong> In the browser dev tools, change the brand colour and the white and black variables on <code>:root</code> to something loud. Click through the home page, a guide, the calendar and the groups page. Screenshot every place that did not change or became unreadable. That list is your backlog.</li>
+      <li><strong>Write the role names on paper</strong> Agree on 12 to 20 token names by job before you touch code. Use the Radix scale as a checklist: do you have a name for a hovered background, a border, text on a solid colour?</li>
+      <li><strong>Design two opposite themes</strong> Pick the two modules that are most different, for example a design module and the back-end module, and design one screen in each. Two extremes will test your token names better than six similar palettes.</li>
+      <li><strong>Prototype the switch</strong> On a branch, put a <code>data-module</code> attribute on the page and make one section of the site react to it. Add a temporary dropdown so you can flip themes and show people.</li>
+      <li><strong>Sit down with Smári about dates</strong> Bring one question: where does "module 4 starts on this date" live, and who types it in? Sketch the smallest change to the term settings that would answer it.</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>Still <em>open</em></h2>
+    <ul class="questions">
+      <li>If two cohorts are in different modules on the same day, which theme does each person see? And what does a teacher see, who teaches both?</li>
+      <li>How far may a theme go? Accent colour only, or background, type and illustration too? Where is the line between "the site looks new" and "I cannot find the button"?</li>
+      <li>Should the status colours (green for passed, red for failed, orange for act now) be locked in every theme? What happens when a module's own colour is red?</li>
+      <li>Does every module theme need a light and a dark version, so that it can follow <code>prefers-color-scheme</code>? That doubles the design and testing work. Or is "dark" simply the look of one module?</li>
+      <li>Can a student turn the theme off, or keep a favourite from an earlier module? Is the shared moment worth more than personal choice?</li>
+      <li>Who designs the themes after you leave? Could designing next year's theme for a module be an assignment for the cohort that just finished it, with the contrast test as the only gatekeeper?</li>
+      <li>Do public pages, like the open guides and the gallery, change too? A visitor from a search engine has no idea what module it is.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Keep <em>reading</em></h2>
+    <ul class="links">
+      <li><a href="https://bradfrost.com/blog/post/the-many-faces-of-themeable-design-systems/">The many faces of themeable design systems</a> Brad Frost on three tiers of tokens, and a list of reasons to theme that includes seasons and campaigns. The best single article to start with.</li>
+      <li><a href="https://linear.app/now/how-we-redesigned-the-linear-ui">How we redesigned the Linear UI</a> A real team describing why they moved theme generation from HSL to LCH and what three inputs they kept.</li>
+      <li><a href="https://evilmartians.com/chronicles/oklch-in-css-why-quit-rgb-hsl">OKLCH in CSS: why we moved from RGB and HSL</a> Long, clear and practical. Read it with the <a href="https://oklch.com/">OKLCH picker</a> open in another tab.</li>
+      <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/light-dark">light-dark() on MDN</a> One CSS function that holds the light and the dark value of a colour together. In all the latest browsers since May 2024.</li>
+      <li><a href="https://developer.chrome.com/docs/web-platform/view-transitions/same-document">Same-document view transitions</a> The Chrome team's guide. It also explains that reduced motion does not have to mean no motion.</li>
+      <li><a href="https://nextjs.org/docs/app/guides/view-transitions">Designing view transitions in Next.js</a> How React's <code>&lt;ViewTransition&gt;</code> component fits into the App Router that the school site uses.</li>
+      <li><a href="https://colorjs.io/docs/contrast">Contrast in Color.js</a> One library that calculates both WCAG 2.1 and APCA contrast. Useful for a test that checks every theme automatically.</li>
+      <li><a href="https://www.designtokens.org/">designtokens.org</a> The home of the Design Tokens format, with the stable 2025.10 specification.</li>
+      <li><a href="https://web.dev/articles/prefers-reduced-motion">prefers-reduced-motion on web.dev</a> Why motion makes some people ill, and how to offer a calmer version.</li>
+    </ul>
+  </section>
+
+</main>
+
+<section class="page-cta">
+  <h2>This is a starting point, <em>not a plan.</em></h2>
+  <p>Disagree with something? Found a better example? Know how you would do it? Change this page and push to main.</p>
+  <div class="hero-actions">
+    <a class="btn btn-solid" href="https://github.com/ellertsmari/Internship-ideas/edit/main/ideas/module-themes.html">Edit this page</a>
+    <a class="btn" href="../index.html#wall">Back to the wall</a>
+  </div>
+  <p class="note">Researched by Claude, November 2026. Check a link before you rely on a number.</p>
+</section>
+
+</body>
+</html>

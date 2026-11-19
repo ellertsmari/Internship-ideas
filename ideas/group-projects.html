@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Better group projects · February is wide open</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Instrument+Serif:ital@1&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css">
+</head>
+
+<body class="page" style="--c: var(--c2)">
+
+<header class="page-hero">
+  <a class="back" href="../index.html#wall">← The wall</a>
+  <p class="from">from Smári</p>
+  <h1>Better group projects</h1>
+  <p class="pitch">The site already knows how to grade a team at the end. It says almost nothing to a team while there is still time to change.</p>
+  <ul class="glance">
+    <li><b>Kind of work:</b> interaction design, a bit of data modelling, front-end and server code in the existing groups feature.</li>
+    <li><b>You'd enjoy this if:</b> you have been in a team where one honest conversation in week two would have saved the project.</li>
+  </ul>
+</header>
+
+<main class="page-main">
+
+  <section>
+    <h2>Why this is <em>worth doing</em></h2>
+    <p>The school runs group projects through the year. A small team builds something together, presents it, and gets a grade. For most students this is the first time their work depends on other people, and it is the closest thing in the course to a real job.</p>
+    <p>The card on the wall asks for a peer evaluation "like the one Sustainable Island has now". Here is the first surprise: that peer evaluation has already been moved into the school's site. It exists, it is careful, and it is used for grading. So the interesting work has moved. The peer evaluation happens once, after the presentation, and the answers go to the teachers. A student who was hard to work with learns about it from a grade, when the project is over.</p>
+    <p>The better version of this feature helps a team while the project is running: agree how to work on day one, check in halfway, hear from each other in a way that is safe, and end with one thing to do differently next module. You work as a team of three yourselves, so you already know a lot about what a team needs from a tool and what it ignores.</p>
+  </section>
+
+  <section>
+    <h2>Where we are <em>today</em></h2>
+    <p>Group projects live under <code>/LMS/groups</code>. A student sees one project as six steps: Your preferences, Project brief, Your team, All teams, Score the presentations, Rate your teammates. Here is what each part does today.</p>
+    <ul>
+      <li><strong>Preferences.</strong> One question per screen: how ambitious you are, what you want to focus on, which tech, when and where you want to work, and a free text box.</li>
+      <li><strong>Team formation.</strong> Teachers build the teams by hand on a drag-and-drop board, with each student's preferences next to their name. The site does not suggest teams.</li>
+      <li><strong>The team's page.</strong> A name, a tagline, a description, links (GitHub, Figma, FigJam, live website, backend) and images. This feeds a public showcase page. The links are plain links. The site does not read anything from GitHub or Figma.</li>
+      <li><strong>Presentations.</strong> Teachers, invited judges (who get a personal link and need no account) and the other students score each team from 0 to 10 on each row of a rubric, with comments.</li>
+      <li><strong>Peer evaluation.</strong> Each student rates themselves and every teammate on contribution and on teamwork, from −2 to +2, with a written reason for every score. The scores one student gives must add up to zero or less, so marking one person up means marking another down. A meter shows the balance while you fill it in.</li>
+      <li><strong>What happens with it.</strong> The scores are advice. A teacher reads them, confirms one contribution figure and one teamwork figure per student, and those turn the team's grade into a personal grade, from 30% higher to 70% lower. Teachers get a table and a scatter plot for the project.</li>
+      <li><strong>What students see.</strong> After handing in their own evaluations, students can read the comments their team got on the presentation. Teachers and judges are named, classmates are not. What teammates wrote about each other in the peer evaluation stays with the teachers. Students see the grade it leads to, once the teachers release it.</li>
+    </ul>
+    <p>And here is where it stops. There is one peer evaluation per project, and it comes at the end. During the weeks of the project the site has no check-in, no team agreement, no retrospective, no view of who is doing what, and no reminders. A student never reads one sentence from a teammate about how they were to work with. The grading side is finished and well thought through. The part between "your team" and "score the presentations" is an empty page.</p>
+  </section>
+
+  <section>
+    <h2>What the <em>research</em> says</h2>
+    <p>Peer assessment in teams has been studied for decades. These seven findings matter most for the choices you would make here.</p>
+    <div class="facts">
+      <article class="fact">
+        <strong>When peer scores count, teams behave better</strong>
+        <p>A study of 873 students in 162 teams compared one year where peer evaluation affected grades with two years where it was feedback only. In the graded year the average team project grade was 86.0, against 77.1 and 80.5. The school's site already does this part. Keep it, and build around it.</p>
+        <a class="source" href="https://www.frontiersin.org/journals/education/articles/10.3389/feduc.2020.00049/full">Source: O'Neill, Boyce and McLarnon, Frontiers in Education (2020)</a>
+      </article>
+      <article class="fact">
+        <strong>Practice rounds during the project pay off</strong>
+        <p>In a design course with 301 students, one semester added five rounds of peer evaluation that did not affect grades, before the final one that did. Those students got higher grades on the final project and in the course. This is the biggest gap on the site today: there is no round that is only for learning.</p>
+        <a class="source" href="https://scholar.lib.vt.edu/ejournals/JTE/v28n2/mentzer.html">Source: Mentzer and colleagues, Journal of Technology Education (2017)</a>
+      </article>
+      <article class="fact">
+        <strong>People rate themselves kindly</strong>
+        <p>A field experiment with first-year students rating group projects found a clear self-serving bias in both men and women. That supports the rule the site already has, where scores must balance. It also suggests something new to show: the gap between how you rated yourself and how your team rated you.</p>
+        <a class="source" href="https://docs.iza.org/dp17267.pdf">Source: Ma, Riener and Xu, IZA Discussion Paper 17267 (2024)</a>
+      </article>
+      <article class="fact">
+        <strong>Anonymous feedback is more critical, but context decides</strong>
+        <p>A review of 14 controlled studies found that anonymity led to more critical feedback and that students saw more learning value in it. The authors say the right choice depends on the setting. In a small team, "anonymous" is thin: there are only a few people it could be.</p>
+        <a class="source" href="https://eric.ed.gov/?id=EJ1225345">Source: Panadero and Alqassab, Assessment &amp; Evaluation in Higher Education (2019)</a>
+      </article>
+      <article class="fact">
+        <strong>A team agreement works together with a plan</strong>
+        <p>A study followed 32 student teams through a long business simulation. The teams that kept performing best had both a good team charter (how we work together) and a good plan for the task. One without the other helped less. A charter on the team's page should sit next to the first plan, and both should come back later.</p>
+        <a class="source" href="https://eric.ed.gov/?id=EJ927607">Source: Mathieu and Rapp, Journal of Applied Psychology (2009)</a>
+      </article>
+      <article class="fact">
+        <strong>Teams formed by the teacher have fewer problems</strong>
+        <p>A well-known guide for teachers recommends that instructors form the teams. It cites a survey where 155 students said, two to one, that their worst group experiences were in groups they chose themselves. The school already forms teams this way. The open part is how much the site should help the teacher do it.</p>
+        <a class="source" href="https://www.cs.upc.edu/~idss/WorkingTeams/turnin_student_groups_into_effective_teams.pdf">Source: Oakley, Felder, Brent and Elhajj, Journal of Student Centered Learning (2004)</a>
+      </article>
+      <article class="fact">
+        <strong>Feedback only helps if people can act on it</strong>
+        <p>Carless and Boud describe four things a student needs to be able to do with feedback: appreciate it, make judgments, manage the feelings it brings, and take action. Most tools stop after showing the feedback. A design that asks "what is the one thing you will do next?" covers the fourth step.</p>
+        <a class="source" href="https://opus.lib.uts.edu.au/handle/10453/128791">Source: Carless and Boud, Assessment &amp; Evaluation in Higher Education (2018)</a>
+      </article>
+    </div>
+  </section>
+
+  <section>
+    <h2>Go and <em>look at these</em></h2>
+    <div class="inspo">
+      <a class="inspo-card" href="https://info.catme.org/features/peer-evaluation/">
+        <strong>CATME Peer Evaluation</strong>
+        <span>Raters do not pick a number. They pick the description of behaviour that fits the person best, on five teamwork dimensions. Compare that with the site's five short labels per score.</span>
+        <small>info.catme.org</small>
+      </a>
+      <a class="inspo-card" href="https://info.catme.org/features/rater-practice/">
+        <strong>CATME Rater Practice</strong>
+        <span>Students practise by rating made-up teammates and get feedback on their ratings, before they rate real ones. A small idea that could be a two-minute warm-up in the first check-in.</span>
+        <small>info.catme.org</small>
+      </a>
+      <a class="inspo-card" href="https://nus-cs2103-ay2526-s2.github.io/website/admin/peerEvaluations.html">
+        <strong>How one university course runs three rounds</strong>
+        <span>A software engineering course in Singapore publishes its full rules: an early round, a midterm round that is "for your information", a final round, and a chance to object. Read the advice on giving negative feedback early.</span>
+        <small>nus-cs2103 course site</small>
+      </a>
+      <a class="inspo-card" href="https://github.com/TEAMMATES/teammates">
+        <strong>TEAMMATES</strong>
+        <span>The free, open-source tool that course uses. Look at how it thinks in "feedback paths": who gives feedback to whom, set up by the teacher for each question.</span>
+        <small>github.com</small>
+      </a>
+      <a class="inspo-card" href="https://webpaproject.lboro.ac.uk/WorkedExample">
+        <strong>WebPA's worked example</strong>
+        <span>A different way to keep scores honest: every student's marks are turned into shares that add up to 1. One page of arithmetic with five made-up students. Good to compare with the site's "zero or less" rule.</span>
+        <small>webpaproject.lboro.ac.uk</small>
+      </a>
+      <a class="inspo-card" href="https://feedbackfruits.com/activities/interim-evaluation-of-group-contributions-and-collaboration">
+        <strong>FeedbackFruits: an interim evaluation</strong>
+        <span>A four-step flow for the middle of a project: read the instructions, rate your teammates, read what you got, write a reflection. Students get credit for taking part, and the content of the feedback is not graded.</span>
+        <small>feedbackfruits.com</small>
+      </a>
+      <a class="inspo-card" href="https://www.utwente.nl/buddycheck">
+        <strong>Buddycheck, as one university uses it</strong>
+        <span>It asks questions about the team as a whole next to questions about each person, and it puts labels such as "Conflict" on patterns in a team's answers, so a teacher knows where to look first.</span>
+        <small>utwente.nl</small>
+      </a>
+      <a class="inspo-card" href="https://engineering.atspotify.com/2014/09/squad-health-check-model">
+        <strong>Spotify's Squad Health Check</strong>
+        <span>About ten cards, each with an example of "awesome" and an example of "crappy". The team votes green, yellow or red and adds an arrow for the trend. It is made for improving, never for ranking teams, and the conversation is the point.</span>
+        <small>engineering.atspotify.com</small>
+      </a>
+      <a class="inspo-card" href="https://retromat.org/en/">
+        <strong>Retromat</strong>
+        <span>A generator of retrospective plans with more than 140 activities. Useful as a library when you design the end-of-project retro, and as proof that a retro can be more than "what went well, what went badly".</span>
+        <small>retromat.org</small>
+      </a>
+    </div>
+  </section>
+
+  <section>
+    <h2>How it could <em>be built</em></h2>
+    <p>These four fit together, and each one also works alone. All of them stay inside the Next.js and MongoDB app that is already there.</p>
+    <div class="options">
+      <article class="option">
+        <h3>A halfway check-in that does not touch the grade</h3>
+        <p>A new step between "Your team" and "Score the presentations". The teacher opens it around the middle of the project. Each student answers a few questions about the team and writes one thing each teammate does well and one thing they could do differently. When everyone has answered, the team sees the result together. The site already has the one-question-per-screen flow and the open and close switches, so the pattern is there to reuse.</p>
+        <p class="good">It fills the biggest gap with the smallest new idea, and the research on practice rounds supports it directly. A daily reminder is cheap too: Vercel's cron jobs are included in every plan, and even the free plan allows one run per day.</p>
+        <p class="watch">The current peer evaluation stores one answer per person per project. A second round needs its own data model, and you must keep it clearly apart from the graded one. Decide early what a teacher can see. If students think the check-in secretly affects grades, they will write nothing honest.</p>
+      </article>
+      <article class="option">
+        <h3>A start kit on the team's page</h3>
+        <p>On day one the team's page asks for three things: how we work (hours, where, how fast we answer each other), who leads what, and the first plan. A short form the team fills in together, shown at the top of their page. The check-in later shows it again and asks "is this still true?".</p>
+        <p class="good">Very little code, and a good design problem. The preferences each student already gave (schedule, place, ambition) can be shown side by side, so the team starts by talking about real differences.</p>
+        <p class="watch">A charter that is filled in once and never opened again is homework. It only earns its place if something later in the project points back to it.</p>
+      </article>
+      <article class="option">
+        <h3>Read a little from the tools teams already use</h3>
+        <p>Teams already paste a GitHub link. For a public repository, GitHub's REST API gives commits per week for each contributor. GitHub Projects boards can be read through the GraphQL API with a token that has the <code>read:project</code> scope. Linear has a GraphQL API too, and says it is the same one its own apps use. A small "pulse" on the team's page could show that work is moving.</p>
+        <p class="good">No extra work for students, and it gives the check-in something concrete to talk about.</p>
+        <p class="watch">Commits say nothing about design, research or the person who kept the team together. The Singapore course above uses commit history only to check peer ratings, never alone. Private repositories and Linear workspaces need each team to give access, which is real OAuth work. GitHub's statistics endpoints can answer "not ready yet" the first time you ask, so you need to cache. A plain link to the team's board may be enough for a first version.</p>
+      </article>
+      <article class="option">
+        <h3>Help the teacher form teams</h3>
+        <p>The drag board stays. Add a button that proposes teams from the preferences: nobody alone with a schedule that does not match, a mix of focus areas in each team, similar ambition. The teacher then moves people by hand as today. This can be one pure function with tests and no new service.</p>
+        <p class="good">It saves teacher time at the start of every module, and you can show why each proposal was made ("all three can work in the daytime").</p>
+        <p class="watch">The school is small, so the teacher often knows things the form does not. The proposal must be easy to ignore, and it must never look like the site decided.</p>
+      </article>
+    </div>
+  </section>
+
+  <section>
+    <h2>A first <em>week</em></h2>
+    <ol class="plan">
+      <li><strong>Walk the whole flow as a student.</strong> Ask for a test project on a local copy of the site and go through all six steps, then look at the teacher side. Write down every moment where you did not know what to do next.</li>
+      <li><strong>Talk to six people.</strong> Four students who just finished a group project, and two teachers. Ask one question: "When in the project did you wish someone had told you something?"</li>
+      <li><strong>Try three other tools yourselves.</strong> Run a fake team of three through TEAMMATES, read the Singapore course rules, and do a Squad Health Check on your own intern team with paper cards. Note what felt safe and what felt like a test.</li>
+      <li><strong>Draw the timeline of one project.</strong> One long strip from "preferences" to "grade released". Mark what the site does today and where a team is alone. Put your ideas on the empty parts.</li>
+      <li><strong>Prototype the check-in on paper or in Figma.</strong> Five questions at most. Then the hard screen: what one student sees about themselves afterwards. Test it on two students and watch their faces.</li>
+      <li><strong>Agree the privacy rules with the teachers.</strong> Before any code: who sees what, when, and whether anything from the check-in can ever reach a grade. Write it down in one paragraph that a student could read.</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>Still <em>open</em></h2>
+    <ul class="questions">
+      <li>Should a student ever read what teammates wrote about them? Today the answer is no. Rewritten by a teacher, summarised, shown as written, or kept hidden: each choice changes what people dare to write.</li>
+      <li>In a very small team, can a halfway check-in be anonymous at all? If it cannot, is signed feedback with good prompts better than fake anonymity?</li>
+      <li>May teachers read the halfway check-in? If yes, it is an early warning for them. If no, students may be more honest. You probably cannot have both.</li>
+      <li>The scores go from −2 to +2 with short labels like "Less than others". Would descriptions of behaviour, as in CATME, give fairer answers, or just a longer form that nobody reads?</li>
+      <li>Is a view of GitHub activity helpful to a team, or does it turn into surveillance that is unfair to the designer in the group?</li>
+      <li>How many extra steps can you add to a project before the tool takes more time than the problem it solves?</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Keep <em>reading</em></h2>
+    <ul class="links">
+      <li><a href="https://www.cs.upc.edu/~idss/WorkingTeams/turnin_student_groups_into_effective_teams.pdf">Turning Student Groups into Effective Teams</a> The most practical paper on the list. It includes a ready team policies page, a team expectations agreement and rating forms in the appendix.</li>
+      <li><a href="https://www.frontiersin.org/journals/education/articles/10.3389/feduc.2020.00049/full">Team Health and Project Quality Are Improved When Peer Evaluation Scores Affect Grades</a> The study behind the first finding above. Open access, and honest about the limits of its own design.</li>
+      <li><a href="https://scholar.lib.vt.edu/ejournals/JTE/v28n2/mentzer.html">Peer Evaluation of Team Member Effectiveness as a Formative Educational Intervention</a> How one course ran five practice rounds, and what students thought of it.</li>
+      <li><a href="https://opus.lib.uts.edu.au/handle/10453/128791">The development of student feedback literacy</a> Short and readable. It gives you words for why feedback so often changes nothing.</li>
+      <li><a href="https://news.ucalgary.ca/news/new-team-training-and-assessment-research-helps-students-develop-essential-competencies-career">The lab behind ITP Metrics</a> A university research group that built its own tools for peer feedback and team health, and then studied whether they work. The tool itself is at <a href="https://www.itpmetrics.com/">itpmetrics.com</a>.</li>
+      <li><a href="https://docs.github.com/en/rest/metrics/statistics">GitHub REST API: repository statistics</a> What you can read about a repository: commits per contributor per week, and the limits you will run into.</li>
+      <li><a href="https://docs.github.com/en/issues/planning-and-tracking-with-projects/automating-your-project/using-the-api-to-manage-projects">GitHub Projects through the API</a> How to read a project board (items, status, assignees) with GraphQL, and which token scope you need.</li>
+      <li><a href="https://vercel.com/docs/cron-jobs/usage-and-pricing">Vercel cron jobs: usage and pricing</a> The limits per plan, for the day you want the site to remind a team that the check-in closes tomorrow.</li>
+    </ul>
+  </section>
+
+</main>
+
+<section class="page-cta">
+  <h2>This is a starting point, <em>not a plan.</em></h2>
+  <p>Disagree with something? Found a better example? Know how you would do it? Change this page and push to main.</p>
+  <div class="hero-actions">
+    <a class="btn btn-solid" href="https://github.com/ellertsmari/Internship-ideas/edit/main/ideas/group-projects.html">Edit this page</a>
+    <a class="btn" href="../index.html#wall">Back to the wall</a>
+  </div>
+  <p class="note">Researched by Claude, November 2026. Check a link before you rely on a number.</p>
+</section>
+
+</body>
+</html>

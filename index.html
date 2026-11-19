@@ -88,6 +88,7 @@
       <p>Google Calendar is a good place to look for inspiration: moving between day, week and month, creating and dragging an event, seeing a lot at a glance.</p>
       <ul class="notes">
       </ul>
+      <a class="more" href="ideas/calendar.html">See the research</a>
     </article>
 
     <article class="idea" data-from="Smári">
@@ -96,6 +97,7 @@
       <p>For example with a peer evaluation process like the one Sustainable Island has now, where teammates give each other feedback as part of the project.</p>
       <ul class="notes">
       </ul>
+      <a class="more" href="ideas/group-projects.html">See the research</a>
     </article>
 
     <article class="idea" data-from="Smári">
@@ -104,6 +106,7 @@
       <p>Each module gets its own visual theme, and the site switches automatically on the day the calendar says the module begins. A design module should not look like a back-end module.</p>
       <ul class="notes">
       </ul>
+      <a class="more" href="ideas/module-themes.html">See the research</a>
     </article>
 
     <article class="idea" data-from="Smári">
@@ -112,6 +115,7 @@
       <p>What should the school do to reach more people? SEO, so search engines find us. GEO, so AI assistants recommend us. Or a change of direction: AI-driven web development, Forward Deployed Engineer, something else entirely.</p>
       <ul class="notes">
       </ul>
+      <a class="more" href="ideas/more-students.html">See the research</a>
     </article>
 
     <article class="idea" data-from="Smári">
@@ -120,6 +124,7 @@
       <p>Students should notice what is happening in the calendar without having to remember to look.</p>
       <ul class="notes">
       </ul>
+      <a class="more" href="ideas/push-app.html">See the research</a>
     </article>
 
     <article class="idea" data-from="Smári">
@@ -128,6 +133,16 @@
       <p>Points for returned guides, reviews given and grades. But each student only sees the one person just above them and the one just below. You want to catch the one ahead and stay in front of the one behind, and nobody feels bad about someone far beyond them.</p>
       <ul class="notes">
       </ul>
+      <a class="more" href="ideas/gamification.html">See the research</a>
+    </article>
+
+    <article class="idea" data-from="Smári">
+      <h3>Our own streaming platform</h3>
+      <p class="pitch">Lectures, screen sharing and recordings on our own site.</p>
+      <p>Today we depend on Zoom for teaching. What if the classroom lived on our own site instead, next to the calendar and the guides, built the way we want it?</p>
+      <ul class="notes">
+      </ul>
+      <a class="more" href="ideas/streaming.html">See the research</a>
     </article>
 
     <article class="idea" data-from="Claude">
@@ -136,6 +151,7 @@
       <p>One page where a company can browse the students who are open to internships, filter by what they are good at, and get in touch. A portfolio helps once someone is looking at you. This gets them looking.</p>
       <ul class="notes">
       </ul>
+      <a class="more" href="ideas/find-our-students.html">See the research</a>
     </article>
 
     <article class="idea" data-from="Claude">
@@ -144,6 +160,7 @@
       <p>What should day one feel like? A short tour, a first small task that teaches how returning and reviewing works, a clear picture of how grades are built. You were new here not long ago, so you remember what was confusing.</p>
       <ul class="notes">
       </ul>
+      <a class="more" href="ideas/first-week.html">See the research</a>
     </article>
 
     <article class="idea" data-from="Claude">
@@ -152,6 +169,7 @@
       <p>What you built, the guides you returned, the reviews you gave, the best feedback you got, how far you have come. It compares you with yourself a few months ago instead of with other students.</p>
       <ul class="notes">
       </ul>
+      <a class="more" href="ideas/term-recap.html">See the research</a>
     </article>
 
     <article class="idea" data-from="Claude">
@@ -160,6 +178,7 @@
       <p>Sit with a few students while they use the site on their own phone and laptop. Write down every place they get stuck. Try it with only a keyboard, and with a screen reader. Then fix the worst things and show the before and after.</p>
       <ul class="notes">
       </ul>
+      <a class="more" href="ideas/user-testing.html">See the research</a>
     </article>
 
     <!--
@@ -173,6 +192,10 @@
       <ul class="notes">
       </ul>
     </article>
+
+      Made a research page for it in ideas/? Link to it with this line,
+      just before </article>:
+      <a class="more" href="ideas/my-idea.html">See the research</a>
 
     -->
 
@@ -223,6 +246,36 @@ git push</code></pre>
       <p>If git reports a conflict, someone added an idea at the same moment. Keep both cards.</p>
     </li>
   </ol>
+
+  <div class="prompt-box" id="prompt">
+    <div>
+      <h3>Want the full research page too?</h3>
+      <p>
+        Every idea on the wall has a page behind it with research, links and a way to start.
+        Yours can have one as well. Open the repository in your AI coding assistant,
+        put your idea in the first line of this prompt, and let it do the digging.
+        Then read what it wrote, fix what is wrong, and push.
+      </p>
+      <p>
+        Prefer to write it yourself? Copy <code>ideas/_template.html</code> and fill it in.
+      </p>
+    </div>
+    <pre class="prompt"><code>My idea for our next internship project at Vefskólinn: [DESCRIBE YOUR IDEA IN A SENTENCE OR TWO]. My name is [YOUR NAME].
+
+This repository is a small static site that collects project ideas. Before you do anything, read index.html, ideas/_template.html and one finished page, for example ideas/streaming.html. If my idea is unclear, ask me questions first.
+
+Then:
+
+1. Research my idea properly on the web. What is already known about it? Who has done something similar, and what can we learn from them? How could it be built, and what could go wrong? Only use facts you found in a real source, and check that every link works.
+
+2. Write a research page for it as ideas/[short-name].html. Follow ideas/_template.html exactly and write in the same plain, direct voice as the other pages. Pick one of the colours c1 to c7 for the page.
+
+3. Add a card for it in index.html, just above the line that says YOUR IDEA GOES ABOVE THIS LINE, with my name in data-from and a "See the research" link to the new page.
+
+4. When you are done, tell me what you could not verify, what you are unsure about, and which three findings surprised you most.
+
+Do not change style.css, script.js or anybody else's idea. Do not commit or push. I will read it first.</code></pre>
+  </div>
 
   <p class="aside">
     Not at your computer?

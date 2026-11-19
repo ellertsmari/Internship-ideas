@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>How does the school get more students? · February is wide open</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Instrument+Serif:ital@1&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css">
+</head>
+
+<body class="page" style="--c: var(--c4)">
+
+<header class="page-hero">
+  <a class="back" href="../index.html#wall">← The wall</a>
+  <p class="from">from Smári</p>
+  <h1>How does the school get more students?</h1>
+  <p class="pitch">A real study, run by you, where the answer changes what the school says, where it shows up, and maybe what it teaches.</p>
+  <ul class="glance">
+    <li><b>Kind of work:</b> research first: interviews, search data, testing AI assistants. Then content, design and some code.</li>
+    <li><b>You'd enjoy this if:</b> you like asking people questions, and you want your findings to change something real.</li>
+  </ul>
+</header>
+
+<main class="page-main">
+
+  <section>
+    <h2>Why this is <em>worth doing</em></h2>
+    <p>A school with too few applicants gets smaller, and then it closes. That is happening to coding schools in many countries right now. Some closed and some changed what they teach. Before this school decides anything, somebody should ask the people who know: its students, its applicants and the companies that hire them. That could be you.</p>
+    <p>The question looks like a marketing question, but it has three layers. The first is about being found: does the school show up when someone searches, or when someone asks ChatGPT where to learn web development in Iceland? The second is about being chosen: when a person does find the school, what makes them apply, and what makes them close the tab? The third is the uncomfortable one: is "web developer" still the right thing to offer, when junior developer jobs are harder to get than they were three years ago?</p>
+    <p>You are in a good position to do this. You chose a school yourselves not long ago, you know how to interview and prototype, and you are not the teachers, so people will tell you things they would not tell Smári.</p>
+  </section>
+
+  <section>
+    <h2>Where we are <em>today</em></h2>
+    <p>The public side of io.vefskoli.is already does much of the basic work. A visitor who is not logged in gets a landing page in English: what the school is, a list of key facts, the year module by module, how AI is used in the programme, how studying works, one paragraph on where graduates work, a gallery of student projects and an FAQ. The headline already says "AI-native web development school in Iceland". The Apply button sends people to the application form at Tækniskólinn, which is a different website.</p>
+    <p>Three more areas are public: the guides (every assignment can be read without an account, at <code>/guides</code>), a student showcase (<code>/showcase</code>) and the group project briefs (<code>/projects</code>). Each guide has its own title and description. The sitemap is built from the database. <code>robots.txt</code> lets every crawler read the public pages, AI crawlers included. The landing page carries schema.org structured data (the school, the course and the FAQ), built from the same text that people read.</p>
+    <p>For teachers there is an analytics page that uses no cookies. It shows visitors, top pages, sources, countries and devices, and a table of crawlers that separates AI crawlers from search crawlers. A link with a campaign tag (<code>?utm_source=…</code> or <code>?ref=…</code>) is counted under that source.</p>
+    <p>And here is where it stops. Everything public is in English; there is no Icelandic landing page. There are no student stories or quotes. The graduates section names employers but gives no numbers. There is no open day, info evening or taster course to sign up for, and no way to leave an email address. The application happens on another site, and the code I read counts page views; it does not follow what happens after someone presses Apply. And no code can tell you why a person applied, or why a person looked and left. That part has to be asked.</p>
+  </section>
+
+  <section>
+    <h2>What the <em>research</em> says</h2>
+    <p>Seven findings, from the job market to the search box. Most numbers are from the US or the UK, because that is where the data is. Check them against Iceland yourselves.</p>
+    <div class="facts">
+      <article class="fact">
+        <strong>The youngest workers in AI-exposed jobs are being hired less</strong>
+        <p>Stanford researchers follow US payroll data. In their August 2026 update, employment of 22 to 25 year olds in AI-exposed occupations was 19% below where it would be if it had followed less exposed jobs. Experienced workers show no such gap. A school that trains beginners needs an answer to this.</p>
+        <a class="source" href="https://digitaleconomy.stanford.edu/publications/canaries-in-the-coal-mine/">Source: Stanford Digital Economy Lab, "Canaries in the Coal Mine?"</a>
+      </article>
+      <article class="fact">
+        <strong>Sweden approved 31 of 220 IT programmes</strong>
+        <p>In 2025 the Swedish authority for higher vocational education approved 31 of 220 applications in computer science and IT, because graduates were finding it harder to get jobs. The industry body TechSverige answered that these programmes "need to be developed and adapted, not phased out". This is the closest case to Vefskólinn that I found.</p>
+        <a class="source" href="https://techsverige.se/en/2026/01/it-utbildningar-i-yrkeshogskolan-dra-i-bromsen-men-inte-i-fel-riktning/">Source: TechSverige, January 2026</a>
+      </article>
+      <article class="fact">
+        <strong>A very large bootcamp operator stopped</strong>
+        <p>In December 2024 the US company 2U ended all its coding bootcamps. Its CEO wrote that "the long-form, intensive training that boot camps provide no longer aligns with what the market wants and needs". It moved to shorter courses. Other schools kept their programmes and rebuilt them around AI. Both are answers you can study.</p>
+        <a class="source" href="https://2u.com/newsroom/new-chapter-tech-training-2u/">Source: 2U, "A new chapter for tech training"</a>
+      </article>
+      <article class="fact">
+        <strong>Forward Deployed Engineer is growing fast, but it is rarely a first job</strong>
+        <p>An analysis of 1,000 job ads found the title grew 1,165% from 2024 to 2025. TypeScript was in 35% of the ads. Only 12% were open to people with 0 to 2 years of experience. The skills are interesting for a school: build for one customer, talk to them, ship. The title is probably not something a one-year programme can promise.</p>
+        <a class="source" href="https://bloomberry.com/blog/i-analyzed-1000-forward-deployed-engineer-jobs-what-i-learned/">Source: Bloomberry, analysis of 1,000 FDE job ads</a>
+      </article>
+      <article class="fact">
+        <strong>Google says there is no special trick for its AI answers</strong>
+        <p>Google's own guide says you do not need llms.txt, special markup or content cut into small pieces to appear in its AI answers, and that Search ignores llms.txt. It puts helpful, original content above every other tip. The guide speaks for Google Search only. ChatGPT, Claude and Perplexity have not published anything similar that I could find.</p>
+        <a class="source" href="https://developers.google.com/search/docs/fundamentals/ai-optimization-guide">Source: Google Search Central, guide to generative AI features</a>
+      </article>
+      <article class="fact">
+        <strong>Ask an AI the same question twice and you get a different list</strong>
+        <p>SparkToro had 600 volunteers run 12 prompts 2,961 times in ChatGPT, Claude and Google's AI. The chance of getting the same list of recommendations twice was under 1 in 100. A rank in ChatGPT means nothing. What you can measure is how often the school appears across many runs of many questions.</p>
+        <a class="source" href="https://sparktoro.com/blog/new-research-ais-are-highly-inconsistent-when-recommending-brands-or-products-marketers-should-take-care-when-tracking-ai-visibility/">Source: SparkToro and Gumshoe, January 2026</a>
+      </article>
+      <article class="fact">
+        <strong>Applicants use AI, and still want to meet people</strong>
+        <p>In a Keystone survey of over 1,700 prospective students, 67% used AI tools at least once a month to research study options, but only 36% rated it very or extremely trustworthy. In the UK, 79% of placed applicants went to an in-person open day and 96% of those found it useful (<a href="https://www.ucas.com/providers/ucas-research-and-insights/end-of-cycle-survey-2025-results-and-recommendations">UCAS, 2025</a>). AI may make the shortlist. A visit, or a person, often makes the decision.</p>
+        <a class="source" href="https://www.keg.com/press/prospective-students-use-ai-to-research-options-but-trust-is-low">Source: Keystone Education Group, September 2025</a>
+      </article>
+    </div>
+    <p>Three smaller findings. The <a href="https://arxiv.org/abs/2311.09735">"GEO" paper</a> (KDD 2024) found that adding quotations, statistics and cited sources to a page raised its visibility in AI answers by 30 to 40% in a benchmark, while keyword stuffing did not help. That was a lab test, so read it as a hint. <a href="https://ahrefs.com/blog/llmstxt-study/">Ahrefs looked at 137,210 sites</a> and found that 97% of llms.txt files were not fetched by anything in a whole month. And in <a href="https://ahrefs.com/blog/ai-overview-brand-correlation/">an Ahrefs study of 75,000 brands</a>, being mentioned on other websites went together with showing up in Google's AI Overviews much more strongly (0.664) than backlinks did (0.218). That is a correlation, and the authors say so. For a school, the honest kind of mention is a graduate, a partner company or a news site writing about something real.</p>
+  </section>
+
+  <section>
+    <h2>Go and <em>look at these</em></h2>
+    <div class="inspo">
+      <a class="inspo-card" href="https://tskoli.is/namsbraut/vefthroun/">
+        <strong>The other page about the same programme</strong>
+        <span>People apply through Tækniskólinn's own page. Read it and the landing page as a stranger would, in Icelandic and in English. Do they tell the same story with the same facts?</span>
+        <small>tskoli.is</small>
+      </a>
+      <a class="inspo-card" href="https://public.launchschool.com/salaries">
+        <strong>Launch School results</strong>
+        <span>Outcome numbers for every year since 2018, including the weak ones: in 2021, 69 of 71 students accepted a job offer; in 2025, 37 of 60. Showing the bad years is what makes the good ones believable.</span>
+        <small>public.launchschool.com</small>
+      </a>
+      <a class="inspo-card" href="https://www.technigo.io/">
+        <strong>Technigo</strong>
+        <span>A Swedish school that now lists "AI Native Development" as a yrkeshögskola (higher vocational) programme, next to free taster courses. Look at how many small first steps it offers before anyone has to apply.</span>
+        <small>technigo.io</small>
+      </a>
+      <a class="inspo-card" href="https://www.lewagon.com/web-development-course">
+        <strong>Le Wagon, web development</strong>
+        <span>The page says exactly where AI sits in the course, in hours. The first step it asks for is a free info session. Also notice which numbers it shows and which it leaves out.</span>
+        <small>lewagon.com</small>
+      </a>
+      <a class="inspo-card" href="https://www.coursereport.com/blog/why-general-assembly-is-rethinking-bootcamps-for-2026">
+        <strong>General Assembly explains its pivot</strong>
+        <span>From about 420 hours of teaching to sets of 32-hour AI courses for people who already work. It is a sponsored interview, so read it critically. It shows a school changing who its student is.</span>
+        <small>coursereport.com</small>
+      </a>
+      <a class="inspo-card" href="https://blogs.bing.com/webmaster/February-2026/Introducing-AI-Performance-in-Bing-Webmaster-Tools-Public-Preview">
+        <strong>Bing's AI Performance report</strong>
+        <span>Bing Webmaster Tools shows which of your pages Copilot cites and the phrases the AI searched for when it found them. It is the only first-party tool I found that shows this at all.</span>
+        <small>blogs.bing.com</small>
+      </a>
+      <a class="inspo-card" href="https://newsletter.pragmaticengineer.com/p/forward-deployed-engineers">
+        <strong>What a Forward Deployed Engineer does</strong>
+        <span>The role started at Palantir in the early 2010s. This is the clearest description of a normal week in the job. Compare it with the school's final project, which students do together with a company.</span>
+        <small>newsletter.pragmaticengineer.com</small>
+      </a>
+      <a class="inspo-card" href="https://www.hyperisland.com/">
+        <strong>Your own school</strong>
+        <span>You were the prospective student once. Before you interview anyone, write down what made you apply there, what you searched for and who you asked. That is your first data point.</span>
+        <small>hyperisland.com</small>
+      </a>
+    </div>
+  </section>
+
+  <section>
+    <h2>How you could <em>run it</em></h2>
+    <p>There is nothing to build at the start. These are four research methods. Use two or three, so that one can check the other.</p>
+    <div class="options">
+      <article class="option">
+        <h3>Talk to people</h3>
+        <p>Interview current students, graduates, and if you can reach them, people who asked about the programme and did not apply. Ask for the story of the decision, step by step: what did you search for, who did you ask, what almost stopped you? Nielsen Norman Group has a good <a href="https://www.nngroup.com/articles/interviewing-users/">guide to interviewing</a>.</p>
+        <p class="good">It costs nothing and gives you the reasons behind the numbers. You also collect real student stories, which the landing page does not have.</p>
+        <p class="watch">The people who did not apply are the most valuable and the hardest to find. The school may not be allowed to give you their contact details, so plan how to reach them with consent. Keep names out of your notes.</p>
+      </article>
+      <article class="option">
+        <h3>Read the market</h3>
+        <p>Make a table of every way a person in Iceland might learn web development or design: universities, other diploma programmes, online bootcamps, free courses, learning alone with AI. For each: price, length, language, what they promise, what proof they show. Then read 50 current job ads on Icelandic job boards such as <a href="https://alfred.is/">Alfreð</a> and <a href="https://www.tvinna.is/">Tvinna</a> and count what they ask for.</p>
+        <p class="good">This method can answer the "change of direction" question with evidence from Iceland.</p>
+        <p class="watch">Job ads show what companies say they want. Talk to three or four of the companies that hire graduates as well, and ask what a junior does there in the first six months now.</p>
+      </article>
+      <article class="option">
+        <h3>Measure search and AI answers</h3>
+        <p>For search: <a href="https://search.google.com/search-console/about">Google Search Console</a> and <a href="https://www.bing.com/webmasters/about">Bing Webmaster Tools</a> are free and show the real queries that lead to the site. <a href="https://trends.google.com/trends/">Google Trends</a> can compare terms inside Iceland. For AI: write 20 to 30 questions a future student would ask, in Icelandic and in English, and run each one several times in ChatGPT, Claude, Perplexity, Copilot and Google's AI Mode. Record in a spreadsheet: is the school named, are the facts right, which sources are cited?</p>
+        <p class="good">You get a baseline, and a list of wrong facts that can be fixed at the source. Checking that crawlers can get in is quick: <a href="https://developers.openai.com/api/docs/bots">OpenAI</a>, <a href="https://support.claude.com/en/articles/8896518-does-anthropic-crawl-data-from-the-web-and-how-can-site-owners-block-the-crawler">Anthropic</a> and <a href="https://docs.perplexity.ai/guides/bots">Perplexity</a> each publish the names of their search crawlers.</p>
+        <p class="watch">Iceland is small, so keyword tools will often say "not enough data". AI answers change from run to run, so one screenshot proves nothing. Do not buy an "AI visibility" tool before you have done this by hand.</p>
+      </article>
+      <article class="option">
+        <h3>Change one thing and watch</h3>
+        <p>Pick the strongest finding and test it on the real site: a student story section, an Icelandic landing page, a sign-up for an info evening, a clearer first step than "Apply". Give every link you share its own campaign tag so the analytics page can tell where visitors came from.</p>
+        <p class="good">This is where the research gets consequences, and where your design and code skills come back in.</p>
+        <p class="watch">A classic A/B test needs many visitors. Put the site's numbers into <a href="https://www.evanmiller.org/ab-testing/sample-size.html">a sample size calculator</a> before you plan one. Before-and-after comparisons and small usability tests may fit better. And the real result, applications, only arrives once a year.</p>
+      </article>
+    </div>
+  </section>
+
+  <section>
+    <h2>A first <em>week</em></h2>
+    <ol class="plan">
+      <li><strong>Write your own story</strong> Each of you writes one page: how you chose your school, what you searched for, who you asked, what nearly stopped you. Compare the three.</li>
+      <li><strong>Read both programme pages as a stranger</strong> The landing page on io.vefskoli.is and the programme page on tskoli.is, in both languages. List every fact you can find (price, length, language, dates, how to apply) and mark every place where the pages differ or leave you with a question.</li>
+      <li><strong>Ask four AI assistants ten questions</strong> For example "Where can I learn web development in Iceland?" in Icelandic and in English. Run each question three times. Save the answers, the sources they cite and every wrong fact.</li>
+      <li><strong>Get access to the data</strong> Ask Smári for Search Console, Bing Webmaster Tools and the analytics page. Write down the ten queries and ten pages that bring the most visitors, and what surprised you.</li>
+      <li><strong>Do two pilot interviews</strong> Two current students, 30 minutes each, one of you asks and one writes. Start with "Tell me about the day you decided to apply." Fix your questions afterwards.</li>
+      <li><strong>Write a one-page plan</strong> The question, the methods, the timeline, and for each method: which decision could this change? Agree with Smári who is able to make those decisions.</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>Still <em>open</em></h2>
+    <ul class="questions">
+      <li>More students, or the right students? The landing page says the school is "small on purpose", with one cohort a year. Is the goal a bigger class, a full class, or a class where more people finish?</li>
+      <li>Icelandic or English? All teaching is in English and so is the site. Would an Icelandic page reach people who never see the school today, or would it attract people who then struggle in an English classroom?</li>
+      <li>Is "web developer" still the right name for what a graduate becomes? If not, what is, and can a one-year programme honestly promise it?</li>
+      <li>Would the school publish its outcome numbers in a weak year, the way Launch School does? If the answer is no, should it publish them in a good year?</li>
+      <li>If your findings point to a change in the programme itself, how fast can a diploma programme inside a large public school change, and who has to say yes?</li>
+      <li>Is being recommended by an AI assistant worth chasing when you can hardly measure it? Or is the better plan to fix the facts, earn real mentions, and stop there?</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Keep <em>reading</em></h2>
+    <ul class="links">
+      <li><a href="https://developers.google.com/search/docs/fundamentals/seo-starter-guide">Google's SEO Starter Guide</a> The basics, from the source, and short.</li>
+      <li><a href="https://developers.google.com/search/docs/specialty/international/managing-multi-regional-sites">Google on sites in more than one language</a> Read this before anyone builds an Icelandic page. Google reads the language from the visible text and wants a separate URL for each language.</li>
+      <li><a href="https://arxiv.org/abs/2311.09735">GEO: Generative Engine Optimization</a> The paper that gave the field its name. Read the method and the limits, not only the "up to 40%" in the abstract.</li>
+      <li><a href="https://www.pewresearch.org/short-reads/2025/07/22/google-users-are-less-likely-to-click-on-links-when-an-ai-summary-appears-in-the-results/">Pew: people click less when Google shows an AI summary</a> With a summary, 8% of visits ended in a click on a result. Without one, 15%.</li>
+      <li><a href="https://newsletter.pragmaticengineer.com/p/is-the-fde-role-becoming-less-desirable">Is the FDE role becoming less desirable?</a> The other side, from engineers who took the job and left. Read it before anyone puts "FDE" on a school website.</li>
+      <li><a href="https://survey.stackoverflow.co/2025/ai">Stack Overflow Developer Survey 2025, AI section</a> 84% of developers use or plan to use AI tools, and more distrust the output (46%) than trust it (33%). This supports the school's rule that you own every line you ship.</li>
+      <li><a href="https://www.euronews.com/2025/11/15/tech-job-postings-fall-across-europe-but-rise-in-emerging-markets-where-are-the-biggest-de">Tech job postings across Europe</a> Indeed data by country, compared with February 2020. Sweden is at minus 32%. Iceland is not in it, which is one reason to count job ads yourselves.</li>
+          </ul>
+  </section>
+
+</main>
+
+<section class="page-cta">
+  <h2>This is a starting point, <em>not a plan.</em></h2>
+  <p>Disagree with something? Found a better example? Know how you would do it? Change this page and push to main.</p>
+  <div class="hero-actions">
+    <a class="btn btn-solid" href="https://github.com/ellertsmari/Internship-ideas/edit/main/ideas/more-students.html">Edit this page</a>
+    <a class="btn" href="../index.html#wall">Back to the wall</a>
+  </div>
+  <p class="note">Researched by Claude, November 2026. Check a link before you rely on a number.</p>
+</section>
+
+</body>
+</html>

@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The first week on the site · February is wide open</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Instrument+Serif:ital@1&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css">
+</head>
+
+<body class="page" style="--c: var(--c2)">
+
+<header class="page-hero">
+  <a class="back" href="../index.html#wall">← The wall</a>
+  <p class="from">from Claude</p>
+  <h1>The first week on the site</h1>
+  <p class="pitch">A new student meets guides, reviews, grades, calendar and groups all at once. You get to design what day one feels like.</p>
+  <ul class="glance">
+    <li><b>Kind of work:</b> talking to students, UX writing, interaction design, a medium amount of React</li>
+    <li><b>You'd enjoy this if:</b> you like watching someone use a thing for the first time and then fixing what tripped them</li>
+  </ul>
+</header>
+
+<main class="page-main">
+
+  <section>
+    <h2>Why this is <em>worth doing</em></h2>
+    <p>Every autumn a new group opens io.vefskoli.is for the first time. In the same week they are also learning HTML, meeting classmates and finding the classroom. The site asks them to understand a system that is unusual: you return a guide, you review two classmates, two classmates review you, and a teacher grades the reviews you wrote. Most school systems they have used before work nothing like this.</p>
+    <p>The first week decides a lot. A student who returns one guide and gives one review in the first days has seen the whole loop once, and the rest of the year is repetition. A student who does not understand the loop falls behind without knowing why, and the grade on the home page shows a low number that looks like bad news.</p>
+    <p>You have one research source that nobody else has. You were new on this exact site not long ago. Before you read the rest of this page, take a piece of paper and write down what confused you in your own first week. Do it alone, then compare. That list is worth more than any article linked below, and it gets weaker every month you keep using the site.</p>
+  </section>
+
+  <section>
+    <h2>Where we are <em>today</em></h2>
+    <p>I read the code of the site to see what a new student meets. This is what is there in November 2026.</p>
+    <p><strong>Signing up.</strong> The sign-up form asks for first name, last name, email and password. A line on the form says a teacher approves every new account before it can sign in, so the first experience can be a wait. The guides are public, so a waiting student could already read them, but the form does not say so.</p>
+    <p><strong>The home page.</strong> After signing in, a student lands on Home. The heading says "Welcome back", also on the first visit. Home shows three status boxes (Progress, Grades, Score) and then the work: "Continue Learning" with the next three guides, "Give Reviews" when reviews are owed, a box for group work, and "Waiting for Projects to Review" when there is nobody to review yet. Each box has a short help text. The Score box has a leaderboard area that says ranking will come later.</p>
+    <p><strong>How grades are explained.</strong> This part is good. Next to the grades there is a button, "How is this calculated?", that opens an 11-slide walkthrough of the peer review system. It has a slider where you drag review quality and watch the grade move. It explains that a guide grade is 5 for a passed return plus up to 5 for the quality of the reviews you give, and that the grade on Home counts guides you have not returned as 0 on purpose, so it climbs during the year. The same walkthrough is the only card on the Docs page, under the label "Start here".</p>
+    <p><strong>Empty states.</strong> They exist and they are short. No guides: "No guides yet". No events on a day: "No events scheduled." No recordings: "No lecture recordings have been published yet." They report the status. They do not teach anything or point to a next step.</p>
+    <p><strong>What is missing.</strong> I searched for a tour, a welcome checklist, a first-visit state or anything that treats a new student differently from one in their third term. I found none. The navigation shows eight items from the first second: Home, Guides, Groups, Resources, Gallery, People, Calendar, Docs. There is no practice task for returning or reviewing. The first return a student makes is a real one.</p>
+    <p><strong>Two things you can build on.</strong> The site already has guides that grade themselves: interactive exercises with instant feedback and retries. And the code already treats a "Module 0" as outside the progress bars and the grades. A practice guide would have a natural home there.</p>
+    <p><strong>Measuring.</strong> The site has its own cookieless analytics, but it counts only visitors who are not signed in, on the public pages. Signed-in students are left out on purpose. So it cannot tell you today how long a new student takes to return a first guide. The database does store when an account was created, when a guide was returned and when a review was written, so the numbers can be worked out another way.</p>
+  </section>
+
+  <section>
+    <h2>What the <em>research</em> says</h2>
+    <p>Seven findings, from usability research, product practice and education research. Some of them argue against the most obvious solution, a tour.</p>
+    <div class="facts">
+      <article class="fact">
+        <strong>People skip tutorials, and tutorials do not help much</strong>
+        <p>Nielsen Norman Group writes that users "frequently skip" onboarding tutorials, and that tutorials are not memorable and do not lead to better task performance. They recommend help that appears at the moment you need it. For you: a five-step tour on first sign-in is the weakest option on the table.</p>
+        <a class="source" href="https://www.nngroup.com/articles/onboarding-tutorials/">Source: Nielsen Norman Group, Onboarding Tutorials vs. Contextual Help (2023)</a>
+      </article>
+      <article class="fact">
+        <strong>Learning by doing works best when little is at risk</strong>
+        <p>The same group advises against "deck-of-cards" intro slides because they make an interface look more complicated than it is. Interactive walkthroughs let people learn by doing, "ideally in a low-stakes environment". On this site the first return and the first review are real and graded. A practice round would lower the risk.</p>
+        <a class="source" href="https://www.nngroup.com/articles/mobile-app-onboarding/">Source: Nielsen Norman Group, Mobile-App Onboarding (2020)</a>
+      </article>
+      <article class="fact">
+        <strong>An empty screen has three jobs</strong>
+        <p>Say what the status is, teach something about the feature, and give a direct way to start the main task. The empty states on the site do the first job only. A new student has more empty screens than anyone, so this is cheap onboarding that nobody can skip.</p>
+        <a class="source" href="https://www.nngroup.com/articles/empty-state-interface-design/">Source: Nielsen Norman Group, Designing Empty States in Complex Applications (2021)</a>
+      </article>
+      <article class="fact">
+        <strong>Tours people ask for get finished</strong>
+        <p>In data from 464 software products in the first half of 2026, tours that users started themselves had a median completion of 69%. Tours that started automatically had 23%. The authors warn that people who start a tour were already interested, so switching will not triple your number. The source sells onboarding software, so read it as a direction.</p>
+        <a class="source" href="https://produktly.com/research/saas-onboarding-benchmarks-2026">Source: Produktly, SaaS Onboarding Benchmarks 2026</a>
+      </article>
+      <article class="fact">
+        <strong>Let people do something before the paperwork</strong>
+        <p>Duolingo's growth lead said that moving the sign-up screen back a few steps, so people tried a lesson first, led to about a 20% increase in daily active users. Here the paperwork is the wait for a teacher to approve the account. That wait could hold a first small task.</p>
+        <a class="source" href="https://review.firstround.com/the-tenets-of-a-b-testing-from-duolingos-master-growth-hacker">Source: First Round Review, interview with Duolingo's VP of Growth</a>
+      </article>
+      <article class="fact">
+        <strong>What a student does in week one predicts the rest</strong>
+        <p>In an online biology course with 37,933 sign-ups, behaviour in week one predicted who earned a certificate. Each extra peer assessment done in week one made the odds of the higher certificate more than 7 times larger. It was a four-week open online course, very different from a small class, but the signal is the same one this site has: an early peer review.</p>
+        <a class="source" href="https://www.educationaldatamining.org/EDM2014/uploads/procs2014/short%20papers/273_EDM-2014-Short.pdf">Source: Jiang and others, Predicting MOOC Performance with Week 1 Behavior (EDM 2014)</a>
+      </article>
+      <article class="fact">
+        <strong>"Everyone was confused at first" is a real intervention</strong>
+        <p>In a study with 92 first-year students at a US college, half read survey results saying that most new students worry about whether they belong and later feel at home. For the African-American students in that group, the grade gap to their classmates had closed by 79% by the final year. Your own notes on what confused you could become that message for the next group. Note that the study is about one group in one country.</p>
+        <a class="source" href="https://sparq.stanford.edu/solutions/when-students-feel-they-belong-they-thrive">Source: Stanford SPARQ, summary of Walton and Cohen (Science, 2011)</a>
+      </article>
+    </div>
+  </section>
+
+  <section>
+    <h2>Go and <em>look at these</em></h2>
+    <div class="inspo">
+      <a class="inspo-card" href="https://www.useronboard.com/user-onboarding-teardowns/">
+        <strong>UserOnboard teardowns</strong>
+        <span>Slide-by-slide walks through the first minutes of Duolingo, Slack, Trello and dozens more. Steal the format: do the same teardown of io.vefskoli.is.</span>
+        <small>useronboard.com</small>
+      </a>
+      <a class="inspo-card" href="https://www.useronboard.com/how-duolingo-onboards-new-users/">
+        <strong>How Duolingo onboards new users</strong>
+        <span>The classic one, 78 slides from 2015, and the author calls this onboarding "one of the very best". Go through it and note the point where Duolingo first asks for anything.</span>
+        <small>useronboard.com</small>
+      </a>
+      <a class="inspo-card" href="https://growth.design/case-studies/trello-user-onboarding">
+        <strong>Trello's onboarding: 7 tactics</strong>
+        <span>Seven tactics. The one to steal: Trello explains boards with a to-do list, a thing people already know. What familiar thing explains "return, review, be reviewed"?</span>
+        <small>growth.design</small>
+      </a>
+      <a class="inspo-card" href="https://github.com/skills">
+        <strong>GitHub Skills</strong>
+        <span>Courses that teach GitHub inside GitHub. You work in your own copy of a real project and a bot gives feedback in issues. The tool is the tutorial.</span>
+        <small>github.com/skills</small>
+      </a>
+      <a class="inspo-card" href="https://www.theodinproject.com/lessons/foundations-how-this-course-will-work">
+        <strong>The Odin Project: "How this course will work"</strong>
+        <span>The first lesson is about the course itself, and it ends with a small assignment. The site could have a guide like this as its very first guide.</span>
+        <small>theodinproject.com</small>
+      </a>
+      <a class="inspo-card" href="https://www.candu.ai/blog/linear-onboarding-teardown">
+        <strong>Linear's onboarding, taken apart</strong>
+        <span>In 2025 it was seven short screens, about a minute, no tour, and it ended with your cursor in your first issue. The opposite of a guided tour, argued well.</span>
+        <small>candu.ai</small>
+      </a>
+      <a class="inspo-card" href="https://gamedeveloper.com/design/how-miyamoto-built-i-super-mario-bros-i-legendary-world-1-1">
+        <strong>Super Mario Bros, World 1-1</strong>
+        <span>A first level built so players "gradually and naturally understand what they're doing", with no text at all. The best argument for a practice guide.</span>
+        <small>gamedeveloper.com</small>
+      </a>
+      <a class="inspo-card" href="https://driverjs.com/">
+        <strong>Driver.js demo page</strong>
+        <span>Click through the examples to feel what a spotlight tour is like, and how different a single highlight is from a ten-step tour.</span>
+        <small>driverjs.com</small>
+      </a>
+      <a class="inspo-card" href="https://pageflows.com/">
+        <strong>Page Flows</strong>
+        <span>Screen recordings of real onboarding flows, step by step. Paid, with a cheap three-day trial. One trial is enough to collect references.</span>
+        <small>pageflows.com</small>
+      </a>
+    </div>
+  </section>
+
+  <section>
+    <h2>How it could <em>be built</em></h2>
+    <div class="options">
+      <article class="option">
+        <h3>A first-visit Home and better empty states</h3>
+        <p>No library. Home notices that a student has returned nothing yet and shows a different page: one sentence about how the school works, one guide to start, and the grade box replaced or explained. Every empty state gets a second sentence and a link to the next action.</p>
+        <p class="good">Nobody can skip it, because it is the page itself. It is mostly writing and layout, and Home already knows how many guides a student has returned, so no new data is needed.</p>
+        <p class="watch">It is easy to write too much. It also disappears after the first return, so it cannot teach reviewing, which comes later.</p>
+      </article>
+      <article class="option">
+        <h3>A practice guide: World 1-1 for the site</h3>
+        <p>A first guide in Module 0 where the student returns something tiny, reviews a prepared example, and sees how a grade is built. It could use the exercise engine the site already has, so feedback is instant.</p>
+        <p class="good">It teaches the loop by doing it, with nothing at risk. It fits the research better than any other option here.</p>
+        <p class="watch">The hard part is the review. Real reviews need real classmates and a teacher who grades them. A prepared example is safe but a little fake. You have to decide which is worse, and whether a practice return may show up in other students' review lists.</p>
+      </article>
+      <article class="option">
+        <h3>A "first week" checklist on Home</h3>
+        <p>Four or five items that tick themselves from real data: returned your first guide, gave your first review, got your first review, opened the grading walkthrough, found the calendar. It leaves when it is complete.</p>
+        <p class="good">It works across days, which a tour cannot. The first three items can be read from data the site already stores. It also gives you something to measure.</p>
+        <p class="watch">"Opened the walkthrough" needs a new stored flag per student. A checklist can also become one more thing to finish, and the Home page already has a group work box and review boxes competing for attention.</p>
+      </article>
+      <article class="option">
+        <h3>A spotlight tour or single highlights</h3>
+        <p>A library dims the page and points at one element with a short text. <a href="https://github.com/kamranahmedse/driver.js">Driver.js</a> is MIT licensed, has no dependencies and released version 1.14 in November 2026. <a href="https://github.com/gilbarbara/react-joyride">React Joyride</a> is MIT, supports React 16.8 to 19 and released 3.2 in July 2026. <a href="https://www.shepherdjs.dev/pricing">Shepherd.js</a> and <a href="https://github.com/usablica/intro.js">Intro.js</a> are AGPL with a paid licence for commercial use (Shepherd lists $50 for up to five projects), so ask before choosing them.</p>
+        <p class="good">Fast to add. Useful as single highlights at the right moment: the first time a student has a review to give, point at it once. Start a longer tour from a button, since tours people start themselves get finished far more often.</p>
+        <p class="watch">This is the pattern the research is most negative about. A tour is also a small dialog, so it must follow the <a href="https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/">dialog rules</a>: focus moves into it, Tab stays inside, Escape closes it, focus returns to where it was. Both MIT libraries say they handle keyboard and focus. Test that yourself with a keyboard and a screen reader before you believe it. Tours also break silently when someone changes the page they point at.</p>
+      </article>
+    </div>
+  </section>
+
+  <section>
+    <h2>A first <em>week</em></h2>
+    <ol class="plan">
+      <li><strong>Write down your own first week</strong> Each of you alone, 20 minutes, before any reading. What did you not understand? What did you get wrong? Who did you ask? Then put the three lists next to each other and mark what repeats.</li>
+      <li><strong>Be new again, on purpose</strong> Ask Smári for a fresh test student. Sign up, wait for approval, sign in, return the first guide, give the first review. Record the screen and say your thoughts out loud. Count the clicks and the decisions between sign-in and the first return.</li>
+      <li><strong>Talk to five first-term students</strong> Ask them to show you, on their own laptop, something that confused them in week one. Ask what the grade number on Home meant to them the first time they saw it. Do not explain anything while they talk.</li>
+      <li><strong>Choose the moment that matters</strong> Decide what the "now I get it" moment is on this site, in one sentence. Then choose a number that shows it, such as days from account creation to first returned guide, and ask Smári what last autumn's number was.</li>
+      <li><strong>Rewrite five empty states</strong> Only text and one link each. It is the smallest real change, it can go live in the first week, and it makes you read every corner of the site.</li>
+      <li><strong>Draw one new Home on paper</strong> The Home of a student with zero returns. Show it to someone who has never seen the site and ask what they would do first. If the answer is "open the first guide", you are close.</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>Still <em>open</em></h2>
+    <ul class="questions">
+      <li>What is the moment a student understands the site: the first return, the first review they give, or the first review they receive? Onboarding should aim at one of them.</li>
+      <li>The grade on Home starts near zero on purpose and climbs all year. Should a student see that number on day one, or should it appear after the first return?</li>
+      <li>Should the practice review be of a real classmate or of a prepared example? One is honest and slow. The other is fast and slightly fake.</li>
+      <li>Teachers explain the system in the classroom too. Which parts belong in the room and which on the site? If the site explains everything, what is left for day one in class?</li>
+      <li>The analytics leave signed-in students out on purpose. How much are you willing to record about a new student to learn whether your design works?</li>
+      <li>Who keeps the onboarding correct when the site changes? You will be gone, and a tour that points at a button that moved is worse than no tour.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Keep <em>reading</em></h2>
+    <ul class="links">
+      <li><a href="https://www.nngroup.com/articles/onboarding-tutorials/">Onboarding Tutorials vs. Contextual Help</a> The clearest short text on why tours disappoint and what to do in their place. Read this one first.</li>
+      <li><a href="https://www.nngroup.com/articles/paradox-of-the-active-user/">Paradox of the Active User</a> From 1998 and still true: "Users never read manuals but start using the software immediately." Design for that person.</li>
+      <li><a href="https://www.nngroup.com/articles/progressive-disclosure/">Progressive Disclosure</a> The idea behind showing a new student less: put rarely used things one step away. Think about eight navigation items on day one.</li>
+      <li><a href="https://www.intercom.com/blog/understanding-your-aha-moments-and-putting-them-to-work/">Understanding the "aha" moments in your product</a> Separates the moment the user finds value from the number the company counts. Useful when you choose what to measure.</li>
+      <li><a href="https://education.nsw.gov.au/about-us/education-data-and-research/cese/publications/literature-reviews/cognitive-load-theory.html">Cognitive load theory: research that teachers really need to understand</a> People hold about four new things in mind at once, and beginners learn more from worked examples. A reason to show one finished return and one good review.</li>
+      <li><a href="https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/">W3C: the modal dialog pattern</a> The keyboard and focus rules that any tour step or welcome dialog has to follow.</li>
+      <li><a href="https://hbr.org/2011/05/the-power-of-small-wins">The Power of Small Wins</a> Amabile and Kramer studied the work diaries of knowledge workers and argue that small steps forward matter more than people think. The case for a small first task.</li>
+      <li><a href="https://www.chameleon.io/blog/product-tour-benchmarks-highlights">What 15 million tour interactions show</a> Vendor data, so read it critically, but it agrees with the rest: short tours, started by the user, with a progress indicator.</li>
+    </ul>
+  </section>
+
+</main>
+
+<section class="page-cta">
+  <h2>This is a starting point, <em>not a plan.</em></h2>
+  <p>Disagree with something? Found a better example? Know how you would do it? Change this page and push to main.</p>
+  <div class="hero-actions">
+    <a class="btn btn-solid" href="https://github.com/ellertsmari/Internship-ideas/edit/main/ideas/first-week.html">Edit this page</a>
+    <a class="btn" href="../index.html#wall">Back to the wall</a>
+  </div>
+  <p class="note">Researched by Claude, November 2026. Check a link before you rely on a number.</p>
+</section>
+
+</body>
+</html>

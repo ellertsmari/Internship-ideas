@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Watch real students use it, then fix it · February is wide open</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Instrument+Serif:ital@1&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css">
+</head>
+
+<body class="page" style="--c: var(--c4)">
+
+<header class="page-hero">
+  <a class="back" href="../index.html#wall">← The wall</a>
+  <p class="from">from Claude</p>
+  <h1>Watch real students use it, then fix it</h1>
+  <p class="pitch">Find the problems nobody on the team can see any more.</p>
+  <ul class="glance">
+    <li><b>Kind of work:</b> research first, then design and code. About one third watching, two thirds fixing.</li>
+    <li><b>You'd enjoy this if:</b> you like watching people more than guessing about them, and you want a portfolio piece with a clear before and after.</li>
+  </ul>
+</header>
+
+<main class="page-main">
+
+  <section>
+    <h2>Why this is <em>worth doing</em></h2>
+    <p>Everyone who builds the site knows where every button is. That is the problem. You, the teachers and Claude have all used it so many times that you can no longer see what is confusing. A student who opens it on a phone between two classes sees a different site. Nobody has sat next to that student and watched.</p>
+    <p>The work has three parts. First you watch a few students do real tasks on their own phone and laptop, and you write down every place they stop, guess or give up. Then you go through the same tasks yourselves with only a keyboard, and again with a screen reader. Then you fix the worst things and show the result: the same task, before and after, side by side.</p>
+    <p>Two things make this a strong choice for February. It gives you a portfolio piece that almost no junior developer has: evidence that you found real problems with real users and solved them. And it makes every other idea on the wall better. The calendar, the group projects, the first week on the site: each of them starts from a guess about what students find hard. After this project you would have a ranked list in place of the guess.</p>
+  </section>
+
+  <section>
+    <h2>Where we are <em>today</em></h2>
+    <p>The part of the site a student uses is already large: a home page with their guides and progress, the guides themselves, the form for returning a guide, exercises with questions inside some guides, reviews of other students' work, a calendar with sign-up sheets, find-a-time polls and bookable meeting hours, group projects with peer evaluation, the gallery, and the portfolio builder you are working on now.</p>
+    <p>The code is checked in several ways. There are more than a hundred test files, and a small set of browser tests in Playwright that follow the most important paths: a visitor reads a guide, a student returns a project and answers an exercise question, a teacher reaches the teaching tools. Every pull request is built, type-checked, linted and tested.</p>
+    <p>All of that checks that the site <em>works</em>. Very little checks that it is <em>easy to use</em>, or that everyone can use it:</p>
+    <ul>
+      <li>The browser tests run in desktop Chrome only. There is no phone-sized run.</li>
+      <li>There is no automated accessibility test. No axe, no jest-axe, no Lighthouse or Pa11y step.</li>
+      <li>The lint setup has only the six accessibility rules that come with the Next.js preset, as warnings. The full recommended set of <code>eslint-plugin-jsx-a11y</code> is not switched on.</li>
+      <li>Parts of the code do care about accessibility: there are ARIA attributes, visible focus styles and reduced-motion rules in many components. Nobody has checked the whole site in one pass.</li>
+      <li>The site has its own cookieless analytics page for teachers. It counts logged-out visitors on the public pages (the landing page, the guides, the gallery). Signed-in students are left out on purpose. So there is no data about where a student drops off inside a task.</li>
+      <li>I found no notes from a usability test with students anywhere in the project's documents.</li>
+    </ul>
+    <p>One more detail. The project brief for module 4, on the site's own public projects page, asks student teams for a main flow that works with the keyboard only, and for a keyboard test and an axe scan that run on every pull request. The site that hosts the brief does not do this for itself yet. You could change that.</p>
+  </section>
+
+  <section>
+    <h2>What the <em>research</em> says</h2>
+    <p>Usability testing is one of the best studied methods in our field, and the good news is that the cheap version works.</p>
+    <div class="facts">
+      <article class="fact">
+        <strong>Five users find most of the common problems</strong>
+        <p>Jakob Nielsen's well-known result: one test user shows you almost a third of the problems, and five show you about 85%. His real advice is the part people forget. Run three small rounds of five and fix things between the rounds, because one big study of fifteen mostly shows you the same problems again.</p>
+        <a class="source" href="https://www.nngroup.com/articles/why-you-only-need-to-test-with-5-users/">Source: Nielsen Norman Group, "Why You Only Need to Test with 5 Users"</a>
+      </article>
+      <article class="fact">
+        <strong>The 85% is an average, and it hides rare problems</strong>
+        <p>The number assumes a problem that hits 31% of users. For a problem that hits one user in ten you need 18 people for the same chance of seeing it. In Laura Faulkner's simulations, some groups of five found only 55% of the problems. So five students tell you what is badly broken. They do not tell you the site is fine.</p>
+        <a class="source" href="https://measuringu.com/five-users/">Source: Jeff Sauro, MeasuringU</a>
+        <a class="source" href="https://www.humanfactors.com/newsletters/how_many_test_participants.asp">Source: Human Factors International on Faulkner (2003)</a>
+      </article>
+      <article class="fact">
+        <strong>Three students, one morning, lunch, a short list</strong>
+        <p>Steve Krug's method fits a small school well. One morning a month you watch three people. The team watches too, and each person writes down the three most serious problems after each session. Over lunch you agree what to fix before the next round. His scripts and checklists are on his site.</p>
+        <a class="source" href="https://sensible.com/download-files/">Source: Steve Krug, downloads for "Rocket Surgery Made Easy"</a>
+      </article>
+      <article class="fact">
+        <strong>Almost every site fails the same six checks</strong>
+        <p>WebAIM tests one million home pages each year. In 2026, 95.9% had WCAG failures that a machine can detect, with 56 errors on an average page. Six kinds of error make up 96% of them. The top three are low-contrast text (83.9% of pages), images without alt text (53.1%) and form fields without labels (51%). Start by looking for those.</p>
+        <a class="source" href="https://webaim.org/projects/million/">Source: The WebAIM Million, 2026</a>
+      </article>
+      <article class="fact">
+        <strong>Automated tools find a third to a half. People find the rest.</strong>
+        <p>Deque, the company behind axe-core, reports that automated checks found 57% of the issues in its own audit data. The UK government put 142 barriers into one test page on purpose and ran 13 tools on it: the best found 40%, axe found 29%. A clean axe report is a good minimum. It says nothing about focus order, or about whether a label makes sense.</p>
+        <a class="source" href="https://www.deque.com/automated-accessibility-coverage-report/">Source: Deque, automated accessibility coverage report</a>
+        <a class="source" href="https://alphagov.github.io/accessibility-tool-audit/">Source: GOV.UK accessibility tool audit</a>
+      </article>
+      <article class="fact">
+        <strong>Screen reader users move by headings, and they are on phones</strong>
+        <p>In WebAIM's 2026 survey of 1,780 screen reader users, 67.8% said they start a long page by jumping between headings, and 91.8% use a screen reader on a phone. On desktop, JAWS (55%) and NVDA (32.9%) lead. On mobile, 72.2% use VoiceOver and 29.5% TalkBack. So test heading structure first, and test on a phone as well as a laptop.</p>
+        <a class="source" href="https://webaim.org/projects/screenreadersurvey11/">Source: WebAIM Screen Reader User Survey #11</a>
+      </article>
+      <article class="fact">
+        <strong>WCAG 2.2 added rules you can test with your hands</strong>
+        <p>The 2023 version added nine criteria. Three matter for this site at level AA: the element with keyboard focus must not be hidden behind something else such as a sticky header, anything you can drag must also work with a simple click or tap, and touch targets must be at least 24 by 24 CSS pixels. A calendar and a site with sticky bars are exactly where these fail.</p>
+        <a class="source" href="https://www.w3.org/WAI/standards-guidelines/wcag/new-in-22/">Source: W3C, "What's New in WCAG 2.2"</a>
+      </article>
+    </div>
+  </section>
+
+  <section>
+    <h2>Go and <em>look at these</em></h2>
+    <div class="inspo">
+      <a class="inspo-card" href="https://youtu.be/1UCDUOB_aS8">
+        <strong>Steve Krug's demo usability test</strong>
+        <span>A full session on video. Watch how little the facilitator says, and how he answers a question with a question.</span>
+        <small>youtu.be</small>
+      </a>
+      <a class="inspo-card" href="https://www.w3.org/WAI/demos/bad/">
+        <strong>W3C Before and After Demonstration</strong>
+        <span>The same small website twice: one inaccessible, one fixed, with notes on every change. Steal the format for your own before and after.</span>
+        <small>w3.org</small>
+      </a>
+      <a class="inspo-card" href="https://alphagov.github.io/accessibility-personas/">
+        <strong>GOV.UK accessibility personas</strong>
+        <span>Seven browser profiles that each simulate one access need, from a screen magnifier to dyslexia. Use them to build empathy, and read their warning that this does not replace real users.</span>
+        <small>alphagov.github.io</small>
+      </a>
+      <a class="inspo-card" href="https://userinyerface.com/">
+        <strong>User Inyerface</strong>
+        <span>A form that breaks every rule on purpose. Play it for five minutes before your first session and you will remember how a stuck user feels.</span>
+        <small>userinyerface.com</small>
+      </a>
+      <a class="inspo-card" href="https://www.smashingmagazine.com/2013/04/rainbow-spreadsheet-collaborative-ux-research-tool/">
+        <strong>The rainbow spreadsheet</strong>
+        <span>Tomer Sharon's shared sheet: one row per observation, one coloured column per participant. At the end, the rows with the most colours are your findings list.</span>
+        <small>smashingmagazine.com</small>
+      </a>
+      <a class="inspo-card" href="https://accessibilityinsights.io/docs/web/overview/">
+        <strong>Accessibility Insights for Web</strong>
+        <span>Microsoft's open-source browser extension. Its FastPass takes under five minutes: about 50 automated checks, then a tab stops helper that shows the keyboard path on top of the page. A screenshot of that makes a clear before picture.</span>
+        <small>accessibilityinsights.io</small>
+      </a>
+      <a class="inspo-card" href="https://www.nngroup.com/articles/how-to-conduct-a-heuristic-evaluation/">
+        <strong>NN/g heuristic evaluation workbook</strong>
+        <span>A free workbook for reviewing an interface against Nielsen's 10 heuristics. Three of you, each working alone for an hour or two, then compare. That happens to be the team size they recommend.</span>
+        <small>nngroup.com</small>
+      </a>
+      <a class="inspo-card" href="https://alphagov.github.io/accessibility-tool-audit/">
+        <strong>GOV.UK accessibility tool audit</strong>
+        <span>The UK government's test page with 142 barriers, and a table of which tool caught which. Good for learning what your tools are blind to.</span>
+        <small>alphagov.github.io</small>
+      </a>
+    </div>
+  </section>
+
+  <section>
+    <h2>How you could <em>run it</em></h2>
+    <p>These are four methods, and they fit together. The order you put them in is the real decision.</p>
+    <div class="options">
+      <article class="option">
+        <h3>Sit with students: think-aloud sessions</h3>
+        <p>Three to five students per round, 30 to 45 minutes each, on their own phone and their own laptop. You give a goal ("you finished guide 4 last night, hand it in") and ask them to say what they are thinking while they do it. One of you talks, one takes notes, one handles the recording. A phone's built-in screen recorder or <a href="https://obsproject.com/">OBS</a> on a laptop is enough. Notes go in a shared spreadsheet. Fix things, then run the next round with new students.</p>
+        <p class="good">This is the only method that shows you problems you could not have guessed. Nielsen calls <a href="https://www.nngroup.com/articles/thinking-aloud-the-1-usability-tool/">thinking aloud</a> cheap, flexible and convincing: a 20-second clip of a student who cannot find the return button ends a discussion faster than any argument.</p>
+        <p class="watch">You built parts of this site, and it is hard to stay quiet while someone struggles with your work. Leading questions spoil the session. Students may also try to look clever in front of you. And writing tasks that do not give away the answer takes practice: "look up your grade for module 3" is a task, "click on Grades" is a hint.</p>
+      </article>
+      <article class="option">
+        <h3>Review it yourselves: heuristics, keyboard, screen reader</h3>
+        <p>Before you ask for any student's time, each of you goes through the main tasks alone. Once against <a href="https://www.nngroup.com/articles/ten-usability-heuristics/">Nielsen's 10 heuristics</a>. Once with the mouse unplugged: Tab, Shift+Tab, Enter, Space, arrow keys, Esc. Once with a screen reader, all of which are free: <a href="https://www.nvaccess.org/download/">NVDA</a> on Windows, <a href="https://support.apple.com/guide/voiceover/welcome/mac">VoiceOver</a> on Mac and iPhone, <a href="https://orca.gnome.org/">Orca</a> on Linux, TalkBack on Android. Then you merge the three lists and give each problem a <a href="https://www.nngroup.com/articles/how-to-rate-the-severity-of-usability-problems/">severity from 0 to 4</a>.</p>
+        <p class="good">It costs nothing and can start on day one. It removes the obvious problems first, so students do not spend their sessions showing you things you could have found alone. You also learn to use a screen reader, which is a skill few developers have.</p>
+        <p class="watch">You are not the users. You are sighted screen reader beginners who know the site very well, so you will miss things and you will invent some problems that real users do not have. A screen reader takes a few hours to learn before the results mean anything. Use this to prepare for sessions with students. It cannot replace them.</p>
+      </article>
+      <article class="option">
+        <h3>Let machines keep watch</h3>
+        <p>Add <a href="https://playwright.dev/docs/accessibility-testing"><code>@axe-core/playwright</code></a> to the browser tests that already exist, so each important page gets an axe scan on the same seeded data. Add a phone-sized project to the Playwright config. Switch on the recommended rules of <a href="https://github.com/jsx-eslint/eslint-plugin-jsx-a11y"><code>eslint-plugin-jsx-a11y</code></a>, which is already installed with the Next.js preset. For speed, Vercel's <a href="https://vercel.com/docs/speed-insights">Speed Insights</a> gives an overall score from real visits and is free on every plan. The number to know is <a href="https://web.dev/articles/inp">Interaction to Next Paint</a>, the Core Web Vital for how fast a page reacts to a tap: 200 ms or less counts as good. A slow reaction looks like a usability problem in a session.</p>
+        <p class="good">Everything here is free and open source and fits the tools the project already uses. It is the only method that keeps working after you leave: a fix that is protected by a test stays fixed. It also gives you a number for the before and after.</p>
+        <p class="watch">Tools catch somewhere between a third and a half of accessibility problems, and none of the "this is confusing" problems. The first scan will probably return a long list, and a list that long gets ignored. Start with the scan as a report, fix one page until it is clean, and only then make it fail the build for that page.</p>
+      </article>
+      <article class="option">
+        <h3>Measure it: SUS and task success</h3>
+        <p>After each session, ask the ten questions of the <a href="https://measuringu.com/sus/">System Usability Scale</a>. Scoring is simple: for odd questions subtract 1 from the answer, for even questions subtract the answer from 5, add everything up and multiply by 2.5. You get 0 to 100. The average over 500 studies is 68, so below 68 is below average. Also record for each task whether the student finished alone, finished with help, or gave up.</p>
+        <p class="good">"Four of five students could not find where to book a meeting, and after the fix five of five could" is a sentence that works in a portfolio and in a job interview. SUS is short, well known and does not need a tool.</p>
+        <p class="watch">With five people a SUS score is a rough signal. A move from 61 to 70 could be chance, so say so in your report. Task success is the more honest measure at this size. Paid tools exist for all of this (<a href="https://www.lookback.com/pricing">Lookback</a>, for example, starts at $299 a year with a 60-day trial), and for three sessions a month you do not need one.</p>
+      </article>
+    </div>
+  </section>
+
+  <section>
+    <h2>A first <em>week</em></h2>
+    <ol class="plan">
+      <li><strong>List the ten things a student does most.</strong> Sign in, find the next guide, return it, give a review, read feedback, check a grade, book a meeting, answer a poll, find the group, open the site on a phone. Agree on the list with Smári. These become your tasks.</li>
+      <li><strong>Unplug the mouse for one hour.</strong> Each of you does the ten tasks with the keyboard only, on a copy of the site with test data. Write down every place where you lose the focus ring, land somewhere unexpected or cannot get out. Take screenshots: these are your first "before" pictures.</li>
+      <li><strong>Turn on a screen reader and close your eyes for one task.</strong> Pick the return form. Spend the first half hour only learning the screen reader's basic keys on a site you do not know. Then try your own form.</li>
+      <li><strong>Run axe on five pages and count.</strong> Use the axe or Accessibility Insights browser extension by hand on the student home, a guide, the return form, the calendar and the gallery. Put the counts in a spreadsheet. Do not fix anything yet.</li>
+      <li><strong>Write the script and the consent sheet.</strong> Start from <a href="https://sensible.com/download-files/">Krug's test script and recording permission form</a> and make them your own. One page that says what you record, who sees it, when it is deleted, and that saying no or stopping has no effect on anything at school.</li>
+      <li><strong>Do one pilot session with a friendly student.</strong> Twenty minutes, three tasks, recorded. The goal of this one is to find the weak points in your script. Watch the recording together afterwards and count how many times the facilitator helped without meaning to.</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>Still <em>open</em></h2>
+    <ul class="questions">
+      <li>Who asks the students, and how do you make "no" a safe answer? A request from a teacher is hard to refuse. One proposal: you recruit, no teacher is in the room, no teacher sees a raw recording, and clips are only shown with the student's agreement. Is that enough?</li>
+      <li>Which students? The newest ones get stuck the most and show you the most. The experienced ones have learned to work around the problems and can tell you which workarounds they use. With five seats per round, how do you split them?</li>
+      <li>How much of February is watching and how much is fixing? A long list of findings with nothing fixed is a weak result. Three things fixed well, with proof, may be a stronger one than twenty things patched.</li>
+      <li>Which standard do you aim for? WCAG 2.2 level AA is the usual target. The <a href="https://commission.europa.eu/strategy-and-policy/policies/justice-and-fundamental-rights/disability/european-accessibility-act-eaa_en">European Accessibility Act</a> has <a href="https://accessible-eu-centre.ec.europa.eu/content-corner/news/eaa-comes-effect-june-2025-are-you-ready-2025-01-31_en">applied since 28 June 2025</a>, and it lists services such as online shopping, banking and e-books. The <a href="https://digital-strategy.ec.europa.eu/en/policies/web-accessibility-directive-standards-and-harmonisation">Web Accessibility Directive</a> covers public sector bodies. What Icelandic law asks of a school like this one is a question to research, with the school, before you promise anything.</li>
+      <li>Should the site ever measure signed-in students' behaviour to find drop-off points? The analytics leave students out today, on purpose. Watching five people with their consent may be both kinder and more useful than counting everyone without it.</li>
+      <li>Is there a student or a graduate who uses a screen reader, a magnifier or voice control every day, and would test with you if you paid for their time? One hour with a real user of assistive technology is worth more than a week of you pretending.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Keep <em>reading</em></h2>
+    <ul class="links">
+      <li><a href="https://www.gov.uk/service-manual/user-research/using-moderated-usability-testing">GOV.UK Service Manual: moderated usability testing</a> The most practical short guide to planning and running a session, from a team that does it every week.</li>
+      <li><a href="https://www.nngroup.com/articles/task-scenarios-usability-testing/">NN/g: Turn user goals into task scenarios</a> Three rules for writing tasks, each with a bad and a better example. Read this before you write a single task.</li>
+      <li><a href="https://www.nngroup.com/articles/thinking-aloud-the-1-usability-tool/">NN/g: Thinking aloud, the number one usability tool</a> Why the method works, and an honest list of its weak points.</li>
+      <li><a href="https://www.gov.uk/service-manual/user-research/getting-users-consent-for-research">GOV.UK Service Manual: getting informed consent</a> A checklist of what a participant must understand before you press record, and what to do when someone withdraws.</li>
+      <li><a href="https://www.nngroup.com/articles/how-to-rate-the-severity-of-usability-problems/">NN/g: Severity ratings for usability problems</a> The 0 to 4 scale and the three things behind it: how often, how bad, and whether users can learn their way around it.</li>
+      <li><a href="https://webaim.org/techniques/keyboard/">WebAIM: Keyboard accessibility</a> Which keys to use and what to look for. Short enough to read just before you unplug the mouse.</li>
+      <li><a href="https://webaim.org/articles/screenreader_testing/">WebAIM: Testing with screen readers</a> What sighted testers get wrong, and how to listen to a page without looking at it.</li>
+      <li><a href="https://measuringu.com/sus/">MeasuringU: Measuring usability with the System Usability Scale</a> How to score SUS and how to read the result, including why 68 is the line.</li>
+    </ul>
+  </section>
+
+</main>
+
+<section class="page-cta">
+  <h2>This is a starting point, <em>not a plan.</em></h2>
+  <p>Disagree with something? Found a better example? Know how you would do it? Change this page and push to main.</p>
+  <div class="hero-actions">
+    <a class="btn btn-solid" href="https://github.com/ellertsmari/Internship-ideas/edit/main/ideas/user-testing.html">Edit this page</a>
+    <a class="btn" href="../index.html#wall">Back to the wall</a>
+  </div>
+  <p class="note">Researched by Claude, November 2026. Check a link before you rely on a number.</p>
+</section>
+
+</body>
+</html>

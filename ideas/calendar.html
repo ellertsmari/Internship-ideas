@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>A friendlier calendar · February is wide open</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Instrument+Serif:ital@1&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css">
+</head>
+
+<body class="page" style="--c: var(--c1)">
+
+<header class="page-hero">
+  <a class="back" href="../index.html#wall">← The wall</a>
+  <p class="from">from Smári</p>
+  <h1>A friendlier calendar</h1>
+  <p class="pitch">The school calendar knows everything about the term. Make it something students open because they want to, on a phone, in ten seconds.</p>
+  <ul class="glance">
+    <li><b>Kind of work:</b> interaction design, front-end code, a little accessibility research</li>
+    <li><b>You'd enjoy this if:</b> you like details that people feel but never notice: a drag that lands right, a key that does what you expected</li>
+  </ul>
+</header>
+
+<main class="page-main">
+
+  <section>
+    <h2>Why this is <em>worth doing</em></h2>
+    <p>A student opens the calendar with one of three questions. What is on today? What is due this week? When can I meet a teacher? Today the calendar answers all three, but you have to click a day to get the answer. The work here is to make those answers visible before anyone clicks.</p>
+    <p>Teachers are the other user. They put a whole term of lectures, deadlines and group work into the calendar through a form. Moving a lecture from Tuesday to Thursday means opening the event and typing a new date. Dragging it would take one second.</p>
+    <p>For you it is a classic design and engineering problem with famous examples to learn from. Everyone has used Google Calendar, so everyone will have an opinion about your version. The hard part is honest: a week view with overlapping events, dragging that works with touch and with a keyboard, and a layout that still reads well on a phone.</p>
+  </section>
+
+  <section>
+    <h2>Where we are <em>today</em></h2>
+    <p>The calendar lives at <code>/LMS/calendar</code>, behind the login. It is more complete than you might expect, and all of this is from reading the code in November 2026.</p>
+    <p><strong>What it has.</strong> One view: a month grid, Monday first, with week numbers down the side. Arrows move one month at a time and a Today button jumps back. You can only move through the months of the current term. Each day shows up to three events and then "+2 more". Events that last several days are drawn as one bar across the week. There are seven event types, each with a colour: key date, lecture, group work, deadline, holiday, not available and meeting. Clicking a day opens a detail panel. On a wide screen it sits beside the grid. On a narrow screen it slides up from the bottom as a sheet.</p>
+    <p>Students can add their own events and choose who sees them: everyone, their team, people they pick, or only themselves. Teachers can repeat an event every week. Group project dates appear automatically and are read-only. A Meetings dialog holds sign-up sheets, "find a time" polls where you paint the hours you are free, and meeting hours that students can book. A Term dialog lets teachers set the term dates.</p>
+    <p><strong>Where it stops.</strong></p>
+    <ul>
+      <li>There is no day view, no week view and no agenda list. Month is the only way to look at time.</li>
+      <li>Nothing can be dragged in the main calendar. You create and move events through a form, and you type times as text ("10:00").</li>
+      <li>You can Tab through the days, but arrow keys do not move between them and there are no shortcut keys.</li>
+      <li>On a phone the month grid keeps its width and scrolls sideways.</li>
+      <li>There is no way to subscribe from your own calendar app. No iCal feed, no export.</li>
+      <li>You cannot filter by event type or search.</li>
+      <li>The grid and the date logic are written by hand. The project uses no calendar library, no date library and no drag and drop library.</li>
+    </ul>
+    <p>One detail matters for every choice below. Events are stored as plain dates and times ("2027-02-08", "10:00") with no time zone. That was a deliberate choice: a holiday on 24 December is 24 December for everyone.</p>
+  </section>
+
+  <section>
+    <h2>What the <em>research</em> says</h2>
+    <p>Six findings that should change what you build first.</p>
+    <div class="facts">
+      <article class="fact">
+        <strong>Most people prefer the week view</strong>
+        <p>In a university survey with 98 responses, 44% preferred the week view, 35% the day view and 21% the month view. A study from 1982 found almost the same numbers. Our calendar only has the view that came last. The survey is from 2008 and most of the people who answered were staff, so test it with students, but start with week.</p>
+        <a class="source" href="https://arxiv.org/abs/0809.3447">Source: Tungare, Pérez-Quiñones and Sams, An Exploratory Study of Calendar Use</a>
+      </article>
+      <article class="fact">
+        <strong>A calendar is read in a glance</strong>
+        <p>The same study found that every person interviewed still used a paper calendar sometimes. Two of the reasons: a wall calendar needs "no more than a glance", and it comes with holidays and academic deadlines already printed. The school calendar already comes filled in. The glance is the part to design.</p>
+        <a class="source" href="https://arxiv.org/abs/0809.3447">Source: the same study, section 4.2</a>
+      </article>
+      <article class="fact">
+        <strong>Every drag needs a way without dragging</strong>
+        <p>WCAG 2.2 has a rule at level AA: anything you can do by dragging must also be possible with single taps or clicks. Keyboard support alone does not count. So "drag an event to a new day" also needs something like a "Move to…" button. Design both from the start.</p>
+        <a class="source" href="https://www.w3.org/WAI/WCAG22/Understanding/dragging-movements">Source: W3C, Understanding Success Criterion 2.5.7 Dragging Movements</a>
+      </article>
+      <article class="fact">
+        <strong>The keyboard map for a date grid already exists</strong>
+        <p>The W3C example gives the grid one Tab stop. Arrow keys move by day and by week, Home and End go to the start and end of the week, Page Up and Page Down change month. People who use a keyboard expect these keys. You do not have to invent anything, only build it.</p>
+        <a class="source" href="https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/examples/datepicker-dialog/">Source: W3C ARIA Authoring Practices, Date Picker Dialog example</a>
+      </article>
+      <article class="fact">
+        <strong>Temporal is in Chrome and Firefox, and not in Safari</strong>
+        <p>Temporal is the new date API in JavaScript. It has plain dates without time zones, which is how our events are stored. Chrome and Edge have it from version 144 and Firefox from 139. No released Safari has it, on Mac or iPhone, so about 72% of users worldwide are covered. You would need a polyfill for now.</p>
+        <a class="source" href="https://caniuse.com/temporal">Source: Can I use, Temporal (checked November 2026)</a>
+      </article>
+      <article class="fact">
+        <strong>"Free" calendar libraries draw the line in different places</strong>
+        <p>Schedule-X moved drag and drop and resize into its paid version with version 4. Its <a href="https://schedule-x.dev/premium">price page</a> lists €479 a year or €999 once, before VAT. FullCalendar keeps drag, drop and resize in its <a href="https://fullcalendar.io/docs/plugin-index">free MIT plugins</a> and charges for timeline and resource views. Read the licence page before you fall in love with a demo.</p>
+        <a class="source" href="https://schedule-x.dev/blog/schedule-x-v4">Source: Schedule-X, the version 4 announcement</a>
+      </article>
+    </div>
+  </section>
+
+  <section>
+    <h2>Go and <em>look at these</em></h2>
+    <div class="inspo">
+      <a class="inspo-card" href="https://support.google.com/calendar/answer/37034">
+        <strong>Google Calendar, keyboard only</strong>
+        <span>Press D, W, M and A to change view, T for today, C to create. One letter per action. Put your mouse away for ten minutes and try it.</span>
+        <small>support.google.com</small>
+      </a>
+      <a class="inspo-card" href="https://www.notion.com/product/calendar">
+        <strong>Notion Calendar</strong>
+        <span>A command menu for everything, and very quiet visuals. Press ? inside the app to see the full shortcut list.</span>
+        <small>notion.com</small>
+      </a>
+      <a class="inspo-card" href="https://flexibits.com/fantastical">
+        <strong>Fantastical</strong>
+        <span>You type "Lunch with Sarah at 1pm tomorrow" and the event builds itself while you type. Also look at its Quarter and Year views.</span>
+        <small>flexibits.com</small>
+      </a>
+      <a class="inspo-card" href="https://amie.so">
+        <strong>Amie</strong>
+        <span>A calendar and a to-do list in one screen. Their site quotes a user: "opening a calendar shouldn't be stressful". A good sentence to design against.</span>
+        <small>amie.so</small>
+      </a>
+      <a class="inspo-card" href="https://fullcalendar.io/demos">
+        <strong>FullCalendar demos</strong>
+        <span>Every classic view in one place: month, week, day, list, several months. Useful for deciding which views you need before you draw anything.</span>
+        <small>fullcalendar.io</small>
+      </a>
+      <a class="inspo-card" href="https://ilamy.dev">
+        <strong>ilamy Calendar</strong>
+        <span>An open-source React calendar with day, week, month and year views, drag to move and drag to create. Built for Tailwind, so read it for ideas more than for copying.</span>
+        <small>ilamy.dev</small>
+      </a>
+      <a class="inspo-card" href="https://github.com/calcom/cal.com">
+        <strong>Cal.diy, the open-source side of Cal.com</strong>
+        <span>A whole scheduling product in Next.js under the MIT licence. Our calendar already has bookable meeting hours, so this is the code to read when you want to improve them.</span>
+        <small>github.com</small>
+      </a>
+      <a class="inspo-card" href="https://react-aria.adobe.com/Calendar">
+        <strong>React Aria Calendar</strong>
+        <span>A date grid from Adobe with focus handling and many calendar systems built in. It picks dates and does not show events, but the focus behaviour is the standard to copy.</span>
+        <small>react-aria.adobe.com</small>
+      </a>
+    </div>
+  </section>
+
+  <section>
+    <h2>How it could <em>be built</em></h2>
+    <div class="options">
+      <article class="option">
+        <h3>Grow the calendar we have</h3>
+        <p>Keep the hand-written month grid and add to it: an agenda list for phones, a week view, arrow-key navigation, and drag to move with a library such as <a href="https://dndkit.com/">dnd kit</a> (MIT, supports mouse, touch and keyboard) or <a href="https://github.com/atlassian/pragmatic-drag-and-drop">Pragmatic drag and drop</a> from Atlassian (Apache 2.0, about 4.7 kB core).</p>
+        <p class="good">You control every pixel, so the calendar keeps looking like the rest of the site. Sign-up sheets, polls and meeting hours keep working because nothing underneath changes. You learn how a calendar really works.</p>
+        <p class="watch">A week view with times is the hard part. When three events overlap you need an algorithm to place them side by side, and dragging on a time grid has many small cases: snapping to 15 minutes, events that cross midnight, touch scrolling against touch dragging.</p>
+      </article>
+      <article class="option">
+        <h3>Put FullCalendar under our design</h3>
+        <p><a href="https://fullcalendar.io/docs/react">FullCalendar 7</a> has a React package that supports React 17 to 19 and has a Next.js example. The free MIT plugins cover month, week, day, list and multi-month views, plus the <a href="https://fullcalendar.io/docs/plugin-index">interaction plugin</a> for clicking, selecting, dragging and resizing.</p>
+        <p class="good">Week and day views with overlapping events work on day one. You spend February on design and on the details students feel, and less on layout maths.</p>
+        <p class="watch">You must restyle it until it looks like our site, and that can take longer than you think. Check how well its views work with a keyboard and a screen reader before you commit. It asks for a Temporal polyfill. The paid Premium plugins are not needed for this project.</p>
+      </article>
+      <article class="option">
+        <h3>react-big-calendar as the middle road</h3>
+        <p><a href="https://github.com/jquense/react-big-calendar">react-big-calendar</a> is MIT, built for React, and its latest release (1.20.0, June 2026) lists React 19 as supported. It has month, week, day and agenda views and a drag and drop add-on.</p>
+        <p class="good">Smaller and simpler than FullCalendar, and it is plain React components, so replacing how an event looks is easy.</p>
+        <p class="watch">It needs a date library through a "localizer": Moment, Globalize, date-fns or Day.js. Our project has none today, so you add one. Its default look is dated, and you will rewrite most of the CSS.</p>
+      </article>
+      <article class="option">
+        <h3>Start outside the grid: a feed and a quick-add box</h3>
+        <p>Two small features that do not depend on which grid you choose. First, an iCal feed: a Next.js route that returns the student's events as an <code>.ics</code> file, made with <a href="https://github.com/sebbo2002/ical-generator">ical-generator</a> (MIT), so students can subscribe from Google or Apple Calendar. Second, a text box that understands "Friday 13:00 to 16:00" using <a href="https://github.com/wanasit/chrono">chrono</a> (MIT).</p>
+        <p class="good">Each one is a few days of work and useful on its own. The feed puts school deadlines next to the student's own life, which no redesign of our page can do.</p>
+        <p class="watch">Calendar apps fetch the feed from their own servers and cannot log in, so the address itself must carry a secret token. You must decide what happens when a link leaks. Chrono understands English by default and its language list does not include Icelandic.</p>
+      </article>
+    </div>
+  </section>
+
+  <section>
+    <h2>A first <em>week</em></h2>
+    <ol class="plan">
+      <li><strong>Use the famous ones without a mouse.</strong> Spend an hour in Google Calendar and Notion Calendar using only the keyboard. Write down every key you reached for and what you expected it to do.</li>
+      <li><strong>Watch five students open our calendar on their phone.</strong> Ask three things: what is on today, what is due this week, when can you meet a teacher. Count the taps and note where they hesitate. Do not help.</li>
+      <li><strong>Draw the phone screen first.</strong> Sketch an agenda list and a week view on paper using a real week from this term, with all seven event types. See which one answers the three questions faster.</li>
+      <li><strong>Run a two-day comparison.</strong> One day: show our real event shape (date and time as text, no time zone) in FullCalendar in an empty Next.js project. One day: add arrow-key navigation to a copy of the grid we have. Compare how each felt.</li>
+      <li><strong>Write the keyboard map and the "no drag" paths.</strong> One page: which key does what, and for every drag, which buttons do the same job. Agree on it before anyone builds a view.</li>
+      <li><strong>Show Smári the comparison and choose a road.</strong> Bring the sketches, the tap counts and both prototypes. Decide together what the first month delivers.</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>Still <em>open</em></h2>
+    <ul class="questions">
+      <li>Who is dragging for? Students can only change their own events, so drag to move mostly helps teachers. Is that enough reason to build it first, or does drag to create a private event matter more?</li>
+      <li>What should a phone show when the calendar opens: a list of the next days, or a week? And should a laptop open on week instead of month?</li>
+      <li>If students subscribe from Google or Apple Calendar and never open our page again, is that a success or a failure?</li>
+      <li>Should a feed include a student's private and team events, or only what everyone can see? A leaked link shows whatever the feed contains.</li>
+      <li>Own grid or library? The first gives control and a lot of work. The second gives a week view quickly and a long fight with someone else's CSS.</li>
+      <li>You can only browse the months of the current term today. Is that a helpful limit, or does a student want to look back at last term?</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Keep <em>reading</em></h2>
+    <ul class="links">
+      <li><a href="https://arxiv.org/abs/0809.3447">An Exploratory Study of Calendar Use</a> Surveys and interviews at a university. Old, but still the best description of what people really do with a calendar, including sticky notes and hand-drawn pumpkins.</li>
+      <li><a href="https://julian.digital/2023/07/06/multi-layered-calendars/">Multi-layered calendars, by Julian Lehr</a> An essay arguing that meetings, tasks and blocked time should be separate layers. Read it before you decide how deadlines and lectures share one grid.</li>
+      <li><a href="https://react-aria.adobe.com/blog/date-and-time-pickers-for-all">Date and Time Pickers for All</a> Adobe's team explains what they learned making date components work with screen readers, touch and many languages.</li>
+      <li><a href="https://www.w3.org/WAI/ARIA/apg/patterns/grid/">The ARIA grid pattern</a> The W3C description of how a grid should behave with a keyboard. Short, and it settles many arguments.</li>
+      <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Temporal">Temporal on MDN</a> The new date API, with the two polyfills listed at the bottom. Look at <code>PlainDate</code> and <code>PlainTime</code>: they match how our events are stored.</li>
+      <li><a href="https://www.rfc-editor.org/rfc/rfc5545">RFC 5545, the iCalendar format</a> The standard behind every <code>.ics</code> file. Section 3.3.5 describes "floating" times that belong to no time zone, which is what our events are.</li>
+      <li><a href="https://support.google.com/calendar/answer/37100">Google Calendar: add a calendar from a URL</a> What a student would do with your feed address. Follow the steps yourself with a test feed.</li>
+      <li><a href="https://schedule-x.dev/docs/calendar/temporal">Schedule-X on Temporal</a> A short, honest page from a calendar library that already uses Temporal and tells its users to add a polyfill.</li>
+    </ul>
+  </section>
+
+</main>
+
+<section class="page-cta">
+  <h2>This is a starting point, <em>not a plan.</em></h2>
+  <p>Disagree with something? Found a better example? Know how you would do it? Change this page and push to main.</p>
+  <div class="hero-actions">
+    <a class="btn btn-solid" href="https://github.com/ellertsmari/Internship-ideas/edit/main/ideas/calendar.html">Edit this page</a>
+    <a class="btn" href="../index.html#wall">Back to the wall</a>
+  </div>
+  <p class="note">Researched by Claude, November 2026. Check a link before you rely on a number.</p>
+</section>
+
+</body>
+</html>

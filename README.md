@@ -26,4 +26,6 @@ git push
 
 The site updates about a minute after you push.
 
+Every idea has a research page behind it in `ideas/`, with findings, links, ways to build it and a first week. To make one for your own idea, copy `ideas/_template.html`, or use the ready-made prompt for an AI assistant under "Got one?" on the site.
+
 The page itself is yours to change too: `index.html`, `style.css` and `script.js`.

@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Our own streaming platform · February is wide open</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Instrument+Serif:ital@1&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css">
+</head>
+
+<body class="page" style="--c: var(--c7)">
+
+<header class="page-hero">
+  <a class="back" href="../index.html#wall">← The wall</a>
+  <p class="from">from Smári</p>
+  <h1>Our own streaming platform</h1>
+  <p class="pitch">The lecture opens from the calendar, the recording lands on the same page, and Zoom is no longer in the middle.</p>
+  <ul class="glance">
+    <li><b>Kind of work:</b> product design for a live classroom, React code, some server and network work, and a lot of testing with real people in a real room.</li>
+    <li><b>You'd enjoy this if:</b> you like things that happen live, you are curious about how video gets from one laptop to thirty others, and you do not mind that a bug shows up in front of the whole class.</li>
+  </ul>
+</header>
+
+<main class="page-main">
+
+  <section>
+    <h2>Why this is <em>worth doing</em></h2>
+    <p>The school teaches through Zoom today. A student leaves the school's site to join the lecture, and leaves it again to watch the recording. The site knows when the lecture is, who the students are and which guide the lecture belongs to. Zoom knows none of that.</p>
+    <p>If the lecture lived on the site, a lot of small things would get better at once. A student clicks the lecture in the calendar and is in the room, already signed in, with the right name. The recording appears on that same calendar event an hour later, with captions and a transcript you can search. A student who was sick finds "the lecture about flexbox" without scrolling through a list of dates. The teacher sees who was there without taking attendance.</p>
+    <p>There is also a reason that is bigger than this school. Schools, universities and governments in Europe are moving their video away from tools they do not control. France announced in January 2026 that all its government departments will move to the state's own open-source video tool by 2027. You would be building a small version of the same thing, with the same open-source parts.</p>
+    <p>One honest warning before you read on. Zoom is very good at the hard part: it keeps working on a bad hotel wifi, with forty people, on every device. Nobody here should try to beat Zoom at moving video. The interesting project is the classroom around the video, and whether a small school can run it without it failing on a Tuesday morning.</p>
+  </section>
+
+  <section>
+    <h2>Where we are <em>today</em></h2>
+    <p>This is what the code of the school's site shows. How teachers really use Zoom day to day is not in the code, so that part is for you to find out.</p>
+    <p><b>The calendar knows about lectures.</b> A calendar event has a category, and "lecture" is one of them. An event has a date, a start and end time, a description and one optional link field, which shows up as "Open link". Teachers create lectures and can repeat them or copy a whole term forward. So there is already a natural place for a "Join" button and for a recording.</p>
+    <p><b>The site knows who you are.</b> Everyone signs in, and the site knows who is a teacher and who is a student. A video room could use that: no meeting passwords, no guessing who "iPhone 12" is.</p>
+    <p><b>Recordings are a list that points to Zoom.</b> The Resources page has a "Lecture Recordings" section. The server asks Zoom for the cloud recordings of the current school year and shows a card for each one with its title, date and length. A click sends you to Zoom's own page to watch. If Zoom does not answer, the page says recordings are temporarily unavailable. The recordings are not connected to calendar events, guides or modules, and there are no transcripts, captions or chapters on the site.</p>
+    <p><b>There is no live video in the site at all.</b> No player, no room, no chat. The only video I found that the site shows itself is a short clip on the landing page.</p>
+    <p><b>The site runs on Vercel.</b> That matters more than anything else on this page. Vercel runs your code as short-lived functions. A media server is a program that stays on for hours and receives video over thousands of UDP ports. It cannot live on Vercel, so any live video will need a second home: a rented server or a paid service.</p>
+  </section>
+
+  <section>
+    <h2>What the <em>research</em> says</h2>
+    <p>Seven things I checked that should change how you think about this project. The cost examples use one made-up but realistic class: 30 people, 4 hours a week, which is about 960 minutes of teaching and about 28,800 "participant minutes" a month.</p>
+    <div class="facts">
+      <article class="fact">
+        <strong>A call and a broadcast are different machines</strong>
+        <p>Mux says normal HLS streaming is "typically about 25 to 30 seconds" behind real life, and its low-latency mode gets "as low as 5 seconds". Cloudflare says WebRTC playback has "less than 500 milliseconds of latency". A student cannot ask a question into a 25 second delay, so a class that talks back needs WebRTC. A lecture that is only watched can use the cheaper, simpler broadcast.</p>
+        <a class="source" href="https://www.mux.com/docs/guides/reduce-live-stream-latency">Source: Mux, "Reduce live stream latency"</a>
+      </article>
+      <article class="fact">
+        <strong>For a class you want an SFU, and you should not write one</strong>
+        <p>In plain WebRTC every person sends their video to every other person, which stops working after 2 or 3 people. An SFU is a server that receives each stream once and forwards it to everyone else, "a router optimized for low-latency, high-bandwidth media forwarding". LiveKit, Jitsi and BigBlueButton all work this way. LiveKit's own test ran a meeting with 150 people all sending video on one 16-core server, so one class of 30 is a small load.</p>
+        <a class="source" href="https://docs.livekit.io/reference/internals/livekit-sfu/">Source: LiveKit docs, SFU internals</a>
+      </article>
+      <article class="fact">
+        <strong>The free tiers cover a prototype, not a term</strong>
+        <p>LiveKit Cloud's free plan includes 5,000 WebRTC minutes a month and 100 people connected at once. Our example class uses that up in under three hours. The next plan is $50 a month and includes 150,000 minutes. Daily gives 10,000 free minutes and then charges $0.004 per participant minute, which would be about $75 a month for the same class. Check these before you rely on them; they change often.</p>
+        <a class="source" href="https://livekit.com/pricing">Source: LiveKit pricing</a>
+      </article>
+      <article class="fact">
+        <strong>Running it yourself costs a server and your attention</strong>
+        <p>BigBlueButton 4.0 asks for a dedicated Ubuntu 24.04 server with 8 CPU cores, 16 GB of memory, a public address, and UDP ports 16384 to 32768 open. LiveKit is lighter, but it also needs a domain, a real certificate and a range of open UDP ports. None of this is hard to install once. The hard part is that somebody has to notice and fix it at 08:55 on the day it breaks.</p>
+        <a class="source" href="https://docs.bigbluebutton.org/administration/install/">Source: BigBlueButton 4.0 install guide</a>
+      </article>
+      <article class="fact">
+        <strong>Some networks block the video, and you must plan for it</strong>
+        <p>WebRTC prefers UDP. School, office and hotel networks often block it. Then the video has to go through a relay (a TURN server) or fall back to TCP. An older measurement by callstats.io, from 2015 and 2016, found that "22% of the conferences need some kind of TURN relay server". LiveKit keeps a TCP port for clients that "could not connect via UDP (e.g. VPN, corporate firewalls)". Test on the school's own network in week one.</p>
+        <a class="source" href="https://webrtchacks.com/usage-stats/">Source: webrtcHacks and callstats.io</a>
+      </article>
+      <article class="fact">
+        <strong>Captions for recordings are close to free now</strong>
+        <p>faster-whisper is an open-source speech-to-text tool. Its own benchmark transcribes 13 minutes of audio in 2 minutes 37 seconds with the small model on a normal CPU, with no graphics card. Mux adds auto-generated captions to recordings at no extra cost. WCAG asks for captions on live broadcasts at level AA (criterion 1.2.4). How well any of these handle Icelandic mixed with English code words is something only a test with a real lecture can tell you.</p>
+        <a class="source" href="https://github.com/SYSTRAN/faster-whisper">Source: faster-whisper on GitHub</a>
+      </article>
+      <article class="fact">
+        <strong>Leaving Zoom does not have to mean leaving Zoom's quality</strong>
+        <p>Swedish universities use Zoom through Sunet, on an installation run by NORDUnet. Sunet said in 2020 that meeting data is "stored on servers in the Nordic countries" and that operating the service from inside the Nordics was a requirement when they bought it. France went the other way and built its own tool, Visio, on the open-source LiveKit server, with a plan to use it in all government departments by 2027. Both are answers to the same worry.</p>
+        <a class="source" href="https://www.vr.se/english/just-now/news/news-archive/2020-04-24-the-zoom-service-from-sunet-differs-from-the-public-version.html">Source: Swedish Research Council on Sunet's Zoom</a>
+      </article>
+    </div>
+  </section>
+
+  <section>
+    <h2>Go and <em>look at these</em></h2>
+    <div class="inspo">
+      <a class="inspo-card" href="https://meet.livekit.io">
+        <strong>LiveKit Meet</strong>
+        <span>A full video meeting in the browser, built with Next.js and LiveKit's React components. Open it on two devices and share a code editor. This is roughly what you get on day one.</span>
+        <small>meet.livekit.io</small>
+      </a>
+      <a class="inspo-card" href="https://github.com/suitenumerique/meet">
+        <strong>LaSuite Meet, the French government's tool</strong>
+        <span>Open source, MIT licence, built on LiveKit with a React front end. Read how a real team added recording, transcription and several screen shares at once on top of the same engine.</span>
+        <small>github.com/suitenumerique</small>
+      </a>
+      <a class="inspo-card" href="https://bigbluebutton.org/features/">
+        <strong>BigBlueButton's feature list</strong>
+        <span>The one tool here that was designed for teaching. Steal the list: multi-user whiteboard, breakout rooms, polls, shared notes, raise hand, and a dashboard that shows who is taking part.</span>
+        <small>bigbluebutton.org</small>
+      </a>
+      <a class="inspo-card" href="https://jitsi.github.io/handbook/docs/dev-guide/dev-guide-iframe/">
+        <strong>Jitsi's embed API</strong>
+        <span>About ten lines of code put a working meeting inside any page. Good for learning how little you need for a first prototype, and how much of the look you can change from outside.</span>
+        <small>jitsi.github.io</small>
+      </a>
+      <a class="inspo-card" href="https://owncast.online/">
+        <strong>Owncast</strong>
+        <span>A self-hosted live stream with chat, like your own small Twitch. Look at how calm the viewer page is: one video, one chat, nothing else. A lecture page could be that simple.</span>
+        <small>owncast.online</small>
+      </a>
+      <a class="inspo-card" href="https://docs.joinpeertube.org/use/create-upload-video">
+        <strong>PeerTube live</strong>
+        <span>Steal the idea of a "permanent live": one fixed address that is streamed to again and again, and every session is saved as its own video. That is exactly a weekly lecture.</span>
+        <small>docs.joinpeertube.org</small>
+      </a>
+      <a class="inspo-card" href="https://github.com/bluenviron/mediamtx">
+        <strong>MediaMTX</strong>
+        <span>One small program that takes a stream from OBS and gives it back as WebRTC or HLS, and records it to disk. The quickest way to understand a broadcast pipeline is to run this on your own laptop.</span>
+        <small>github.com/bluenviron</small>
+      </a>
+      <a class="inspo-card" href="https://uni-tuebingen.de/en/facilities/zentrum-fuer-datenverarbeitung/services/media-services/video-conferences/video-conferences-and-data-protection/">
+        <strong>How a university explains its choice</strong>
+        <span>Tübingen runs BigBlueButton on its own servers and says it can therefore be used "for all purposes, including exams". A short, honest page that compares it with Zoom. You will need to write a page like this too.</span>
+        <small>uni-tuebingen.de</small>
+      </a>
+    </div>
+  </section>
+
+  <section>
+    <h2>How it could <em>be built</em></h2>
+    <p>Four realistic routes. In all of them the Next.js site stays on Vercel and keeps doing what it is good at: sign-in, the calendar, the pages. Only the video goes somewhere else.</p>
+    <div class="options">
+      <article class="option">
+        <h3>A classroom on LiveKit</h3>
+        <p>The lecture page is a normal page on the site. A server route checks who you are and gives your browser a short-lived token for the room. The video itself goes through <a href="https://livekit.com/pricing">LiveKit Cloud</a>. You build the room with <a href="https://github.com/livekit-examples/meet">LiveKit's React components</a> and design everything around it yourselves: raise hand, chat, who is here, the teacher's controls. Recording is a LiveKit service called <a href="https://docs.livekit.io/home/egress/overview/">Egress</a>, which can save the room as an MP4 file to S3-compatible storage.</p>
+        <p class="good">You own the whole experience and it looks like the rest of the site. The server is open source (Apache 2.0), so you can start on the free cloud plan and later move to your own server without rewriting the app. Teachers and students get the right role in the room from the sign-in the site already has.</p>
+        <p class="watch">You build every classroom feature yourselves, and each one is more work than it looks. The free plan includes only 60 minutes of recording a month, so recordings cost money from the start. On LiveKit Cloud, pinning all live traffic to the EU region is a feature of the $500 plan. If keeping data in Europe is the reason for the project, read their data residency pages early, or plan to host the server yourselves.</p>
+      </article>
+      <article class="option">
+        <h3>Embed a finished meeting: Jitsi or BigBlueButton</h3>
+        <p>Use a complete open-source meeting tool and put it inside the site. <a href="https://jitsi.github.io/handbook/docs/dev-guide/dev-guide-iframe/">Jitsi Meet</a> embeds with a few lines and can run on your own server or on the hosted Jitsi as a Service, which has a free tier counted in monthly active users. <a href="https://docs.bigbluebutton.org/development/api/">BigBlueButton</a> has an API where the site's server creates a meeting, sends people into it with the right role and later asks for the recordings.</p>
+        <p class="good">The fastest way to a room that works, with chat, screen sharing and raise hand already there. BigBlueButton adds the teaching tools nobody wants to build twice: whiteboard, breakout rooms, polls, recordings.</p>
+        <p class="watch">It looks and behaves like their product, inside a frame on your page. That leaves less design work, which may be the part you wanted. BigBlueButton needs the big server from the fact above, and somebody to keep it updated.</p>
+      </article>
+      <article class="option">
+        <h3>A one-way broadcast</h3>
+        <p>The teacher streams from <a href="https://obsproject.com/kb/whip-streaming-guide">OBS</a> to a streaming service, and students watch in a video player on the lecture page, with a chat next to it for questions. Managed choices are <a href="https://developers.cloudflare.com/stream/pricing/">Cloudflare Stream</a> ($5 per 1,000 minutes stored, $1 per 1,000 minutes delivered) and <a href="https://www.mux.com/pricing">Mux</a> (about $0.03 per minute of live input, with 100,000 delivery minutes free each month). The self-hosted choice is MediaMTX on a small server. For our example class either managed service comes to roughly $30 a month.</p>
+        <p class="good">The simplest thing to build and the hardest to break. The recording is made for you. It works on almost any network because viewers only download ordinary video. Cloudflare's newer WebRTC mode even cuts the delay to under a second.</p>
+        <p class="watch">Students cannot speak or share their own screen, and with normal HLS the chat is many seconds ahead of the picture. OBS is one more program for the teacher to learn. Cloudflare's WebRTC mode does not record yet, so you choose between low delay and a recording.</p>
+      </article>
+      <article class="option">
+        <h3>Keep Zoom for the live part, own everything around it</h3>
+        <p>The site already reads the list of recordings from Zoom. Go further: connect each recording to its calendar event, copy the file to your own storage, make a transcript with faster-whisper, add captions, chapters and search, and put a "Join" button on the lecture event. Live teaching stays on Zoom.</p>
+        <p class="good">No risk on the day of a lecture. Students get most of what they would notice: one place to join, and recordings they can actually find and search. It is also a safe first half of any of the other three routes.</p>
+        <p class="watch">It does not do what the idea asks for. The school still depends on Zoom and still pays for it. You would have to argue that this is the right amount to build, and Smári may disagree.</p>
+      </article>
+    </div>
+    <p>There are lower-level tools as well, such as <a href="https://mediasoup.org/">mediasoup</a> and <a href="https://janus.conf.meetecho.com/">Janus</a>, where you write the media server logic yourselves. They are good for learning and a poor choice for a class that starts at nine. Agora, 100ms, Amazon IVS and Whereby Embedded sell building blocks like LiveKit Cloud and Daily do. I checked Whereby (its free plan stops meetings at 30 minutes) and did not check the other three.</p>
+  </section>
+
+  <section>
+    <h2>A first <em>week</em></h2>
+    <ol class="plan">
+      <li><strong>Sit in on real lectures.</strong> Watch two or three lectures on Zoom, at school and from home. Write down every Zoom feature that gets used and every moment something goes wrong. Ask a teacher what they would miss most, and ask two students how they watch recordings.</li>
+      <li><strong>Make one room.</strong> Create a free LiveKit Cloud project and start from the open-source LiveKit Meet example. One page, one room, no design. The goal is five people in a call by Tuesday.</li>
+      <li><strong>Share real code.</strong> One of you shares a code editor with a small font, the others watch on a laptop, a phone and a bad connection. Can you read the code? Text needs sharpness more than smooth motion, and the settings for that are worth an afternoon.</li>
+      <li><strong>Do the same with Jitsi.</strong> Embed a Jitsi room in a second page with the embed API. Now you have two prototypes and can compare how much you control in each.</li>
+      <li><strong>Measure against Zoom.</strong> Run the same 20 minutes on Zoom, LiveKit and Jitsi from inside the school's network. Note the time to join, whether the code was readable, the delay, any drop-outs, and laptop fan noise. A table with real numbers will decide more than any opinion.</li>
+      <li><strong>Record ten minutes and caption it.</strong> Save one recording, run faster-whisper on it, and read the transcript. If the speech was Icelandic, this tells you early whether automatic captions are usable.</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>Still <em>open</em></h2>
+    <ul class="questions">
+      <li>Is a lecture a call or a broadcast? If students ask most questions in chat anyway, the broadcast is cheaper and safer. If they unmute and share their own screens, it has to be a call.</li>
+      <li>Who gets the message when it breaks five minutes before a lecture, and what is the backup plan? "Open Zoom" is a fair answer, but then Zoom is still there.</li>
+      <li>Rented service or your own server? The service is less work and costs money every month. Your own server gives control over the data and makes one of you the on-call person.</li>
+      <li>Where do recordings live, who can watch them, and for how long? Students are in those recordings. Should a student be able to ask for a part to be removed?</li>
+      <li>Which Zoom features are really used? Breakout rooms, remote control of a student's screen, polls, phone dial-in: each one you must replace is weeks of work, and each one you can drop is a gift.</li>
+      <li>What would make a teacher choose this over Zoom on a normal Wednesday, when nobody is asking them to?</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Keep <em>reading</em></h2>
+    <ul class="links">
+      <li><a href="https://webrtcforthecurious.com/docs/08-applied-webrtc/">WebRTC for the Curious: Applied WebRTC</a> A free book by people who build this for a living. This chapter explains mesh, SFU and MCU with pictures, in about fifteen minutes.</li>
+      <li><a href="https://docs.livekit.io/reference/internals/livekit-sfu/">LiveKit: how the SFU works</a> The clearest short text on why one server in the middle beats everyone sending to everyone.</li>
+      <li><a href="https://docs.livekit.io/home/self-hosting/ports-firewall/">LiveKit: ports and firewall</a> One table that shows what a media server needs from a network. Read it before you promise anyone that it "just runs".</li>
+      <li><a href="https://www.rfc-editor.org/rfc/rfc9725.html">RFC 9725: WHIP</a> The standard, published in March 2025, that lets a tool like OBS send WebRTC to a server with a single HTTP request. Skim the introduction to see where streaming is heading.</li>
+      <li><a href="https://www.euronews.com/next/2026/01/27/france-to-ditch-us-platforms-microsoft-teams-zoom-for-sovereign-platform-amid-security-con">Euronews: France replaces Teams and Zoom with Visio</a> The reasons a whole government gave, and the numbers: about 40,000 test users, and a goal of all departments by 2027.</li>
+      <li><a href="https://www.wilmerhale.com/en/insights/blogs/wilmerhale-privacy-and-cybersecurity-law/20251201-european-court-of-justice-to-review-challenge-to-eu-us-data-privacy-framework">WilmerHale: the EU-US data framework goes back to court</a> The agreement that makes sending personal data to US companies legal was upheld in September 2025 and then appealed. Look up where the case stands before you use privacy as your main argument.</li>
+      <li><a href="https://www.w3.org/WAI/WCAG22/Understanding/captions-live.html">WCAG 2.2: Captions (Live)</a> What the accessibility standard asks for in live video, and the interesting note that two-way calls are treated differently from broadcasts.</li>
+      <li><a href="https://docs.bigbluebutton.org/development/api/">BigBlueButton API</a> Even if you never install it, the list of calls (create, join, get recordings) is a good model of what a school site needs from a video engine.</li>
+    </ul>
+  </section>
+
+</main>
+
+<section class="page-cta">
+  <h2>This is a starting point, <em>not a plan.</em></h2>
+  <p>Disagree with something? Found a better example? Know how you would do it? Change this page and push to main.</p>
+  <div class="hero-actions">
+    <a class="btn btn-solid" href="https://github.com/ellertsmari/Internship-ideas/edit/main/ideas/streaming.html">Edit this page</a>
+    <a class="btn" href="../index.html#wall">Back to the wall</a>
+  </div>
+  <p class="note">Researched by Claude, November 2026. Check a link before you rely on a number.</p>
+</section>
+
+</body>
+</html>

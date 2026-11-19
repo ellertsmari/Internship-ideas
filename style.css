@@ -488,6 +488,24 @@ pre {
 .aside { margin-top: 34px; font-size: 1.1rem; }
 .aside a { color: var(--c2); font-weight: 600; }
 
+.prompt-box {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr));
+  gap: 30px;
+  align-items: start;
+  margin-top: 26px;
+  padding: clamp(24px, 4vw, 44px);
+  border-radius: 24px;
+  background: var(--c2);
+  color: var(--ink);
+}
+
+.prompt-box > div { display: grid; gap: 14px; min-width: 0; font-size: 1.1rem; }
+
+.prompt-box h3 { font-size: clamp(1.8rem, 3.4vw, 2.6rem); font-weight: 800; letter-spacing: -0.035em; line-height: 1; }
+
+pre.prompt { white-space: pre-wrap; overflow-wrap: anywhere; font-size: 0.84rem; }
+
 /* ---------- Build on ---------- */
 
 .build {
@@ -558,3 +576,245 @@ pre {
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
+
+/* ============================================================
+   The research pages in ideas/
+   Each page sets its own colour: <body class="page" style="--c: var(--c3)">
+   ============================================================ */
+
+.more {
+  align-self: flex-start;
+  padding: 0.45em 1em;
+  border: var(--edge);
+  border-radius: 999px;
+  background: var(--paper);
+  font-size: 0.92rem;
+  font-weight: 800;
+  text-decoration: none;
+  box-shadow: 3px 3px 0 var(--ink);
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.more:hover { transform: translate(-2px, -2px); box-shadow: 5px 5px 0 var(--ink); }
+
+.page { --c: var(--c1); }
+
+.page-hero {
+  padding: 28px var(--gutter) clamp(48px, 7vw, 96px);
+  background: var(--c);
+  border-bottom: var(--edge);
+  display: grid;
+  gap: 22px;
+}
+
+.back {
+  justify-self: start;
+  margin-bottom: clamp(28px, 6vw, 80px);
+  padding: 0.5em 1.1em;
+  border: var(--edge);
+  border-radius: 999px;
+  background: var(--paper);
+  font-weight: 800;
+  font-size: 0.95rem;
+  text-decoration: none;
+  box-shadow: 4px 4px 0 var(--ink);
+}
+
+.page-hero .from {
+  justify-self: start;
+  padding: 0.3em 0.9em;
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--paper);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.page-hero h1 {
+  font-size: clamp(2.8rem, 9vw, 8rem);
+  font-weight: 800;
+  line-height: 0.9;
+  letter-spacing: -0.045em;
+  max-width: 14ch;
+  text-wrap: balance;
+}
+
+.page-hero .pitch {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(1.5rem, 3.2vw, 2.6rem);
+  line-height: 1.1;
+  max-width: 24em;
+}
+
+.glance { list-style: none; margin: 8px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px; }
+
+.glance li {
+  padding: 0.5em 1em;
+  border: var(--edge);
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--paper) 55%, transparent);
+  font-size: 0.95rem;
+}
+
+.glance b { font-weight: 800; }
+
+.page-main { padding: 0 var(--gutter); max-width: 1320px; }
+
+.page-main > section { padding: clamp(48px, 7vw, 90px) 0 0; }
+
+.page-main h2 {
+  font-size: clamp(2.2rem, 5.5vw, 4.4rem);
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  margin-bottom: 24px;
+}
+
+.page-main h3 { font-size: 1.45rem; font-weight: 800; letter-spacing: -0.025em; line-height: 1.1; }
+
+.page-main section > p,
+.page-main section > ul:not([class]),
+.page-main section > ol:not([class]) { max-width: 44rem; font-size: 1.15rem; }
+
+.page-main section > p + p { margin-top: 1em; }
+
+.page-main section > ul:not([class]) li,
+.page-main section > ol:not([class]) li { margin-bottom: 0.5em; }
+
+.page-main a { font-weight: 600; text-decoration-thickness: 2px; text-underline-offset: 3px; }
+
+/* Findings: one big claim each, always with a source. */
+.facts, .inspo, .options {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+  gap: 22px;
+  margin-top: 28px;
+}
+
+.fact {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 24px;
+  border: var(--edge);
+  border-radius: 22px;
+  background: #fff;
+  box-shadow: 6px 6px 0 var(--ink);
+}
+
+.fact strong {
+  font-size: 1.9rem;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+.fact .source { margin-top: auto; padding-top: 8px; font-size: 0.86rem; color: var(--muted); }
+
+/* Inspiration: the whole card is the link. */
+.inspo-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 22px;
+  border: var(--edge);
+  border-radius: 22px;
+  background: var(--c);
+  text-decoration: none;
+  box-shadow: 6px 6px 0 var(--ink);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.page-main .inspo-card { font-weight: 400; }
+
+.inspo-card:hover { transform: translate(-3px, -4px) rotate(-0.6deg); box-shadow: 10px 11px 0 var(--ink); }
+
+.inspo-card strong { font-size: 1.45rem; font-weight: 800; letter-spacing: -0.03em; line-height: 1.05; }
+
+.inspo-card small { margin-top: auto; padding-top: 8px; font-family: var(--mono); font-size: 0.78rem; }
+
+.inspo-card small::after { content: " ↗"; }
+
+/* Ways to build it. */
+.option {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 24px;
+  border: var(--edge);
+  border-radius: 22px;
+}
+
+.option .good, .option .watch { font-size: 0.98rem; padding-left: 1.5em; position: relative; }
+.option .good::before { content: "+"; position: absolute; left: 0; font-weight: 800; }
+.option .watch::before { content: "!"; position: absolute; left: 0.15em; font-weight: 800; }
+
+/* A first week. */
+.plan { list-style: none; margin: 28px 0 0; padding: 0; display: grid; gap: 14px; counter-reset: plan; max-width: 52rem; }
+
+.plan li {
+  counter-increment: plan;
+  position: relative;
+  padding: 18px 22px 18px 76px;
+  border: var(--edge);
+  border-radius: 18px;
+  background: #fff;
+  font-size: 1.08rem;
+}
+
+.plan li::before {
+  content: counter(plan);
+  position: absolute;
+  left: 18px;
+  top: 14px;
+  display: grid;
+  place-items: center;
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 50%;
+  border: var(--edge);
+  background: var(--c);
+  font-weight: 800;
+  font-size: 1.2rem;
+}
+
+.plan strong { display: block; font-size: 1.2rem; font-weight: 800; letter-spacing: -0.02em; }
+
+/* Open questions. */
+.questions { list-style: none; margin: 28px 0 0; padding: 0; display: grid; gap: 12px; max-width: 52rem; }
+
+.questions li {
+  padding: 16px 22px;
+  border: 2.5px dashed var(--ink);
+  border-radius: 18px;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.45rem;
+  line-height: 1.15;
+}
+
+/* Reading list. */
+.links { list-style: none; margin: 28px 0 0; padding: 0; display: grid; gap: 0; max-width: 52rem; }
+
+.links li { padding: 14px 0; border-top: 2px solid var(--ink); font-size: 1.05rem; }
+.links li:last-child { border-bottom: 2px solid var(--ink); }
+.links a { display: block; font-size: 1.2rem; font-weight: 800; letter-spacing: -0.02em; }
+
+.page-cta {
+  margin: clamp(64px, 9vw, 120px) var(--gutter);
+  padding: clamp(32px, 5vw, 64px);
+  background: var(--ink);
+  color: var(--paper);
+  border-radius: 32px;
+  display: grid;
+  gap: 18px;
+}
+
+.page-cta h2 { font-size: clamp(2rem, 5vw, 4rem); font-weight: 800; line-height: 0.95; letter-spacing: -0.04em; }
+.page-cta h2 em { color: var(--c2); }
+.page-cta p { max-width: 40rem; font-size: 1.15rem; }
+.page-cta .hero-actions { margin-top: 8px; animation: none; }
+.page-cta .btn { color: var(--ink); box-shadow: 5px 5px 0 var(--c2); }
+.page-cta .note { font-size: 0.92rem; opacity: 0.7; }

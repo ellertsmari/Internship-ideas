@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The student just ahead of you · February is wide open</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Instrument+Serif:ital@1&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css">
+</head>
+
+<body class="page" style="--c: var(--c6)">
+
+<header class="page-hero">
+  <a class="back" href="../index.html#wall">← The wall</a>
+  <p class="from">from Smári</p>
+  <h1>The student just ahead of you</h1>
+  <p class="pitch">Gamification, without the leaderboard that makes people give up.</p>
+  <ul class="glance">
+    <li><b>Kind of work:</b> research and interaction design first, then a small amount of data code</li>
+    <li><b>You'd enjoy this if:</b> you like psychology, game design and arguing about what is fair</li>
+  </ul>
+</header>
+
+<main class="page-main">
+
+  <section>
+    <h2>Why this is <em>worth doing</em></h2>
+    <p>The idea is simple. Students earn points for returned guides, for reviews they give and for grades. But nobody sees the whole class. Each student sees three rows: the person just above, themselves, and the person just below. The goal is always close: pass one person, stay ahead of one person.</p>
+    <p>A normal leaderboard is good for the five students at the top and bad for almost everyone else. If you are number 19 and the leader has four times your points, the list tells you to stop trying. Smári's version removes that distance. It also asks a hard design question that most products never answer well: what does the student in last place see?</p>
+    <p>That question is the real project. The code is small. The thinking is large: which actions earn points, who is allowed to see what, and how to be sure the weakest student in the class is better off with this feature than without it. If you solve that, you have a portfolio piece that shows you can design with evidence and with care.</p>
+  </section>
+
+  <section>
+    <h2>Where we are <em>today</em></h2>
+    <p>The site already records everything a point system would need. Each returned guide is saved with its date. Each peer review is saved with a vote (pass, no pass, or recommend to the Hall of Fame) and a comment. Teachers put a grade on reviews. Some guides are exercises that the site grades by itself, and those scores use the same 0 to 10 scale as the review grades.</p>
+    <p>The student home page shows three things next to each other: Progress (how much of each module you have returned), Grades (a code and a design number for each module), and Score. The Score box shows three counts today: guides passed, guides in the Hall of Fame, and guides returned. Its help text says "Points and ranking are on the way."</p>
+    <p>Under those counts there is a box with the title Leaderboard, and it is empty. It says: "Once scoring goes live you'll see how you're doing against the rest of the class here." A comment in the code explains that the scoring rules are not decided yet, and that the box stays empty on purpose because a fake ranking would look like a real one. There is no collection for points, streaks or badges in the database models.</p>
+    <p>Two more things are useful to know. The Grades box already tells students it is "progress, not a report card", because a guide you have not returned counts as 0, and there is a "How is this calculated?" walkthrough beside it. So the site has already met the problem that a number can worry people. And there is a public Hall of Fame page that shows projects classmates recommended. That is the only place where the site lifts some students above others today, and it celebrates work, not rank.</p>
+  </section>
+
+  <section>
+    <h2>What the <em>research</em> says</h2>
+    <p>Game elements in learning have been studied a lot. The short version: they help a little on average, leaderboards are the risky part, and the neighbours-only design has real support but does not solve everything.</p>
+    <div class="facts">
+      <article class="fact">
+        <strong>Gamification helps, a little, on average</strong>
+        <p>A meta-analysis found small positive effects on learning (g = .49), motivation (g = .36) and behaviour (g = .25). The motivation and behaviour results were less stable. Competition combined with collaboration worked especially well for behaviour, so think about a class goal next to the personal chase.</p>
+        <a class="source" href="https://link.springer.com/article/10.1007/s10648-019-09498-w">Source: Sailer and Homner, Educational Psychology Review, 2020</a>
+      </article>
+      <article class="fact">
+        <strong>A classic leaderboard can make a course worse</strong>
+        <p>Two versions of the same course ran for 16 weeks. The one with a leaderboard and badges ended with less motivation, less satisfaction and lower final exam scores. This is the result your design has to avoid.</p>
+        <a class="source" href="https://www.sciencedirect.com/science/article/abs/pii/S0360131514002000">Source: Hanus and Fox, Computers &amp; Education, 2015</a>
+      </article>
+      <article class="fact">
+        <strong>Neighbours-only has been tested, and it did better</strong>
+        <p>In online classes, a leaderboard that showed only nearby competitors led to more engagement and better performance than a full list. On the full list, middle and bottom students reported more peer pressure. The authors also advise limiting how much the bottom ranks are shown.</p>
+        <a class="source" href="https://www.j-ets.net/collection/published-issues/28_4">Source: Bai and Hew, Educational Technology &amp; Society, 2025</a>
+      </article>
+      <article class="fact">
+        <strong>But position still matters</strong>
+        <p>An earlier study with 50 students found that on the neighbours-only board, the top third still learned more than the other two thirds. Motivation was similar at every position, which is good news. The design reduces the harm. It does not remove rank.</p>
+        <a class="source" href="https://www.sciencedirect.com/science/article/abs/pii/S0360131521001743">Source: Bai, Hew, Sailer and Jia, Computers &amp; Education, 2021</a>
+      </article>
+      <article class="fact">
+        <strong>Telling students their rank helped the strong and hurt the weak</strong>
+        <p>When schools gave students feedback on their relative performance, high achievers improved by 0.15 of a standard deviation and low achievers dropped by 0.3. The loss at the bottom was twice the gain at the top. Any rank you show is this kind of feedback.</p>
+        <a class="source" href="https://ideas.repec.org/a/eee/jeborg/v183y2021icp589-615.html">Source: Goulas and Megalokonomou, Journal of Economic Behavior &amp; Organization, 2021</a>
+      </article>
+      <article class="fact">
+        <strong>People will do strange things to avoid last place</strong>
+        <p>In experiments, people took gambles to escape last place that they refused in other positions, and people in second-to-last place were the least willing to help the person below them. In this idea, one student always has nobody below. Design that screen first.</p>
+        <a class="source" href="https://www.nber.org/papers/w17234">Source: Kuziemko, Buell, Reich and Norton, "Last-place aversion"</a>
+      </article>
+      <article class="fact">
+        <strong>Rewards can push out real interest</strong>
+        <p>Across 128 experiments, rewards given for taking part, for finishing or for performance all reduced intrinsic motivation. Positive feedback increased it. Points that carry information ("your review helped") are safer than points for showing up.</p>
+        <a class="source" href="https://pubmed.ncbi.nlm.nih.gov/10589297/">Source: Deci, Koestner and Ryan, Psychological Bulletin, 1999</a>
+      </article>
+    </div>
+  </section>
+
+  <section>
+    <h2>Go and <em>look at these</em></h2>
+    <div class="inspo">
+      <a class="inspo-card" href="https://blog.duolingo.com/duolingo-leagues-leaderboards/">
+        <strong>Duolingo leagues</strong>
+        <span>A new league starts every week, and you are matched with people who have similar study habits. Nobody is compared with the whole world. Notice also how you leave: you make your profile private.</span>
+        <small>blog.duolingo.com</small>
+      </a>
+      <a class="inspo-card" href="https://blog.duolingo.com/how-duolingo-streak-builds-habit">
+        <strong>Duolingo streak freeze</strong>
+        <span>A streak that forgives one bad day. Duolingo says that letting learners hold two freezes raised daily active learners by 0.38%. A tiny number that they still found worth shipping.</span>
+        <small>blog.duolingo.com</small>
+      </a>
+      <a class="inspo-card" href="https://support.strava.com/hc/en-us/articles/360043099552-Local-Legends">
+        <strong>Strava Local Legends</strong>
+        <span>The crown goes to the person who did the segment most often in the last 90 days, "regardless of pace or speed". Effort beats talent, old results expire, and there is a clear way to opt out.</span>
+        <small>support.strava.com</small>
+      </a>
+      <a class="inspo-card" href="https://support.zwift.com/en_us/holographic-replay-faq-BJq2ez4yj">
+        <strong>Zwift HoloReplay</strong>
+        <span>You race a ghost of your own best ride from the last 90 days. The person just ahead of you is you. What would that look like for returning guides?</span>
+        <small>support.zwift.com</small>
+      </a>
+      <a class="inspo-card" href="https://exercism.org/docs/using/reputation">
+        <strong>Exercism reputation</strong>
+        <span>A free coding school that publishes its whole point table. Mentoring someone to the end of a discussion earns more than publishing your own solution. The table shows what they value.</span>
+        <small>exercism.org</small>
+      </a>
+      <a class="inspo-card" href="https://stackoverflow.com/help/serial-voting-reversed">
+        <strong>Stack Overflow "voting corrected"</strong>
+        <span>What happens when friends vote for each other to collect points. An automated process runs every day, removes those votes and takes the points back. You will need your own answer to this.</span>
+        <small>stackoverflow.com</small>
+      </a>
+      <a class="inspo-card" href="https://docs.github.com/en/account-and-profile/concepts/contributions-on-your-profile">
+        <strong>GitHub contribution graph</strong>
+        <span>A year of your own activity as a picture, with no rank and no points. You already know how it feels to look at yours. Ask yourself if it ever made you commit just for the green square.</span>
+        <small>docs.github.com</small>
+      </a>
+      <a class="inspo-card" href="https://github.com/HabitRPG/habitica">
+        <strong>Habitica, the source code</strong>
+        <span>An open-source habit tracker built as a role-playing game, on Node and MongoDB. You can read how a real product stores points, streaks and rewards.</span>
+        <small>github.com</small>
+      </a>
+    </div>
+  </section>
+
+  <section>
+    <h2>How it could <em>be built</em></h2>
+    <div class="options">
+      <article class="option">
+        <h3>Calculate on the server, send three rows</h3>
+        <p>No new data. One MongoDB aggregation counts returns, reviews and grades per student, and <a href="https://www.mongodb.com/docs/manual/reference/operator/aggregation/rank/">$rank inside $setWindowFields</a> turns the totals into positions. The server then sends the browser only the three rows that student may see.</p>
+        <p class="good">Fast to build. You can change the point rules any day, because nothing is stored.</p>
+        <p class="watch">The full list must never reach the browser, or one student with developer tools sees the whole class. And when you change a rule, everyone's score moves, which can feel like losing points.</p>
+      </article>
+      <article class="option">
+        <h3>A points ledger</h3>
+        <p>A new collection with one document for each event: who, what they did, how many points, when, and which version of the rules. Scores are sums over the ledger.</p>
+        <p class="good">Every point can be explained ("5 points for your review on Tuesday"). Weekly or per-module seasons are a date filter. Streaks and personal bests come from the same data.</p>
+        <p class="watch">You must decide what happens to past work, and what happens to points when a review is removed or a grade changes. Agree with Smári how any change to real data is made before you write it.</p>
+      </article>
+      <article class="option">
+        <h3>Small weekly leagues</h3>
+        <p>The Duolingo model at class size: each week, students are placed in groups of similar pace, and the count starts again from zero. A scheduled job (<a href="https://vercel.com/docs/cron-jobs/usage-and-pricing">Vercel has one on every plan</a>) closes the week.</p>
+        <p class="good">A student who is far behind over the whole term can still have a good week. Fresh starts are kind.</p>
+        <p class="watch">In a small class, the group you are placed in already tells you your level. More parts to build and to explain.</p>
+      </article>
+      <article class="option">
+        <h3>No ranking at all</h3>
+        <p>Keep the points, remove the neighbours. Each student chases their own best week, and the class fills one shared bar together ("200 reviews before the module ends").</p>
+        <p class="good">It cannot put anyone in last place, and the research on combining competition with collaboration points this way. Build it as the comparison even if you prefer the chase.</p>
+        <p class="watch">Less pull than a real person just ahead of you. It also overlaps with the "Your term, looked back on" idea on the wall.</p>
+      </article>
+    </div>
+  </section>
+
+  <section>
+    <h2>A first <em>week</em></h2>
+    <ol class="plan">
+      <li><strong>Read three papers, write one page</strong> Bai and Hew (2025), Hanus and Fox (2015), Goulas and Megalokonomou (2021). Then write down what you will not build, and why.</li>
+      <li><strong>Find the empty box</strong> Log in as a student, open the home page and look at the Score section. The Leaderboard box is waiting there. Take a screenshot. That is your canvas.</li>
+      <li><strong>Write point rules, then attack them</strong> Put each rule on a sticky note. For each one, write the laziest way to collect those points without learning anything. Throw away the rules that lose.</li>
+      <li><strong>Draw the last-place screen first</strong> Sketch what three students see: the first, one in the middle, the last. If you cannot make the last one feel fine, change the idea before you change the pixels.</li>
+      <li><strong>Test with invented data</strong> Make a spreadsheet with 20 made-up students and 10 weeks of activity. How often does a neighbour change? If the order never moves, there is no chase.</li>
+      <li><strong>Show paper versions to five students</strong> Ask Smári to help you find a mix, including people who are behind. Ask what they would feel, and what they would do next. Listen more than you explain.</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>Still <em>open</em></h2>
+    <ul class="questions">
+      <li>What does the student in last place see? There is nobody below them, and they know it. Do you hide rank near the bottom, show only their own progress, or drop the "person below" for everyone?</li>
+      <li>Do the neighbours have names? In a small class a nickname is easy to guess. The GDPR says that data which can be linked back to a person is still personal data, even under a pseudonym. Who in the school has to agree to this, and can a student really say no when the teacher asks?</li>
+      <li>Should grades give points at all? If they do, the gap to your neighbour tells you something about their grades. Returns and reviews are things every student can do. Grades are not equally reachable for everyone.</li>
+      <li>Opt in or opt out? If only confident students join, the weakest of them is last. If everyone is in by default, somebody is ranked who never asked for it.</li>
+      <li>How do you stop review farming? Points for giving reviews reward short, fast reviews, and friends can pass each other. Teachers already grade reviews. Should the points wait for that grade?</li>
+      <li>Does the count start again each module? A student who had a bad September should not carry it to May. But a reset also removes what the hard workers built.</li>
+      <li>How will you know if it hurt someone, and what result would make you turn it off? Decide this before launch, not after.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Keep <em>reading</em></h2>
+    <ul class="links">
+      <li><a href="https://www.j-ets.net/collection/published-issues/28_4">How different gamified leaderboards affect students in online classes</a> The closest study to this idea, and it is free to read. Find it in the list for issue 28(4).</li>
+      <li><a href="https://umtl.cs.uni-saarland.de/paper_preprints/Lessel-AbsoluteOrRelative.pdf">"Absolute or Relative?" Exploring the choice between leaderboard types</a> A short paper that let users choose their own leaderboard. Performance did not change, but people liked having the choice.</li>
+      <li><a href="https://public.websites.umich.edu/~smgarcia/pubs/n-effect.pdf">The N-Effect: More Competitors, Less Competition</a> People finished a quiz faster when they believed they competed against 10 people than against 100. A good argument for small groups.</li>
+      <li><a href="https://selfdeterminationtheory.org/theory/">Self-determination theory, explained by the people who wrote it</a> Autonomy, competence and relatedness. Check every feature you design against these three words.</li>
+      <li><a href="https://en.wikipedia.org/wiki/Goodhart%27s_law">Goodhart's law</a> "When a measure becomes a target, it ceases to be a good measure." Read the examples, then look at your point rules again.</li>
+      <li><a href="https://edpb.europa.eu/news/news/2025/edpb-adopts-pseudonymisation-guidelines-and-paves-way-improve-cooperation_en">European Data Protection Board on pseudonymisation</a> The official statement that pseudonymised data is still personal data. Short, and it matters for "anonymous neighbours".</li>
+      <li><a href="https://gdpr-info.eu/recitals/no-26/">GDPR, recital 26</a> Six sentences on when a person counts as identifiable. Read it with a class of twenty in mind.</li>
+      <li><a href="https://stackoverflow.com/help/whats-reputation">Stack Overflow: What is reputation?</a> A point system that has run for many years, described by its owners. See how carefully they say what the number means.</li>
+    </ul>
+  </section>
+
+</main>
+
+<section class="page-cta">
+  <h2>This is a starting point, <em>not a plan.</em></h2>
+  <p>Disagree with something? Found a better example? Know how you would do it? Change this page and push to main.</p>
+  <div class="hero-actions">
+    <a class="btn btn-solid" href="https://github.com/ellertsmari/Internship-ideas/edit/main/ideas/gamification.html">Edit this page</a>
+    <a class="btn" href="../index.html#wall">Back to the wall</a>
+  </div>
+  <p class="note">Researched by Claude, November 2026. Check a link before you rely on a number.</p>
+</section>
+
+</body>
+</html>

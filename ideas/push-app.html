@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>An app with push notifications · February is wide open</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Instrument+Serif:ital@1&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css">
+</head>
+
+<body class="page" style="--c: var(--c5)">
+
+<header class="page-hero">
+  <a class="back" href="../index.html#wall">← The wall</a>
+  <p class="from">from Smári</p>
+  <h1>An app with push notifications</h1>
+  <p class="pitch">Turn the website into an app that taps students on the shoulder, and decide very carefully when it is allowed to tap.</p>
+  <ul class="glance">
+    <li><b>Kind of work:</b> interaction design, user research, front-end, and a small but real piece of back-end</li>
+    <li><b>You'd enjoy this if:</b> you like testing on real phones, and you care about the eight words on a lock screen as much as the code that sends them</li>
+  </ul>
+</header>
+
+<main class="page-main">
+
+  <section>
+    <h2>Why this is <em>worth doing</em></h2>
+    <p>The site knows a lot that a student would like to hear about: a lecture that moved, a deadline on Friday, a classmate waiting for a review, a slot that must be picked for a design review. Today the student only finds out by opening the site and looking in the right place. The students who look often are fine. The ones who forget are the ones who needed the reminder.</p>
+    <p>A phone on the table is where a student's attention already is. If the school's site can put one short, useful line there at the right moment, fewer things get missed, and teachers repeat themselves less.</p>
+    <p>The technical part is smaller than it sounds. A website can become an installable app and send push notifications without an app store, and the tools are free. The hard part is design: getting a student to install it, asking for permission at a moment when "yes" makes sense, and sending so little that nobody turns it off. That is why this is a good project for designers who code.</p>
+  </section>
+
+  <section>
+    <h2>Where we are <em>today</em></h2>
+    <p>The site sends nothing. I found no push code, no e-mail sending, no calendar feed and no scheduled job in the project. Everything a student sees, they see because they opened a page.</p>
+    <p>The site is also not installable yet. There is no web app manifest and no service worker, and the only icon is a small generated favicon with a "V". The good news is that the project runs on Next.js 16, and the official Next.js guide for web apps with push ships inside the project's own <code>node_modules</code>.</p>
+    <p>What the site already knows is the promising part:</p>
+    <ul>
+      <li><strong>The calendar</strong> stores events with a category (lecture, deadline, milestone, group work, meeting, holiday) and with a visibility (everyone, one team, shared with named people, private). It also shows group project dates, sign-up sheets, "find a time" polls and bookable meeting hours. It already works out which sheets and polls are waiting for an answer from the person looking.</li>
+      <li><strong>The student home page</strong> already has "Give Reviews" (guides where a classmate waits for your review), "Continue Learning" (your next guide), grades per module and a group project widget. So "something needs you" is already calculated. It is only shown, never sent.</li>
+      <li><strong>Sign-in</strong> is e-mail and password, and a session ends after about a week without a visit. A student who taps a notification after a quiet holiday will land on the sign-in page. Somebody has to design that moment.</li>
+      <li><strong>Canvas</strong> can open the site inside a frame through an LTI launch. That matters because Chrome and Firefox <a href="https://developer.mozilla.org/en-US/docs/Web/API/Notification/requestPermission_static">do not allow a page inside a cross-origin frame to ask for notification permission</a>. The install and the permission question have to happen on the site itself, in its own tab.</li>
+    </ul>
+    <p>One more detail for whoever builds the scheduler: calendar events store their date and time as plain school-local text, with no time zone. That was done on purpose to keep holidays on the right day. Anything that says "starts in 30 minutes" must decide what clock it uses.</p>
+  </section>
+
+  <section>
+    <h2>What the <em>research</em> says</h2>
+    <p>The platform facts below change every year, so I checked each one in November 2026. The human facts change much more slowly.</p>
+    <div class="facts">
+      <article class="fact">
+        <strong>On an iPhone, push only works after "Add to Home Screen"</strong>
+        <p>Since iOS 16.4 a web app can send push, but only once it has been added to the Home Screen, and it may only ask for permission after a tap. You do not need a paid Apple developer account. For you this means the install step is the whole funnel on iPhone: no install, no push.</p>
+        <a class="source" href="https://webkit.org/blog/13878/web-push-for-web-apps-on-ios-and-ipados/">Source: WebKit, Web Push for Web Apps on iOS and iPadOS</a>
+      </article>
+      <article class="fact">
+        <strong>Since iOS 26, every site added to the Home Screen opens as an app</strong>
+        <p>Apple removed its own requirements: any website a person adds to the Home Screen now opens as a web app by default. What Safari still does not have is an install prompt. Nothing will offer the install for you, so your own onboarding screen has to explain Share, then Add to Home Screen.</p>
+        <a class="source" href="https://webkit.org/blog/17333/webkit-features-in-safari-26-0/">Source: WebKit, Features in Safari 26.0</a>
+      </article>
+      <article class="fact">
+        <strong>Safari can now show a push without running your code</strong>
+        <p>Declarative Web Push (iOS and iPadOS 18.4, then macOS) lets the server send a small standard JSON message that the browser shows by itself. WebKit built it because service worker push is fragile: a bug or a bad network can stop the notification, and the browser may then cancel the subscription. The same message still works in older browsers through a service worker, so you can support both.</p>
+        <a class="source" href="https://webkit.org/blog/16535/meet-declarative-web-push/">Source: WebKit, Meet Declarative Web Push</a>
+      </article>
+      <article class="fact">
+        <strong>Less than 1% of web notifications get any reaction</strong>
+        <p>That is Chrome's own number. Chrome now removes the permission from sites that send a lot and get ignored. Installed web apps are not touched by that clean-up, which is one more reason to get the install right. It is also a warning: the normal fate of a notification is to be ignored.</p>
+        <a class="source" href="https://blog.google/chromium/automatic-notification-permission/">Source: Google, Reducing notification overload in Chrome (October 2025)</a>
+      </article>
+      <article class="fact">
+        <strong>Three batches a day beat both "instant" and "nothing"</strong>
+        <p>In a field experiment with 237 people, those who got their notifications in three batches a day felt more attentive, more productive and more in control of their phone. Those who got no notifications at all got few of those benefits and felt more anxious about missing out. For a school, this is a strong argument for a morning summary and against sending every event the second it happens.</p>
+        <a class="source" href="https://scholars.duke.edu/publication/1402953">Source: Fitz and others, Computers in Human Behavior, 2019</a>
+      </article>
+      <article class="fact">
+        <strong>Asking on the first visit is the worst moment to ask</strong>
+        <p>Google's guidance is to ask when the benefit is obvious, and to show your own explanation first, so that a "not now" does not become a permanent block in the browser. A good moment on this site could be right after a student books a meeting: "Want a reminder before it starts?"</p>
+        <a class="source" href="https://web.dev/articles/push-notifications-permissions-ux">Source: web.dev, Permission UX</a>
+      </article>
+      <article class="fact">
+        <strong>On Vercel's free plan, a scheduled job runs once a day, at roughly the right hour</strong>
+        <p>Hobby projects may run each cron job once per day, and it can start up to 59 minutes late. Pro allows every minute. Cron times are always in UTC, which is also Iceland's time all year. A daily summary fits the free plan. "Your lecture starts in 15 minutes" does not, unless you add another scheduler. Find out which plan the school is on before you design around timing.</p>
+        <a class="source" href="https://vercel.com/docs/cron-jobs/usage-and-pricing">Source: Vercel, Usage and Pricing for Cron Jobs</a>
+      </article>
+    </div>
+  </section>
+
+  <section>
+    <h2>Go and <em>look at these</em></h2>
+    <div class="inspo">
+      <a class="inspo-card" href="https://whatpwacando.today/">
+        <strong>What PWA Can Do Today</strong>
+        <span>Install it on your own phone and try the notification and Declarative Web Push demos. Ten minutes here teaches you more about the install flow than any article. The site is itself a web app, so notice how it asks you to install.</span>
+        <small>whatpwacando.today</small>
+      </a>
+      <a class="inspo-card" href="https://github.com/basecamp/once-campfire">
+        <strong>Campfire, by the makers of Basecamp</strong>
+        <span>A real chat product that sends its notifications through Web Push. The code is open (MIT), so you can read how an experienced product team built exactly the thing you are about to build.</span>
+        <small>github.com/basecamp/once-campfire</small>
+      </a>
+      <a class="inspo-card" href="https://github.com/khmyznikov/pwa-install">
+        <strong>pwa-install</strong>
+        <span>An open-source component that shows an install dialog on browsers that have none, with pictures of the iPhone steps. Use it, or steal the idea and draw the steps in the school's own style.</span>
+        <small>github.com/khmyznikov/pwa-install</small>
+      </a>
+      <a class="inspo-card" href="https://sophiebits.com/2024/10/30/everyone-is-wrong-about-that-slack-flowchart">
+        <strong>The Slack "should we notify?" flowchart, redrawn</strong>
+        <span>Slack's famous chart of every rule that decides whether a message makes your phone buzz, and Sophie Alpert's version with six boxes. Draw the same chart for the school before you write any code.</span>
+        <small>sophiebits.com</small>
+      </a>
+      <a class="inspo-card" href="https://community.instructure.com/en/kb/articles/662894-how-do-i-manage-my-canvas-notification-settings">
+        <strong>Canvas notification settings</strong>
+        <span>The students know this screen. Every kind of notice can be set to immediately, daily summary, weekly summary or off. Steal one detail: "immediately" can wait up to an hour in case the teacher edits again, so one change does not become five buzzes.</span>
+        <small>community.instructure.com</small>
+      </a>
+      <a class="inspo-card" href="https://research.duolingo.com/papers/yancey.kdd20.pdf">
+        <strong>How Duolingo chooses its reminder text</strong>
+        <span>A research paper from the team behind the best-known reminders in the world. The finding to steal: a message that worked yesterday works less well today, so they rotate wording on purpose. You do not need their algorithm to write five versions of "a review is waiting".</span>
+        <small>research.duolingo.com</small>
+      </a>
+      <a class="inspo-card" href="https://docs.discord.com/developers/resources/webhook">
+        <strong>Discord webhooks</strong>
+        <span>The surprising option. If a class already lives in a chat app, one web request can post "Lecture moved to 10:00" into a channel, and the phone buzzes through an app that is already installed. Worth an hour of testing before you build anything bigger.</span>
+        <small>docs.discord.com</small>
+      </a>
+      <a class="inspo-card" href="https://github.com/elk-zone/elk">
+        <strong>Elk</strong>
+        <span>An open-source Mastodon client built as an installable web app. Install it and compare it with a native social app. Where does it feel the same, and where can you tell it is a website?</span>
+        <small>github.com/elk-zone/elk</small>
+      </a>
+    </div>
+  </section>
+
+  <section>
+    <h2>How it could <em>be built</em></h2>
+    <div class="options">
+      <article class="option">
+        <h3>1. Installable web app with your own Web Push</h3>
+        <p>Add a manifest, proper icons and a small service worker, as the <a href="https://nextjs.org/docs/app/guides/progressive-web-apps">Next.js guide</a> shows. Create a pair of VAPID keys, save each student's push subscription in MongoDB, and send with the <a href="https://github.com/web-push-libs/web-push">web-push</a> library from a server action or a scheduled route. Use the Badging API to put a number on the app icon for "reviews waiting". Send the Declarative Web Push format so that Safari can show the message by itself.</p>
+        <p class="good">Free, no store, no review, and student data stays in the school's own database. One codebase covers iPhone, Android and laptops. Updates go live with a normal deploy.</p>
+        <p class="watch">Every iPhone student has to add the site to the Home Screen by hand before anything works. Subscriptions stop working when someone changes phone or removes the app, so you need to clean up the old ones. If you want minute-exact reminders on the free Vercel plan you need a second scheduler, for example <a href="https://upstash.com/pricing/qstash">Upstash QStash</a>, whose free tier allows 1,000 messages a day.</p>
+      </article>
+      <article class="option">
+        <h3>2. Notifications first, the app second</h3>
+        <p>Build the part that decides before the part that delivers: one list of events worth telling (review waiting, event changed, slot to pick), a settings page per student, and an "outbox" that records what was sent. Then add channels one at a time. The cheapest first channel is a personal calendar feed (an .ics address made with <a href="https://github.com/sebbo2002/ical-generator">ical-generator</a>) that students subscribe to in the calendar app they already use. The second could be a morning e-mail through <a href="https://resend.com/pricing">Resend</a>, whose free plan covers 3,000 e-mails a month and 100 a day. Web Push becomes channel three.</p>
+        <p class="good">It reaches the students who will never install anything. The design work (what to send, when, how to turn it off) is the same for every channel, so nothing is wasted. A calendar feed needs no permission and no scheduler at all.</p>
+        <p class="watch">Calendar apps decide themselves how often they fetch a feed, so a feed is for planning and cannot say "in 15 minutes". A feed address is a secret link to a personal schedule and needs a way to be reset. E-mail from a school address needs somebody to set up the domain.</p>
+      </article>
+      <article class="option">
+        <h3>3. A notification service does the sending</h3>
+        <p>Keep the web app from option 1, but let a service hold the subscriptions, the per-student preferences and the retries. <a href="https://onesignal.com/pricing">OneSignal</a> has a free plan with web push and 10,000 e-mails a month. <a href="https://knock.app/pricing">Knock</a> (10,000 messages a month free) and <a href="https://novu.co/pricing">Novu</a> (10,000 workflow runs a month free) add ready-made preference screens and digests. <a href="https://firebase.google.com/docs/cloud-messaging">Firebase Cloud Messaging</a> covers web, Android and Apple with one API.</p>
+        <p class="good">Digests, quiet hours and "send by push, fall back to e-mail" already exist, so you spend the weeks on design. The free tiers should be enough for one school.</p>
+        <p class="watch">Student names, e-mail addresses and activity leave the school's database and go to an outside company. Someone at the school has to agree to that, and you have to read where the data is stored. You also learn less about how push works, and the iPhone install step stays exactly as hard.</p>
+      </article>
+      <article class="option">
+        <h3>4. A real app in the stores</h3>
+        <p>Wrap the site with <a href="https://capacitorjs.com/docs/apis/push-notifications">Capacitor</a>, or rebuild the student screens with <a href="https://docs.expo.dev/push-notifications/overview/">Expo</a> and React Native. Push then goes through Apple's and Google's own systems.</p>
+        <p class="good">Students find it in the store, install it like any app, and never hear the words "Add to Home Screen". Push on iPhone is as reliable as it gets.</p>
+        <p class="watch">Apple's developer programme costs <a href="https://developer.apple.com/programs/">$99 a year</a> and Google Play takes <a href="https://support.google.com/googleplay/android-developer/answer/6112435">$25 once</a>. A new personal Google account must first run a closed test with <a href="https://support.google.com/googleplay/android-developer/answer/14151465">at least 12 testers for 14 days</a>. Apple's <a href="https://developer.apple.com/app-store/review/guidelines/">review guideline 4.2</a> says an app must be more than "a repackaged website", and a wrapped site is exactly what reviewers look for. Every update waits for review. For one school this is a lot of ceremony.</p>
+      </article>
+    </div>
+  </section>
+
+  <section>
+    <h2>A first <em>week</em></h2>
+    <ol class="plan">
+      <li><strong>Put three devices on the table</strong> An iPhone, an Android phone and a laptop. Install whatpwacando.today on each and turn on its notifications. Record the screen. Count the taps and write down every screen where you had to think.</li>
+      <li><strong>Ask five students two questions</strong> "What did you miss this term, and how did you find out?" and "Which apps are allowed to send you notifications, and which did you turn off?" Their answers are your list of features and your list of mistakes to avoid.</li>
+      <li><strong>List every possible notification</strong> Go through the calendar, the student home page and the group pages. For each thing the site knows, write the notification as it would look on a lock screen, eight words at most. Sort the list by "I would be glad" and "I would be annoyed". Keep three.</li>
+      <li><strong>Send one push to your own phone</strong> On a branch, follow the Next.js guide: manifest, icons, service worker, VAPID keys, one test button. Use a Vercel preview address, because push needs HTTPS. Test on the iPhone early. It has the most rules.</li>
+      <li><strong>Draw the two difficult moments</strong> The install explanation for an iPhone, and the permission question. Draw the "no" path as carefully as the "yes" path: what does a student who said no see next week?</li>
+      <li><strong>Decide on timing, then write one page</strong> Find out which Vercel plan the school uses. Choose between a morning summary and exact reminders. End the week with a one-page proposal: three notifications, one channel, one way to measure whether it helped.</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>Still <em>open</em></h2>
+    <ul class="questions">
+      <li>Who is allowed to make thirty phones buzz? Only the system, when something changes in the calendar, or also a teacher who types a message? What stops that from becoming the school's loudest channel?</li>
+      <li>If half the class installs the app and half does not, is that a success? What do the others get: an e-mail, a calendar feed, or nothing?</li>
+      <li>Should a grade or teacher feedback arrive as a push? It can show on a lock screen in front of friends. Is "You have new feedback" enough, or is even that too much?</li>
+      <li>One summary in the morning, or each thing when it happens? Does the student choose, or do you choose for them and defend it?</li>
+      <li>Do teachers get notifications too, for example when a meeting is booked or a return waits for grading? Their needs and their patience are different from the students'.</li>
+      <li>A sign-in lasts about a week. Should the installed app keep a student signed in for longer, so that a tap on a notification always opens the right page? What is the risk on a shared or lost phone?</li>
+      <li>How will you know it worked? Fewer late reviews, fewer empty seats, or simply fewer students who switched it off after a month?</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Keep <em>reading</em></h2>
+    <ul class="links">
+      <li><a href="https://nextjs.org/docs/app/guides/progressive-web-apps">Next.js: How to build a Progressive Web Application</a> The official walk-through with manifest, service worker, VAPID keys and a test push. The same text is in the school project's own Next.js folder, matching the exact version in use.</li>
+      <li><a href="https://firt.dev/notes/pwa-ios/">firt.dev: iOS PWA compatibility</a> Maximiliano Firtman's living list of what web apps can and cannot do on iPhone and iPad, updated after each iOS release. Check it before you promise a feature.</li>
+      <li><a href="https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/Guides/Making_PWAs_installable">MDN: Making PWAs installable</a> What the manifest needs, and how installing differs between Chrome, Edge, Safari and Firefox on phone and desktop.</li>
+      <li><a href="https://www.nngroup.com/articles/push-notification/">Nielsen Norman Group: Five Mistakes in Designing Mobile Push Notifications</a> Short and from 2018, and every mistake is still common: asking at first launch, not saying what you will send, sending in bursts, sending things that do not matter to this person, hiding the off switch.</li>
+      <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Badging_API">MDN: Badging API</a> A number on the app icon is a notification that makes no sound. It may be the politest way to say "two reviews are waiting".</li>
+      <li><a href="https://vercel.com/docs/cron-jobs">Vercel: Cron Jobs</a> How a scheduled job calls a route in the app, with the limits per plan one click away. Vercel calls cron a legacy feature now and points to its newer Schedules, so read both before choosing.</li>
+      <li><a href="https://www.macrumors.com/2024/03/01/apple-walks-back-decision-to-disable-eu-web-apps/">MacRumors: Apple walks back its decision to disable Home Screen web apps in the EU</a> In early 2024 Apple planned to turn web apps in the EU into plain bookmarks, then changed its mind before iOS 17.4 shipped. Read it to remember that this whole idea rests on rules one company can change.</li>
+      <li><a href="https://research.duolingo.com/papers/yancey.kdd20.pdf">Yancey and Settles: A Sleeping, Recovering Bandit Algorithm for Optimizing Recurring Notifications</a> If you want the full story behind the Duolingo card above. The first two pages are enough.</li>
+    </ul>
+  </section>
+
+</main>
+
+<section class="page-cta">
+  <h2>This is a starting point, <em>not a plan.</em></h2>
+  <p>Disagree with something? Found a better example? Know how you would do it? Change this page and push to main.</p>
+  <div class="hero-actions">
+    <a class="btn btn-solid" href="https://github.com/ellertsmari/Internship-ideas/edit/main/ideas/push-app.html">Edit this page</a>
+    <a class="btn" href="../index.html#wall">Back to the wall</a>
+  </div>
+  <p class="note">Researched by Claude, November 2026. Check a link before you rely on a number.</p>
+</section>
+
+</body>
+</html>

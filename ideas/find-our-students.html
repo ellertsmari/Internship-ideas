@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>A way for companies to find our students · February is wide open</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Instrument+Serif:ital@1&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css">
+</head>
+
+<body class="page" style="--c: var(--c1)">
+
+<header class="page-hero">
+  <a class="back" href="../index.html#wall">← The wall</a>
+  <p class="from">from Claude</p>
+  <h1>A way for companies to find our students</h1>
+  <p class="pitch">You are building the portfolios. This is the other side of them: the page a company opens when it wonders who could start in January.</p>
+  <ul class="glance">
+    <li><b>Kind of work:</b> service design, interviews with companies, a public page, a contact form, privacy and consent</li>
+    <li><b>You'd enjoy this if:</b> you like designing for two groups who want different things, and you care about who gets seen</li>
+  </ul>
+</header>
+
+<main class="page-main">
+
+  <section>
+    <h2>Why this is <em>worth doing</em></h2>
+    <p>A portfolio only works when somebody opens it. Today a student has to send the link to a company, one company at a time. The students who are good at writing to strangers get seen. The quiet ones with equally good work do not.</p>
+    <p>A company has the opposite problem. A small studio that could take an intern does not know who is in the school this year, what they can do, or when they are free. It will not open thirty portfolios to find out. It needs one page that answers three things fast: who is available, what are they good at, and how do I reach them.</p>
+    <p>You know this from the inside. Each of you had to find an internship not long ago. You remember how the match was made, and how much of it was luck. This project is a chance to design that moment properly, for the students who come after you. The page itself is simple. The hard part is that it shows real people, so every decision about order, wording and contact has a person on the other end.</p>
+  </section>
+
+  <section>
+    <h2>Where we are <em>today</em></h2>
+    <p>You know the portfolio builder better than this page does, because you are building it. In the version I read there is a builder screen with four steps (Profile, Projects, Theme, Contact) and a preview that uses sample data. The sample already shows the ideas this project needs: a "looking for" line, an "available from" month, skills, and contact links. By February the portfolios will be further along, and this project starts where they stop.</p>
+    <p>The site has two public places that show student work. The landing page shows items from the gallery, which is work that peer reviewers recommended. The full gallery, with filters for module, category and year, sits behind the login as the Hall of Fame. Its default sort is "most recommended" first. The showcase at <code>/showcase</code> is fully public: group projects, filtered by year, each with its own page.</p>
+    <p>The showcase is the best starting point for this project, because it already takes consent seriously. A member's name appears only if that member said yes. Any member can take the team photo down. Scores never appear. Comments appear only when the team chose them.</p>
+    <p>A few other pieces are in place. The landing page and the project briefs already output structured data for search engines, but nothing describes a person. There is a sitemap and a robots file. There is cookieless analytics for the public pages that counts both people and crawlers. There is a small rate limiter that stores only hashed keys.</p>
+    <p>And here it stops. Both the gallery and the showcase are organised by project. No page is organised by person. Nothing lets a visitor filter students by skill or availability. There is no concept of a company in the site, and I found no library for sending e-mail, so there is no contact form either.</p>
+  </section>
+
+  <section>
+    <h2>What the <em>research</em> says</h2>
+    <p>Seven findings that should change how you design this. Two are about attention, two about fairness, one about skills, two about privacy.</p>
+    <div class="facts">
+      <article class="fact">
+        <strong>A first look lasts about 7 seconds</strong>
+        <p>An eye-tracking study by Ladders in 2018 found that recruiters spend 7.4 seconds on the first screen of a CV. Simple layouts with clear headings did well. Several columns and long sentences did badly. Design each student card so that name, role, one strong image and "available from" survive a 7 second look.</p>
+        <a class="source" href="https://www.hrdive.com/news/eye-tracking-study-shows-recruiters-look-at-resumes-for-7-seconds/541582/">Source: HR Dive on the Ladders eye-tracking study, 2018</a>
+      </article>
+      <article class="fact">
+        <strong>Three to five projects, and nobody reads every word</strong>
+        <p>Nielsen Norman Group asked 204 people who hire UX staff what they look for. Their advice: pick 3 to 5 projects as detailed case studies, show the process and not only the result, and make it easy to scan. A directory card should lead to the student's best few projects, not to everything.</p>
+        <a class="source" href="https://www.nngroup.com/articles/ux-design-portfolios/">Source: Nielsen Norman Group, UX design portfolios</a>
+      </article>
+      <article class="fact">
+        <strong>Skills-based hiring is said more than it is done</strong>
+        <p>A 2024 study by the Burning Glass Institute and Harvard Business School found that the promise of skills-based hiring showed up in "not even 1 in 700 hires". About 45% of the firms changed their policy in name only. A skill filter alone will not change who gets picked. A skill tag that links to real work might.</p>
+        <a class="source" href="https://www.burningglassinstitute.org/research/skills-based-hiring-2024">Source: Burning Glass Institute and Harvard Business School, 2024</a>
+      </article>
+      <article class="fact">
+        <strong>The order of a list decides who is seen</strong>
+        <p>Two researchers give an example with six job candidates. The average difference in relevance between two groups is 0.03. In a normal ranked list, the lower group still gets 30% less exposure. Any fixed order on your page will do this to somebody. That is the argument for a shuffled order.</p>
+        <a class="source" href="https://arxiv.org/abs/1802.07281">Source: Singh and Joachims, Fairness of Exposure in Rankings, 2018</a>
+      </article>
+      <article class="fact">
+        <strong>Ratings on people carry bias</strong>
+        <p>Researchers collected 13,500 worker profiles from TaskRabbit and Fiverr. Perceived gender and race were significantly correlated with the reviews and ratings workers got. Today the gallery sorts work by number of recommendations. That is fine for projects. Think hard before any count or score appears next to a person.</p>
+        <a class="source" href="https://khoury.northeastern.edu/home/amislove/publications/Freelance-CSCW.pdf">Source: Hannák and others, Bias in Online Freelance Marketplaces, 2017 (PDF)</a>
+      </article>
+      <article class="fact">
+        <strong>A plain e-mail address stops 0% of harvesters</strong>
+        <p>Spencer Mortensen puts e-mail addresses on a test page and counts which spammers find them. Plain text blocked 0% of 1,042 spammers. Simple tricks like HTML entities blocked 96%. A directory is a page full of addresses, so do not print them. Use a contact form that forwards the message.</p>
+        <a class="source" href="https://spencermortensen.com/articles/email-obfuscation">Source: Spencer Mortensen, Email address obfuscation: What works in 2026?</a>
+      </article>
+      <article class="fact">
+        <strong>Leaving must be as easy as joining</strong>
+        <p>GDPR Article 7 says: "It shall be as easy to withdraw as to give consent." If a student joins the directory with one switch, one switch must take them out again, at once, without asking a teacher. Design the off switch on the same day as the on switch.</p>
+        <a class="source" href="https://gdpr-info.eu/art-7-gdpr/">Source: GDPR, Article 7(3)</a>
+      </article>
+    </div>
+  </section>
+
+  <section>
+    <h2>Go and <em>look at these</em></h2>
+    <div class="inspo">
+      <a class="inspo-card" href="https://hello.hyperisland.com/internship_partner">
+        <strong>Hyper Island, for internship hosts</strong>
+        <span>Your own school has no student directory. A company fills in a form and the school connects it with a programme in five steps. Ask yourselves what worked and what did not when it was you.</span>
+        <small>hello.hyperisland.com</small>
+      </a>
+      <a class="inspo-card" href="https://ualshowcase.arts.ac.uk/">
+        <strong>UAL Showcase</strong>
+        <span>Thousands of graduate projects from the colleges of University of the Arts London. Steal the collections: outside people curate work around a theme, which gives a visitor a way in that is not a ranking.</span>
+        <small>ualshowcase.arts.ac.uk</small>
+      </a>
+      <a class="inspo-card" href="https://2025.rca.ac.uk/">
+        <strong>RCA2025</strong>
+        <span>More than 1,600 graduating students, browsed by school and then by programme. Look at how little each list entry shows, and whether that is enough for someone hiring.</span>
+        <small>2025.rca.ac.uk</small>
+      </a>
+      <a class="inspo-card" href="https://www.sanity.io/projects/vca-design-and-production-2023">
+        <strong>VCA graduate site</strong>
+        <span>The landing page is a canvas of student work that is rebuilt in random order on every refresh, so that "every portfolio received equal opportunity for exposure". Read the short write-up.</span>
+        <small>sanity.io</small>
+      </a>
+      <a class="inspo-card" href="https://www.recurse.com/hire">
+        <strong>Recurse Center</strong>
+        <span>The opposite of a directory. Companies cannot browse. The school knows its people and introduces only those who want that company. Worth arguing about: is this better for a small school?</span>
+        <small>recurse.com</small>
+      </a>
+      <a class="inspo-card" href="https://github.com/joemasilotti/railsdevs.com">
+        <strong>RailsDevs, the source code</strong>
+        <span>A "reverse job board": developers post a profile and companies write to them. The site is closed and the repository was archived in July 2025, but the code is MIT licensed. Read its models before you draw yours.</span>
+        <small>github.com</small>
+      </a>
+      <a class="inspo-card" href="https://contra.com/hire">
+        <strong>Contra</strong>
+        <span>Freelancers are browsed by skill and by tool, for example Figma or Webflow. Look at how a tool name becomes a page of people, and how fast you can judge someone from one card.</span>
+        <small>contra.com</small>
+      </a>
+      <a class="inspo-card" href="https://www.cofolios.com/">
+        <strong>Cofolios</strong>
+        <span>Portfolios of design interns, grouped by the company and college they came from. It is made for students, but it shows what a wall of early-career people looks like when it is done with care.</span>
+        <small>cofolios.com</small>
+      </a>
+      <a class="inspo-card" href="https://techcrunch.com/2025/01/17/perplexity-acquires-read-cv-a-social-media-platform-for-professionals/">
+        <strong>What happened to Read.cv</strong>
+        <span>Designers loved its clean profiles. In January 2025 it was bought by Perplexity and began to close, with data export open until 16 May. A profile on the school's own site cannot be sold away from the student.</span>
+        <small>techcrunch.com</small>
+      </a>
+    </div>
+  </section>
+
+  <section>
+    <h2>How it could <em>be built</em></h2>
+    <p>The first option is the core. The second and third are parts you can add to it. The fourth is a different answer to the same problem.</p>
+    <div class="options">
+      <article class="option">
+        <h3>The directory is a view of the portfolios</h3>
+        <p>One public page that lists every portfolio which is published and has "open to internships" turned on. No second profile to fill in. Filters live in the address (for example <code>?skill=react</code>), so a filtered view can be shared. The order is shuffled with a seed that changes once a day, so it is fair over time but does not jump while someone is reading.</p>
+        <p class="good">Almost no new data. Students keep one thing up to date. It fits the site as it is: a server-rendered page in Next.js that reads from MongoDB.</p>
+        <p class="watch">It depends on decisions in the portfolio builder that are being made now. If skills are free text, the filter will be a mess ("JS", "Javascript", "java script"). Agree on a fixed list of skills early.</p>
+      </article>
+      <article class="option">
+        <h3>A contact form that forwards the message</h3>
+        <p>The company writes a message on the student's card. The site sends it to the student's e-mail. The company never sees the address unless the student answers. <a href="https://resend.com/pricing">Resend</a> has a free plan with 3,000 e-mails a month and 100 a day. <a href="https://developers.cloudflare.com/turnstile/plans/">Cloudflare Turnstile</a> is a free check against bots, with unlimited challenges, and the site does not need to run on Cloudflare. The site's own rate limiter can cap messages per sender.</p>
+        <p class="good">No address to harvest. The school can see that contact happened, which is the best measure of whether this works. A student can be reached without being exposed.</p>
+        <p class="watch">You are now carrying messages from strangers to students. Somebody will send spam, and somebody may send something worse. Decide who can see the messages and how a student reports one. Sending from the school's domain needs DNS records, so ask for access early.</p>
+      </article>
+      <article class="option">
+        <h3>Profiles that search engines and AI assistants can read</h3>
+        <p>Each public portfolio outputs structured data: a <a href="https://schema.org/ProfilePage">ProfilePage</a> with a Person inside. Google asks for only two things, the main entity and a name, and recommends a description, an image and <code>sameAs</code> links to other profiles. Next.js documents the pattern, and <a href="https://github.com/google/schema-dts">schema-dts</a> gives you TypeScript types for it. The landing page already does this for the school, so the pattern is in the code.</p>
+        <p class="good">Small to build. A company that searches for a student's name, or asks an assistant about web development interns in Iceland, has a better chance of landing on the school's site.</p>
+        <p class="watch">Google says it "does not guarantee" that structured data shows up in results. And being found by name is exactly what some students will not want. This needs its own switch, separate from "open to internships".</p>
+      </article>
+      <article class="option">
+        <h3>The school as matchmaker</h3>
+        <p>No public list of people at all. A page for companies explains what the students can do and when they are free, with a form: "tell us what you need". The teacher receives it and passes it to the students who fit and who opted in. This is how Hyper Island and the Recurse Center work. You can add a shortlist to the public version too: a company marks a few students, and sends the list to the school in one message.</p>
+        <p class="good">The safest version for privacy, and the cheapest to build. It also works for a company that does not know what it is looking for yet.</p>
+        <p class="watch">Everything goes through one busy teacher. Students are not seen until someone chooses to show them, which brings back the problem you wanted to solve.</p>
+      </article>
+    </div>
+    <p>Whatever you build, plan how you will know if it works. The numbers will be small, perhaps a few contacts in a term, so counting page views will tell you little. Count messages sent, answers given and internships that started this way, and call each company afterwards. The site's analytics already counts visits and crawlers on public pages and can be extended to the new page.</p>
+  </section>
+
+  <section>
+    <h2>A first <em>week</em></h2>
+    <ol class="plan">
+      <li><strong>Write down how your own internship happened</strong> Each of you, alone, ten minutes. Who saw what, in which order, and what made the company say yes. Compare the three stories. This is your first research data and it costs nothing.</li>
+      <li><strong>Talk to three people who take interns</strong> Ask the teacher for names of studios and companies. Twenty minutes each. Ask what they looked at last time, what they wished they knew, and what would make them write to a student they have never met.</li>
+      <li><strong>Do the 7 second test on five sites</strong> Take the showcases and directories above. Open a list page, look for 7 seconds, close it. Write down what you remember about one person. Then do it again with a friend who is not a designer.</li>
+      <li><strong>Agree on the fields with the portfolio builder</strong> You are the same team, which is lucky. Decide the skills list, the "open to internships" switch, the "available from" date and the "looking for" line, so that the directory can read them later without changes.</li>
+      <li><strong>Write the consent screen before the directory</strong> One screen: what will be shown, to whom, for how long, and how to turn it off. Show it to five students and ask if they would turn it on. Their reasons for saying no are your requirements.</li>
+      <li><strong>Build a throwaway version with fake people</strong> One page, twelve invented students, a skill filter, a daily shuffle, and structured data that passes the <a href="https://search.google.com/test/rich-results">Rich Results Test</a>. It is for learning, so delete it afterwards.</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>Still <em>open</em></h2>
+    <ul class="questions">
+      <li>Should anyone on the internet be able to browse the students, or should a company have to ask the school first?</li>
+      <li>Should a student's profile appear in Google under their name? It helps them be found now. It may still be there in five years.</li>
+      <li>Who decides what a student is "good at": the student, the teacher, or the work they returned? And if it comes from the work, how do you keep grades out of it?</li>
+      <li>Is a shuffled order really fairer, or does it only hide the choice? A company with ten minutes will still look at the first six cards.</li>
+      <li>Does the teacher read the messages that companies send to students? If yes, students are protected and also watched. If no, who notices a bad one?</li>
+      <li>Is this for students who want an internship, or also for graduates who want a job? The second group is larger, stays longer and is harder to keep up to date.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Keep <em>reading</em></h2>
+    <ul class="links">
+      <li><a href="https://developers.google.com/search/docs/appearance/structured-data/profile-page">Google: Profile page structured data</a> The exact fields Google reads from a profile, with examples you can copy and change.</li>
+      <li><a href="https://nextjs.org/docs/app/guides/json-ld">Next.js: How to implement JSON-LD</a> Short and practical, including the one line that stops a profile text from breaking out of the script tag. Check it against the Next.js version the site runs.</li>
+      <li><a href="https://naceweb.org/about-us/press/2026/skills-based-hiring-grows-but-college-students-dont-fully-understand-it">NACE: Skills-based hiring grows</a> A survey of employers in the United States: 70% say they use skills-based hiring for entry-level jobs, and screening by grade average fell from 73% in 2019 to 42%. Fewer than 40% of final-year students knew the term.</li>
+      <li><a href="https://www.edpb.europa.eu/sme-data-protection-guide/respect-individuals-rights_en">European Data Protection Board: Respect individuals' rights</a> Written for small organisations. What a person can ask for, and that you must answer within one month.</li>
+      <li><a href="https://island.is/s/personuvernd">Persónuvernd</a> The Icelandic data protection authority. The place to check before real names of real students go on a public page.</li>
+      <li><a href="https://dev.to/profydev/this-survey-among-60-hiring-managers-reveals-don-t-waste-your-time-on-a-react-portfolio-website-17ge">A survey of 60+ hiring managers about portfolio websites</a> From 2021 and about React developers. Most would look at a portfolio site, but few required one. A useful cold shower: the projects matter more than the frame around them.</li>
+      <li><a href="https://www.itsnicethat.com/articles/double-click-august-2020-degree-show-websites-digital-180820">It's Nice That: five degree show websites</a> Five picks from August 2020. Good for seeing how different a list of graduates can feel.</li>
+      <li><a href="https://www.burningglassinstitute.org/research/skills-based-hiring-2024">Skills-Based Hiring: The Long Road from Pronouncements to Practice</a> The full report behind the "1 in 700" number. Read the part about which firms actually changed and what they did differently.</li>
+    </ul>
+  </section>
+
+</main>
+
+<section class="page-cta">
+  <h2>This is a starting point, <em>not a plan.</em></h2>
+  <p>Disagree with something? Found a better example? Know how you would do it? Change this page and push to main.</p>
+  <div class="hero-actions">
+    <a class="btn btn-solid" href="https://github.com/ellertsmari/Internship-ideas/edit/main/ideas/find-our-students.html">Edit this page</a>
+    <a class="btn" href="../index.html#wall">Back to the wall</a>
+  </div>
+  <p class="note">Researched by Claude, November 2026. Check a link before you rely on a number.</p>
+</section>
+
+</body>
+</html>
