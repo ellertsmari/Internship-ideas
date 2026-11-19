@@ -849,3 +849,15 @@ pre.prompt { white-space: pre-wrap; overflow-wrap: anywhere; font-size: 0.84rem;
 .page-cta .hero-actions { margin-top: 8px; animation: none; }
 .page-cta .btn { color: var(--ink); box-shadow: 5px 5px 0 var(--c2); }
 .page-cta .note { font-size: 0.92rem; opacity: 0.7; }
+
+/* The short film at the top of a research page. */
+.film video {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: var(--paper, #f6f0e4);
+  border: 2.5px solid var(--ink, #16130e);
+  border-radius: 24px;
+  box-shadow: 8px 8px 0 var(--ink, #16130e);
+}
+.film-note { margin-top: 18px; font-family: "JetBrains Mono", monospace; font-size: 0.85rem; }
