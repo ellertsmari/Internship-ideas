@@ -304,11 +304,40 @@ p code, li code {
 
 .idea[data-n]::before { content: attr(data-n); }
 
+/* The little picture. Shapes get a dark outline and a light fill.
+   class="k" = dark fill, "n" = no fill, "l" = light line on a dark shape. */
+.pic {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 104px;
+  height: 104px;
+  overflow: visible;
+  transform: rotate(6deg);
+  transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.pic * {
+  fill: var(--paper);
+  stroke: var(--ink);
+  stroke-width: 3.2;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.pic .k { fill: var(--ink); }
+.pic .n { fill: none; }
+.pic .l { fill: none; stroke: var(--paper); }
+
+.idea:hover .pic { transform: rotate(-6deg) scale(1.12); }
+
+.idea:has(.pic)::before { margin-bottom: 26px; }
+
 /* Who it is from. */
 .idea::after {
   content: "from " attr(data-from);
   position: absolute;
-  top: 24px;
+  bottom: 22px;
   right: 22px;
   padding: 0.3em 0.85em;
   border-radius: 999px;
