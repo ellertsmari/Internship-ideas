@@ -108,26 +108,26 @@ The important part: each student only sees **the one student just above them and
 **Comments**
 - 
 
-### 7. A showcase of student work
+### 7. A way for companies to find our students
 *From: Claude*
 
-A public gallery of the best things students have built, chosen by the students or the teachers. Students get something to be proud of and to show an employer. People thinking about applying get to see what you can actually make after a year here, which is more convincing than any description of the programme. This connects well with idea 4.
+You are building the portfolios right now, and each one can say "open to internships". The next step could be the other side of that: one page where a company can browse the students who are looking, filter by what they are good at, and get in touch. A portfolio helps a student who is already being looked at. This would help them get looked at in the first place. It also gives the school something concrete to show companies, which connects with idea 4.
 
 **Comments**
 - 
 
-### 8. "What should I do today?"
+### 8. The first week on the site
 *From: Claude*
 
-One screen that answers that question for a student: the guide that is due next, the reviews waiting for you, the feedback you haven't read, what is on the calendar today. Right now that information lives in several places. This is mostly a design and user research project: finding out what students actually look for when they open the site.
+The site has grown a lot: guides, reviews, grades, calendar, group projects, gallery, and soon portfolios. A new student meets all of it at once. What should their first day and first week on the site look like? A short tour, a first small task that teaches how returning and reviewing works, an explanation of how grades are built? You were new to this site not long ago, so you remember what was confusing better than anyone who built it.
 
 **Comments**
 - 
 
-### 9. Make giving and getting feedback better
+### 9. Your term, looked back on
 *From: Claude*
 
-Students review each other's work, and a good review is one of the most valuable things on the site. What would help someone write a better one? Prompts while you write, examples of a great review, a way for the receiver to say "this helped me"? And on the other side: how do we make sure feedback is actually read and used?
+At the end of a module or a term, each student gets a personal summary page: what they built, how many guides they returned, the reviews they gave, the best feedback they received, how far they have come since the start. Something worth being proud of and sharing. It is a kinder cousin of idea 6: instead of comparing you to other students, it compares you to yourself a few months ago.
 
 **Comments**
 - 
