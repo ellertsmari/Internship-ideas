@@ -19,7 +19,7 @@
   <p class="pitch">The lecture opens from the calendar, the recording lands on the same page, and Zoom is no longer in the middle.</p>
   <ul class="glance">
     <li><b>Kind of work:</b> product design for a live classroom, React code, some server and network work, and a lot of testing with real people in a real room.</li>
-    <li><b>You'd enjoy this if:</b> you like things that happen live, you are curious about how video gets from one laptop to thirty others, and you do not mind that a bug shows up in front of the whole class.</li>
+    <li><b>You'd enjoy this if:</b> you like things that happen live, you are curious about how video gets from one laptop to thirty others (and would like to build part of that yourself), and you do not mind that a bug shows up in front of the whole class.</li>
   </ul>
 </header>
 
@@ -30,7 +30,8 @@
     <p>The school teaches through Zoom today. A student leaves the school's site to join the lecture, and leaves it again to watch the recording. The site knows when the lecture is, who the students are and which guide the lecture belongs to. Zoom knows none of that.</p>
     <p>If the lecture lived on the site, a lot of small things would get better at once. A student clicks the lecture in the calendar and is in the room, already signed in, with the right name. The recording appears on that same calendar event an hour later, with captions and a transcript you can search. A student who was sick finds "the lecture about flexbox" without scrolling through a list of dates. The teacher sees who was there without taking attendance.</p>
     <p>There is also a reason that is bigger than this school. Schools, universities and governments in Europe are moving their video away from tools they do not control. France announced in January 2026 that all its government departments will move to the state's own open-source video tool by 2027. You would be building a small version of the same thing, with the same open-source parts.</p>
-    <p>One honest warning before you read on. Zoom is very good at the hard part: it keeps working on a bad hotel wifi, with forty people, on every device. Nobody here should try to beat Zoom at moving video. The interesting project is the classroom around the video, and whether a small school can run it without it failing on a Tuesday morning.</p>
+    <p>And you would not start from nothing. Smári has already built a working classroom demo on a branch and written a plan for sending video straight from laptop to laptop. The school is also getting its own server, so the video can run on a machine that is ours.</p>
+    <p>One honest warning before you read on. Zoom is very good at the hard part: it keeps working on a bad hotel wifi, with forty people, on every device. That is the hard part of this project, and it is also what makes it interesting. You decide how deep you go. You can run an open-source engine on the school's server and put your effort into the classroom around it. Or you can go further down and build parts of the engine yourselves, which is slower and teaches you how live video really works. Both are on the table. The test is the same either way: does it survive a Tuesday morning with a full class?</p>
   </section>
 
   <section>
@@ -39,8 +40,10 @@
     <p><b>The calendar knows about lectures.</b> A calendar event has a category, and "lecture" is one of them. An event has a date, a start and end time, a description and one optional link field, which shows up as "Open link". Teachers create lectures and can repeat them or copy a whole term forward. So there is already a natural place for a "Join" button and for a recording.</p>
     <p><b>The site knows who you are.</b> Everyone signs in, and the site knows who is a teacher and who is a student. A video room could use that: no meeting passwords, no guessing who "iPhone 12" is.</p>
     <p><b>Recordings are a list that points to Zoom.</b> The Resources page has a "Lecture Recordings" section. The server asks Zoom for the cloud recordings of the current school year and shows a card for each one with its title, date and length. A click sends you to Zoom's own page to watch. If Zoom does not answer, the page says recordings are temporarily unavailable. The recordings are not connected to calendar events, guides or modules, and there are no transcripts, captions or chapters on the site.</p>
-    <p><b>There is no live video in the site at all.</b> No player, no room, no chat. The only video I found that the site shows itself is a short clip on the landing page.</p>
-    <p><b>The site runs on Vercel.</b> That matters more than anything else on this page. Vercel runs your code as short-lived functions. A media server is a program that stays on for hours and receives video over thousands of UDP ports. It cannot live on Vercel, so any live video will need a second home: a rented server or a paid service.</p>
+    <p><b>The live site has no live video yet.</b> No player, no room, no chat. The only video the live site shows itself is a short clip on the landing page.</p>
+    <p><b>But there is a working demo on a branch.</b> It is called Reverse Flash and it lives on the branch <a href="https://github.com/ellertsmari/io.vefskoliv2/tree/feature/reverse-flash"><code>feature/reverse-flash</code></a>, at <code>/LMS/live</code>. A teacher starts a session, signed-in students see it appear and join, everyone can turn on a camera and microphone, and the teacher shares a screen that can fill a projector. Who may do what is decided on the server, from the sign-in the site already has, and there are tests for it. The video goes through LiveKit, an open-source engine. Read <a href="https://github.com/ellertsmari/io.vefskoliv2/blob/feature/reverse-flash/docs/reverse-flash.md">the demo's own notes</a>: they are honest about what is missing. So far it has run with the engine on one laptop. It has no recording, chat, raised hands or breakout rooms, and it has never been tried with a full class.</p>
+    <p><b>There is also a plan for doing part of it ourselves.</b> Smári wrote a plan for a "relay tree": the teacher's browser encodes the shared screen once and sends it straight to five students, and each of them passes the same data on to five more. Two levels reach thirty people, from laptop to laptop. It uses two browser features, <a href="https://developer.mozilla.org/en-US/docs/Web/API/WebCodecs_API">WebCodecs</a> and <a href="https://developer.mozilla.org/en-US/docs/Web/API/RTCDataChannel">WebRTC data channels</a>. Nothing of it is built yet. The plan is not on GitHub, so ask Smári for it. Part of its purpose is learning: when you build this, you see with your own eyes why the big engines exist.</p>
+    <p><b>The site runs on Vercel, and the school is getting its own server.</b> Vercel runs your code as short-lived functions. A media server is a program that stays on for hours and receives video over thousands of UDP ports, so it cannot live on Vercel. Live video needs a second home, and the school's own server can be that home. The site stays where it is; the video engine runs next to it.</p>
   </section>
 
   <section>
@@ -53,8 +56,8 @@
         <a class="source" href="https://www.mux.com/docs/guides/reduce-live-stream-latency">Source: Mux, "Reduce live stream latency"</a>
       </article>
       <article class="fact">
-        <strong>For a class you want an SFU, and you should not write one</strong>
-        <p>In plain WebRTC every person sends their video to every other person, which stops working after 2 or 3 people. An SFU is a server that receives each stream once and forwards it to everyone else, "a router optimized for low-latency, high-bandwidth media forwarding". LiveKit, Jitsi and BigBlueButton all work this way. LiveKit's own test ran a meeting with 150 people all sending video on one 16-core server, so one class of 30 is a small load.</p>
+        <strong>For a class you want an SFU, and writing one is a project of its own</strong>
+        <p>In plain WebRTC every person sends their video to every other person, which stops working after 2 or 3 people. An SFU is a server that receives each stream once and forwards it to everyone else, "a router optimized for low-latency, high-bandwidth media forwarding". LiveKit, Jitsi and BigBlueButton all work this way. LiveKit's own test ran a meeting with 150 people all sending video on one 16-core server, so one class of 30 is a small load. You can run one of these, or write your own forwarding with a library. Writing it is possible and you would learn a lot, but it is the slowest road to a class that works.</p>
         <a class="source" href="https://docs.livekit.io/reference/internals/livekit-sfu/">Source: LiveKit docs, SFU internals</a>
       </article>
       <article class="fact">
@@ -133,13 +136,19 @@
 
   <section>
     <h2>How it could <em>be built</em></h2>
-    <p>Four realistic routes. In all of them the Next.js site stays on Vercel and keeps doing what it is good at: sign-in, the calendar, the pages. Only the video goes somewhere else.</p>
+    <p>Five routes, from the least to build to the most. In all of them the Next.js site stays on Vercel and keeps doing what it is good at: sign-in, the calendar, the pages. Only the video goes somewhere else: to the school's own server, or to a service. The routes can be mixed. The demo on the branch is route one, and Smári's relay plan is route two on top of it.</p>
     <div class="options">
       <article class="option">
         <h3>A classroom on LiveKit</h3>
-        <p>The lecture page is a normal page on the site. A server route checks who you are and gives your browser a short-lived token for the room. The video itself goes through <a href="https://livekit.com/pricing">LiveKit Cloud</a>. You build the room with <a href="https://github.com/livekit-examples/meet">LiveKit's React components</a> and design everything around it yourselves: raise hand, chat, who is here, the teacher's controls. Recording is a LiveKit service called <a href="https://docs.livekit.io/home/egress/overview/">Egress</a>, which can save the room as an MP4 file to S3-compatible storage.</p>
+        <p>The lecture page is a normal page on the site. A server route checks who you are and gives your browser a short-lived token for the room. This is how the demo on the branch works. The video itself goes through the open-source <a href="https://github.com/livekit/livekit">LiveKit server</a>, which you can run on the school's own server (<a href="https://docs.livekit.io/transport/self-hosting/deployment/">their deployment guide</a> lists what it needs), or through <a href="https://livekit.com/pricing">LiveKit Cloud</a>. You build the room with <a href="https://github.com/livekit-examples/meet">LiveKit's React components</a> and design everything around it yourselves: raise hand, chat, who is here, the teacher's controls. Recording is a LiveKit service called <a href="https://docs.livekit.io/home/egress/overview/">Egress</a>, which can save the room as an MP4 file to S3-compatible storage.</p>
         <p class="good">You own the whole experience and it looks like the rest of the site. The server is open source (Apache 2.0), so you can start on the free cloud plan and later move to your own server without rewriting the app. Teachers and students get the right role in the room from the sign-in the site already has.</p>
         <p class="watch">You build every classroom feature yourselves, and each one is more work than it looks. The free plan includes only 60 minutes of recording a month, so recordings cost money from the start. On LiveKit Cloud, pinning all live traffic to the EU region is a feature of the $500 plan. If keeping data in Europe is the reason for the project, read their data residency pages early, or plan to host the server yourselves.</p>
+      </article>
+      <article class="option">
+        <h3>Build part of the engine yourselves</h3>
+        <p>Keep the demo for cameras and microphones, and build one piece of the video path with your own hands. Smári's relay tree is the first candidate: the shared screen travels from the teacher to five students and on to five more, with no server in the middle. You could also start smaller, with voice only: a room where people talk, built directly on the browser's WebRTC, which works without a media server for a handful of people. Or go further and write your own forwarding server with a library such as <a href="https://mediasoup.org/">mediasoup</a> (for Node.js) or <a href="https://github.com/pion/webrtc">Pion</a> (for Go) on the school's server.</p>
+        <p class="good">You learn how live video really works, which very few web developers do. The school owns every part. It makes a strong portfolio piece, and the relay tree can show its own statistics on screen, so a whole class can watch packets get lost and recovered.</p>
+        <p class="watch">You rebuild by hand what the big engines give you for free: recovering from lost data, adapting to slow connections, people joining and leaving. Laptop-to-laptop video only works if the school's wifi lets machines reach each other, and for people at home you will probably need a relay server such as <a href="https://github.com/coturn/coturn">coturn</a>. Keep the engine from route one running as the fallback while you build.</p>
       </article>
       <article class="option">
         <h3>Embed a finished meeting: Jitsi or BigBlueButton</h3>
@@ -156,21 +165,22 @@
       <article class="option">
         <h3>Keep Zoom for the live part, own everything around it</h3>
         <p>The site already reads the list of recordings from Zoom. Go further: connect each recording to its calendar event, copy the file to your own storage, make a transcript with faster-whisper, add captions, chapters and search, and put a "Join" button on the lecture event. Live teaching stays on Zoom.</p>
-        <p class="good">No risk on the day of a lecture. Students get most of what they would notice: one place to join, and recordings they can actually find and search. It is also a safe first half of any of the other three routes.</p>
+        <p class="good">No risk on the day of a lecture. Students get most of what they would notice: one place to join, and recordings they can actually find and search. It is also a safe first half of any of the other routes.</p>
         <p class="watch">It does not do what the idea asks for. The school still depends on Zoom and still pays for it. You would have to argue that this is the right amount to build, and Smári may disagree.</p>
       </article>
     </div>
-    <p>There are lower-level tools as well, such as <a href="https://mediasoup.org/">mediasoup</a> and <a href="https://janus.conf.meetecho.com/">Janus</a>, where you write the media server logic yourselves. They are good for learning and a poor choice for a class that starts at nine. Agora, 100ms, Amazon IVS and Whereby Embedded sell building blocks like LiveKit Cloud and Daily do. I checked Whereby (its free plan stops meetings at 30 minutes) and did not check the other three.</p>
+    <p><a href="https://janus.conf.meetecho.com/">Janus</a> is another lower-level server where you write the media logic yourselves. Agora, 100ms, Amazon IVS and Whereby Embedded sell building blocks like LiveKit Cloud and Daily do. I checked Whereby (its free plan stops meetings at 30 minutes) and did not check the other three.</p>
   </section>
 
   <section>
     <h2>A first <em>week</em></h2>
     <ol class="plan">
       <li><strong>Sit in on real lectures.</strong> Watch two or three lectures on Zoom, at school and from home. Write down every Zoom feature that gets used and every moment something goes wrong. Ask a teacher what they would miss most, and ask two students how they watch recordings.</li>
-      <li><strong>Make one room.</strong> Create a free LiveKit Cloud project and start from the open-source LiveKit Meet example. One page, one room, no design. The goal is five people in a call by Tuesday.</li>
+      <li><strong>Get the demo running.</strong> Check out the branch <code>feature/reverse-flash</code>, start the LiveKit server on your laptop with the command in its notes, and open the classroom in two browser windows. Then make it reachable for others: on the school's server if it is ready, or on a free LiveKit Cloud project until it is. The goal is five people in one room by Tuesday.</li>
       <li><strong>Share real code.</strong> One of you shares a code editor with a small font, the others watch on a laptop, a phone and a bad connection. Can you read the code? Text needs sharpness more than smooth motion, and the settings for that are worth an afternoon.</li>
       <li><strong>Do the same with Jitsi.</strong> Embed a Jitsi room in a second page with the embed API. Now you have two prototypes and can compare how much you control in each.</li>
-      <li><strong>Measure against Zoom.</strong> Run the same 20 minutes on Zoom, LiveKit and Jitsi from inside the school's network. Note the time to join, whether the code was readable, the delay, any drop-outs, and laptop fan noise. A table with real numbers will decide more than any opinion.</li>
+      <li><strong>Read the relay plan and try the smallest piece.</strong> Ask Smári for the relay tree plan. Then send one encoded video frame from one browser tab to another over a data channel. If that small experiment excites you, you know which route is yours.</li>
+      <li><strong>Measure against Zoom.</strong> Run the same 20 minutes on Zoom, the demo and Jitsi from inside the school's network. Note the time to join, whether the code was readable, the delay, any drop-outs, and laptop fan noise. A table with real numbers will decide more than any opinion.</li>
       <li><strong>Record ten minutes and caption it.</strong> Save one recording, run faster-whisper on it, and read the transcript. If the speech was Icelandic, this tells you early whether automatic captions are usable.</li>
     </ol>
   </section>
@@ -180,7 +190,8 @@
     <ul class="questions">
       <li>Is a lecture a call or a broadcast? If students ask most questions in chat anyway, the broadcast is cheaper and safer. If they unmute and share their own screens, it has to be a call.</li>
       <li>Who gets the message when it breaks five minutes before a lecture, and what is the backup plan? "Open Zoom" is a fair answer, but then Zoom is still there.</li>
-      <li>Rented service or your own server? The service is less work and costs money every month. Your own server gives control over the data and makes one of you the on-call person.</li>
+      <li>How deep do you go? Running a finished engine gets you to a working classroom fastest. Building parts yourselves teaches the most and takes the longest. Where is the right place to stop for a project of a few months?</li>
+      <li>The school's own server gives control over the data and costs nothing per minute. It also means somebody looks after it. Who, and what happens when that person is away?</li>
       <li>Where do recordings live, who can watch them, and for how long? Students are in those recordings. Should a student be able to ask for a part to be removed?</li>
       <li>Which Zoom features are really used? Breakout rooms, remote control of a student's screen, polls, phone dial-in: each one you must replace is weeks of work, and each one you can drop is a gift.</li>
       <li>What would make a teacher choose this over Zoom on a normal Wednesday, when nobody is asking them to?</li>

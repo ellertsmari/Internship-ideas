@@ -708,6 +708,8 @@ pre.prompt { white-space: pre-wrap; overflow-wrap: anywhere; font-size: 0.84rem;
 
 .page-main section > p + p { margin-top: 1em; }
 
+.page-main section > div + p { margin-top: 28px; }
+
 .page-main section > ul:not([class]) li,
 .page-main section > ol:not([class]) li { margin-bottom: 0.5em; }
 
