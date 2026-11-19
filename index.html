@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>February is wide open</title>
+  <meta name="description" content="Ideas for the next internship project at Vefskólinn. Add yours.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Instrument+Serif:ital@1&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="hero">
+  <div class="topline">
+    <span>Vefskólinn × Hyper Island</span>
+    <span>Next project · February 2027</span>
+  </div>
+
+  <div class="shape shape-sun" aria-hidden="true"></div>
+  <div class="shape shape-pill" aria-hidden="true"></div>
+  <svg class="shape shape-star" viewBox="0 0 100 100" aria-hidden="true"><path d="M50 0 L61 39 L100 50 L61 61 L50 100 L39 61 L0 50 L39 39 Z"/></svg>
+
+  <h1>February is <em>wide open.</em></h1>
+
+  <p class="lede">
+    In February you start something new, and nobody has decided what it is.
+    Here are some ideas to get the conversation going.
+    The best one is probably not on the wall yet, because you haven't put it there.
+  </p>
+
+  <div class="hero-actions">
+    <a class="btn btn-solid" href="#add">Add your idea</a>
+    <a class="btn" href="#wall">See the wall</a>
+  </div>
+
+  <p class="tally" id="tally"></p>
+</header>
+
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <span>Half an idea is enough</span><i>✦</i>
+    <span>Nothing is too strange</span><i>✦</i>
+    <span>It doesn't have to be code</span><i>✦</i>
+    <span>Steal, remix, disagree</span><i>✦</i>
+    <span>Push to main</span><i>✦</i>
+    <span>Half an idea is enough</span><i>✦</i>
+    <span>Nothing is too strange</span><i>✦</i>
+    <span>It doesn't have to be code</span><i>✦</i>
+    <span>Steal, remix, disagree</span><i>✦</i>
+    <span>Push to main</span><i>✦</i>
+  </div>
+</div>
+
+<main>
+
+<section class="section" id="wall">
+  <div class="section-head">
+    <h2>The wall</h2>
+    <p>
+      Nothing here is decided. Some ideas are from Smári, some are from Claude
+      (the AI assistant Smári works with), and the empty spot at the end is yours.
+    </p>
+    <div class="controls" id="controls" hidden>
+      <button class="chip is-on" data-filter="all">Everything</button>
+      <button class="chip" data-filter="smari">Smári</button>
+      <button class="chip" data-filter="claude">Claude</button>
+      <button class="chip" data-filter="you">You</button>
+      <button class="chip chip-dice" id="surprise">Surprise me</button>
+    </div>
+  </div>
+
+  <div class="wall" id="ideas">
+
+    <!--
+      ============================================================
+      THE IDEAS
+      Each idea is one <article class="idea">. To add yours, copy the
+      template from the bottom of this list. Colours and numbers
+      take care of themselves.
+      ============================================================
+    -->
+
+    <article class="idea" data-from="Smári">
+      <h3>A friendlier calendar</h3>
+      <p class="pitch">Make the calendar something students actually enjoy opening.</p>
+      <p>Google Calendar is a good place to look for inspiration: moving between day, week and month, creating and dragging an event, seeing a lot at a glance.</p>
+      <ul class="notes">
+      </ul>
+    </article>
+
+    <article class="idea" data-from="Smári">
+      <h3>Better group projects</h3>
+      <p class="pitch">Make the group project part of the site nicer and easier to work with.</p>
+      <p>For example with a peer evaluation process like the one Sustainable Island has now, where teammates give each other feedback as part of the project.</p>
+      <ul class="notes">
+      </ul>
+    </article>
+
+    <article class="idea" data-from="Smári">
+      <h3>A theme for every module</h3>
+      <p class="pitch">The whole site changes its look when a new module starts.</p>
+      <p>Each module gets its own visual theme, and the site switches automatically on the day the calendar says the module begins. A design module should not look like a back-end module.</p>
+      <ul class="notes">
+      </ul>
+    </article>
+
+    <article class="idea" data-from="Smári">
+      <h3>How does the school get more students?</h3>
+      <p class="pitch">A research project with real consequences.</p>
+      <p>What should the school do to reach more people? SEO, so search engines find us. GEO, so AI assistants recommend us. Or a change of direction: AI-driven web development, Forward Deployed Engineer, something else entirely.</p>
+      <ul class="notes">
+      </ul>
+    </article>
+
+    <article class="idea" data-from="Smári">
+      <h3>An app with push notifications</h3>
+      <p class="pitch">Turn the website into an app that taps students on the shoulder.</p>
+      <p>Students should notice what is happening in the calendar without having to remember to look.</p>
+      <ul class="notes">
+      </ul>
+    </article>
+
+    <article class="idea" data-from="Smári">
+      <h3>The student just ahead of you</h3>
+      <p class="pitch">Gamification, without the leaderboard that makes people give up.</p>
+      <p>Points for returned guides, reviews given and grades. But each student only sees the one person just above them and the one just below. You want to catch the one ahead and stay in front of the one behind, and nobody feels bad about someone far beyond them.</p>
+      <ul class="notes">
+      </ul>
+    </article>
+
+    <article class="idea" data-from="Claude">
+      <h3>A way for companies to find our students</h3>
+      <p class="pitch">You are building the portfolios. This is the other side of them.</p>
+      <p>One page where a company can browse the students who are open to internships, filter by what they are good at, and get in touch. A portfolio helps once someone is looking at you. This gets them looking.</p>
+      <ul class="notes">
+      </ul>
+    </article>
+
+    <article class="idea" data-from="Claude">
+      <h3>The first week on the site</h3>
+      <p class="pitch">A new student meets guides, reviews, grades, calendar and groups all at once.</p>
+      <p>What should day one feel like? A short tour, a first small task that teaches how returning and reviewing works, a clear picture of how grades are built. You were new here not long ago, so you remember what was confusing.</p>
+      <ul class="notes">
+      </ul>
+    </article>
+
+    <article class="idea" data-from="Claude">
+      <h3>Your term, looked back on</h3>
+      <p class="pitch">A personal page at the end of each term that is worth sharing.</p>
+      <p>What you built, the guides you returned, the reviews you gave, the best feedback you got, how far you have come. It compares you with yourself a few months ago instead of with other students.</p>
+      <ul class="notes">
+      </ul>
+    </article>
+
+    <article class="idea" data-from="Claude">
+      <h3>Watch real students use it, then fix it</h3>
+      <p class="pitch">Find the problems nobody on the team can see any more.</p>
+      <p>Sit with a few students while they use the site on their own phone and laptop. Write down every place they get stuck. Try it with only a keyboard, and with a screen reader. Then fix the worst things and show the before and after.</p>
+      <ul class="notes">
+      </ul>
+    </article>
+
+    <!--
+      ✦ TEMPLATE: copy from <article> to </article>, paste it just above
+        the marker line further down, and fill it in.
+
+    <article class="idea" data-from="Your name">
+      <h3>The name of your idea</h3>
+      <p class="pitch">One sentence that makes people curious.</p>
+      <p>Anything else you want to say. Who is it for? Why would it be good?</p>
+      <ul class="notes">
+      </ul>
+    </article>
+
+    -->
+
+    <!-- ✦ YOUR IDEA GOES ABOVE THIS LINE ✦ -->
+
+    <a class="yours" href="#add">
+      <span class="yours-plus" aria-hidden="true">+</span>
+      <span class="yours-title">Yours<span class="cursor" aria-hidden="true"></span></span>
+      <span class="yours-text">This spot is empty on purpose. Half an idea is enough to fill it.</span>
+    </a>
+
+  </div>
+</section>
+
+<section class="section dark" id="add">
+  <div class="section-head">
+    <h2>Got one? <em>Put it on the wall.</em></h2>
+    <p>
+      Everyone pushes straight to <code>main</code>. No branches, no pull requests,
+      nobody approves anything. A minute after you push, your idea is on this page.
+    </p>
+  </div>
+
+  <ol class="steps">
+    <li>
+      <h3>Get the repository</h3>
+      <pre><code>git clone https://github.com/ellertsmari/Internship-ideas.git
+cd Internship-ideas</code></pre>
+    </li>
+    <li>
+      <h3>Add your card</h3>
+      <p>Open <code>index.html</code>, search for <code>YOUR IDEA GOES ABOVE THIS LINE</code>, and paste this just above it:</p>
+      <pre><code>&lt;article class="idea" data-from="Your name"&gt;
+  &lt;h3&gt;The name of your idea&lt;/h3&gt;
+  &lt;p class="pitch"&gt;One sentence that makes people curious.&lt;/p&gt;
+  &lt;p&gt;Anything else you want to say.&lt;/p&gt;
+  &lt;ul class="notes"&gt;
+  &lt;/ul&gt;
+&lt;/article&gt;</code></pre>
+      <p>Open <code>index.html</code> in your browser to see how it looks. There is nothing to install and nothing to build.</p>
+    </li>
+    <li>
+      <h3>Push it</h3>
+      <pre><code>git add index.html
+git commit -m "Add my idea"
+git pull --rebase
+git push</code></pre>
+      <p>If git reports a conflict, someone added an idea at the same moment. Keep both cards.</p>
+    </li>
+  </ol>
+
+  <p class="aside">
+    Not at your computer?
+    <a href="https://github.com/ellertsmari/Internship-ideas/edit/main/index.html">Edit index.html directly on GitHub</a>
+    and commit from there.
+  </p>
+</section>
+
+<section class="section" id="build">
+  <div class="section-head">
+    <h2>Or build on <em>someone else's.</em></h2>
+    <p>
+      Like an idea? Think it should be twice as big, or half? See a problem with it?
+      Say so, right on the card. That goes for Smári's and Claude's ideas as much as anyone's.
+    </p>
+  </div>
+
+  <div class="build">
+    <div>
+      <p>Find the idea in <code>index.html</code> and add a line inside its <code>&lt;ul class="notes"&gt;</code>:</p>
+      <pre><code>&lt;li&gt;&lt;b&gt;Your name:&lt;/b&gt; What you think, or how you would change it.&lt;/li&gt;</code></pre>
+      <p>Then commit and push, the same way as above.</p>
+    </div>
+    <ul class="rules">
+      <li><strong>Half an idea is enough.</strong> One sentence is a good start. Someone else may have the other half.</li>
+      <li><strong>Nothing is too big, too small or too strange.</strong> Big ideas can shrink and small ones can grow.</li>
+      <li><strong>It doesn't have to be code.</strong> Research, design, user testing and content are real projects.</li>
+      <li><strong>Put your name on it.</strong> So we know who to ask.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="section yoursite">
+  <h2>This page is yours too.</h2>
+  <p>
+    Don't like the colours? The font? The whole layout? It is three files:
+    <code>index.html</code>, <code>style.css</code> and <code>script.js</code>.
+    Change whatever you want and push to main.
+  </p>
+</section>
+
+</main>
+
+<footer class="footer">
+  <span>Made by Smári and Claude for the Hyper Island interns at Vefskólinn.</span>
+  <a href="https://github.com/ellertsmari/Internship-ideas">The repository on GitHub</a>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
